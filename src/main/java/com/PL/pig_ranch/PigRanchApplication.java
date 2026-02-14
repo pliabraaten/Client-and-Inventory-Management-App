@@ -21,6 +21,8 @@ import org.springframework.context.ConfigurableApplicationContext;
  * <li>{@link #stop()} — closes the Spring context on exit</li>
  * </ol>
  */
+
+// Extends JavaFX Application and boots the Spring context
 @SpringBootApplication
 public class PigRanchApplication extends Application {
 
