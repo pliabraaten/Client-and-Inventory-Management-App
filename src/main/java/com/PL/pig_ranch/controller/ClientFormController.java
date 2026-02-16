@@ -4,6 +4,7 @@ import com.PL.pig_ranch.model.Client;
 import com.PL.pig_ranch.model.Household;
 import com.PL.pig_ranch.service.ClientService;
 import com.PL.pig_ranch.service.HouseholdService;
+import com.PL.pig_ranch.util.ClientUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -149,8 +150,8 @@ public class ClientFormController {
             return;
         }
 
-        String formattedName = formatName(rawName);
-        String formattedPhone = formatPhoneNumber(phoneField.getText());
+        String formattedName = ClientUtils.formatName(rawName);
+        String formattedPhone = ClientUtils.formatPhoneNumber(phoneField.getText());
 
         // DUPLICATE CHECK
         if (clientService.isDuplicate(formattedName, formattedPhone)) {
@@ -172,9 +173,9 @@ public class ClientFormController {
         Household selectedHousehold = householdComboBox.getValue();
         if (selectedHousehold == null) {
             // Auto-create household from surname
-            String surname = extractSurname(formattedName);
+            String surname = ClientUtils.extractSurname(formattedName);
             Household newHousehold = new Household();
-            newHousehold.setSurname("The " + surname + " Family");
+            newHousehold.setSurname(ClientUtils.generateHouseholdName(surname));
             // Save household first to get ID
             selectedHousehold = householdService.saveHousehold(newHousehold);
         }
@@ -183,46 +184,6 @@ public class ClientFormController {
         clientService.saveClient(newClient);
 
         closeDialog();
-    }
-
-    private String formatName(String name) {
-        if (name == null || name.isEmpty()) {
-            return name;
-        }
-        String[] parts = name.trim().split("\\s+");
-        StringBuilder formatted = new StringBuilder();
-        for (String part : parts) {
-            if (part.length() > 0) {
-                formatted.append(Character.toUpperCase(part.charAt(0)))
-                        .append(part.substring(1).toLowerCase())
-                        .append(" ");
-            }
-        }
-        return formatted.toString().trim();
-    }
-
-    private String formatPhoneNumber(String rawPhone) {
-        if (rawPhone == null) {
-            return "";
-        }
-        // Strip everything except digits
-        String digits = rawPhone.replaceAll("\\D", "");
-
-        // If we have exactly 10 digits, format as XXX-XXX-XXXX
-        if (digits.length() == 10) {
-            return digits.replaceFirst("(\\d{3})(\\d{3})(\\d{4})", "$1-$2-$3");
-        }
-        // Otherwise return original (or bare digits) to avoid losing data
-        return rawPhone;
-    }
-
-    private String extractSurname(String fullName) {
-        String trimmed = fullName.trim();
-        int lastSpace = trimmed.lastIndexOf(" ");
-        if (lastSpace != -1) {
-            return trimmed.substring(lastSpace + 1);
-        }
-        return trimmed;
     }
 
     @FXML

@@ -2,6 +2,7 @@ package com.PL.pig_ranch.controller;
 
 import com.PL.pig_ranch.model.Client;
 import com.PL.pig_ranch.service.ClientService;
+import com.PL.pig_ranch.util.ClientUtils;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -70,24 +71,7 @@ public class ClientController {
         filteredClients = new FilteredList<>(allClients, p -> true);
 
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredClients.setPredicate(client -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (client.getName().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (client.getEmail() != null && client.getEmail().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (client.getPhoneNumber() != null && client.getPhoneNumber().contains(newValue)) {
-                    return true;
-                } else if (client.getHousehold() != null && client.getHousehold().getSurname() != null
-                        && client.getHousehold().getSurname().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                return false;
-            });
+            filteredClients.setPredicate(client -> ClientUtils.isSearchMatch(client, newValue));
         });
 
         clientTable.setItems(filteredClients);
