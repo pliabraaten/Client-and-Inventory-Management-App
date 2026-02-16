@@ -20,7 +20,7 @@
             </padding>
             <Button text="Back to Home" onAction="#handleBackClick"/>
             <Label text="Search:"/>
-            <TextField fx:id="searchField" promptText="Name or Email"/>
+            <TextField fx:id="searchField" promptText="Search clients..."/>
             <Button text="New Client" onAction="#handleNewClientClick"/>
         </HBox>
     </top>

@@ -5,6 +5,7 @@ import com.PL.pig_ranch.service.ClientService;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -29,6 +30,8 @@ public class ClientController {
     private final ClientService clientService;
     private final ApplicationEventPublisher eventPublisher;
     private final ApplicationContext context;
+    private ObservableList<Client> allClients;
+    private FilteredList<Client> filteredClients;
 
     @FXML
     private TableView<Client> clientTable;
@@ -58,7 +61,36 @@ public class ClientController {
     @FXML
     public void initialize() {
         setupClientTable();
+        setupSearchFilter();
         loadClientData();
+    }
+
+    private void setupSearchFilter() {
+        allClients = FXCollections.observableArrayList();
+        filteredClients = new FilteredList<>(allClients, p -> true);
+
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredClients.setPredicate(client -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (client.getName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (client.getEmail() != null && client.getEmail().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (client.getPhoneNumber() != null && client.getPhoneNumber().contains(newValue)) {
+                    return true;
+                } else if (client.getHousehold() != null && client.getHousehold().getSurname() != null
+                        && client.getHousehold().getSurname().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+                return false;
+            });
+        });
+
+        clientTable.setItems(filteredClients);
     }
 
     private void setupClientTable() {
@@ -78,8 +110,7 @@ public class ClientController {
 
     private void loadClientData() {
         List<Client> clients = clientService.getAllClients();
-        ObservableList<Client> observableClients = FXCollections.observableArrayList(clients);
-        clientTable.setItems(observableClients);
+        allClients.setAll(clients);
     }
 
     @FXML

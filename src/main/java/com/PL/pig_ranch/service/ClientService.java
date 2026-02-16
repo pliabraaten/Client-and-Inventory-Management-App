@@ -13,4 +13,6 @@ public interface ClientService {
     List<Client> getAllClients();
 
     void deleteClient(Long id);
+
+    boolean isDuplicate(String name, String phoneNumber);
 }

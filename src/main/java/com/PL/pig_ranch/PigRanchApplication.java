@@ -76,20 +76,25 @@ public class PigRanchApplication extends Application {
 	public CommandLineRunner demoData(HouseholdRepository householdRepository,
 			ClientRepository clientRepository) {
 		return args -> {
-			// Seed Households
-			Household h1 = new Household(null, "The Smith Family", "123 Maple Dr", "Springfield", "IL", "62704", null,
-					null);
-			Household h2 = new Household(null, "The Doe Family", "456 Oak Ln", "Springfield", "IL", "62704", null,
-					null);
-			householdRepository.saveAll(Arrays.asList(h1, h2));
+			if (householdRepository.count() == 0) {
+				// Seed Households
+				Household h1 = new Household(null, "The Smith Family", "123 Maple Dr", "Springfield", "IL", "62704",
+						null,
+						null);
+				Household h2 = new Household(null, "The Doe Family", "456 Oak Ln", "Springfield", "IL", "62704", null,
+						null);
+				householdRepository.saveAll(Arrays.asList(h1, h2));
 
-			// Seed Clients
-			Client c1 = new Client(null, "John Smith", "john@smith.com", "555-0101", "Father", h1);
-			Client c2 = new Client(null, "Jane Smith", "jane@smith.com", "555-0102", "Mother", h1);
-			Client c3 = new Client(null, "Alice Doe", "alice@doe.com", "555-0201", "Individual", h2);
-			clientRepository.saveAll(Arrays.asList(c1, c2, c3));
+				// Seed Clients
+				Client c1 = new Client(null, "John Smith", "john@smith.com", "555-0101", "Father", h1);
+				Client c2 = new Client(null, "Jane Smith", "jane@smith.com", "555-0102", "Mother", h1);
+				Client c3 = new Client(null, "Alice Doe", "alice@doe.com", "555-0201", "Individual", h2);
+				clientRepository.saveAll(Arrays.asList(c1, c2, c3));
 
-			System.out.println("--- Data Seeding Completed ---");
+				System.out.println("--- Data Seeding Completed ---");
+			} else {
+				System.out.println("--- Database already seeded, skipping ---");
+			}
 		};
 	}
 }

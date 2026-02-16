@@ -5,7 +5,10 @@ import com.PL.pig_ranch.model.Household;
 import com.PL.pig_ranch.service.ClientService;
 import com.PL.pig_ranch.service.HouseholdService;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
@@ -19,6 +22,8 @@ public class ClientFormController {
 
     private final ClientService clientService;
     private final HouseholdService householdService;
+    private ObservableList<Household> allHouseholds;
+    private FilteredList<Household> filteredHouseholds;
 
     @FXML
     private TextField nameField;
@@ -39,8 +44,10 @@ public class ClientFormController {
 
     @FXML
     public void initialize() {
+        allHouseholds = FXCollections.observableArrayList(householdService.getAllHouseholds());
+        filteredHouseholds = new FilteredList<>(allHouseholds, p -> true);
+
         setupHouseholdComboBox();
-        loadHouseholds();
         setupPhoneFieldFormatting();
     }
 
@@ -77,7 +84,10 @@ public class ClientFormController {
     }
 
     private void setupHouseholdComboBox() {
-        // Define how Households are displayed in the list and selected value
+        householdComboBox.setEditable(true);
+        householdComboBox.setItems(filteredHouseholds);
+
+        // Define how Households are displayed in the list
         householdComboBox.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Household item, boolean empty) {
@@ -90,24 +100,43 @@ public class ClientFormController {
             }
         });
 
-        // Define how the selected Household is converted to a String for the box
+        // String converter for editable state
         householdComboBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(Household object) {
-                return object == null ? null : object.getSurname();
+                return object == null ? "" : object.getSurname();
             }
 
             @Override
             public Household fromString(String string) {
-                return householdComboBox.getItems().stream()
-                        .filter(h -> h.getSurname().equals(string))
+                if (string == null || string.isEmpty())
+                    return null;
+                return allHouseholds.stream()
+                        .filter(h -> h.getSurname().equalsIgnoreCase(string))
                         .findFirst().orElse(null);
             }
         });
-    }
 
-    private void loadHouseholds() {
-        householdComboBox.setItems(FXCollections.observableArrayList(householdService.getAllHouseholds()));
+        // Filter logic as user types
+        householdComboBox.getEditor().textProperty().addListener((obs, oldVal, newVal) -> {
+            // Use runLater to avoid issues with modifying list during event
+            javafx.application.Platform.runLater(() -> {
+                if (householdComboBox.getSelectionModel().getSelectedItem() == null
+                        || !householdComboBox.getEditor().getText()
+                                .equals(householdComboBox.getSelectionModel().getSelectedItem().getSurname())) {
+                    filteredHouseholds.setPredicate(household -> {
+                        if (newVal == null || newVal.isEmpty()) {
+                            return true;
+                        }
+                        return household.getSurname().toLowerCase().contains(newVal.toLowerCase());
+                    });
+                }
+            });
+
+            if (!householdComboBox.isShowing() && !newVal.isEmpty()) {
+                householdComboBox.show();
+            }
+        });
     }
 
     @FXML
@@ -121,11 +150,23 @@ public class ClientFormController {
         }
 
         String formattedName = formatName(rawName);
+        String formattedPhone = formatPhoneNumber(phoneField.getText());
+
+        // DUPLICATE CHECK
+        if (clientService.isDuplicate(formattedName, formattedPhone)) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Duplicate Entry");
+            alert.setHeaderText("Client Already Exists");
+            alert.setContentText("A client with the name '" + formattedName + "' and phone number '" + formattedPhone
+                    + "' already exists.");
+            alert.showAndWait();
+            return;
+        }
 
         Client newClient = new Client();
         newClient.setName(formattedName);
         newClient.setEmail(emailField.getText());
-        newClient.setPhoneNumber(formatPhoneNumber(phoneField.getText()));
+        newClient.setPhoneNumber(formattedPhone);
         newClient.setNotes(typeField.getText()); // Using notes as Type
 
         Household selectedHousehold = householdComboBox.getValue();

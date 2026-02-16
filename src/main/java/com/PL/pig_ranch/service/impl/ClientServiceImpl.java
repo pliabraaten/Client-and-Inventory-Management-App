@@ -38,4 +38,9 @@ public class ClientServiceImpl implements ClientService {
     public void deleteClient(Long id) {
         clientRepository.deleteById(id);
     }
+
+    @Override
+    public boolean isDuplicate(String name, String phoneNumber) {
+        return clientRepository.existsByNameAndPhoneNumber(name, phoneNumber);
+    }
 }
