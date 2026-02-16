@@ -1,24 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
+<BorderPane fx:id="mainLayout" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.PL.pig_ranch.controller.MainController"
-            prefWidth="800" prefHeight="600">
-
-    <center>
-        <Label fx:id="statusLabel" text="Loading...">
-            <font>
-                <Font size="24"/>
-            </font>
-        </Label>
-    </center>
-
-    <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
-    </padding>
+            prefWidth="1000" prefHeight="700">
+    <!-- Center content will be injected by MainController -->
 </BorderPane>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.PL.pig_ranch.controller.ClientController">
+
+    <top>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Button text="Back to Home" onAction="#handleBackClick"/>
+            <Label text="Search:"/>
+            <TextField fx:id="searchField" promptText="Name or Email"/>
+            <Button text="New Client" onAction="#handleNewClientClick"/>
+        </HBox>
+    </top>
+
+    <center>
+        <TableView fx:id="clientTable">
+            <columns>
+                <TableColumn fx:id="colClientId" text="ID" prefWidth="50"/>
+                <TableColumn fx:id="colClientName" text="Name" prefWidth="150"/>
+                <TableColumn fx:id="colClientEmail" text="Email" prefWidth="150"/>
+                <TableColumn fx:id="colClientPhone" text="Phone" prefWidth="120"/>
+                <TableColumn fx:id="colClientType" text="Type" prefWidth="100"/>
+                <TableColumn fx:id="colClientHousehold" text="Household" prefWidth="150"/>
+            </columns>
+        </TableView>
+    </center>
+    <padding>
+        <Insets top="0" right="10" bottom="10" left="10"/>
+    </padding>
+</BorderPane>
