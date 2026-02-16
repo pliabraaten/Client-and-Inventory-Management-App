@@ -18,14 +18,14 @@ class ClientRepositoryIntegrationTest {
     private HouseholdRepository householdRepository;
 
     @Test
-    void testExistsByNameAndPhoneNumber() {
+    void testExistsByNameIgnoreCaseAndPhoneNumber() {
         Client c = new Client();
         c.setName("Unique User");
         c.setPhoneNumber("000-000-0000");
         clientRepository.save(c);
 
-        assertTrue(clientRepository.existsByNameAndPhoneNumber("Unique User", "000-000-0000"));
-        assertFalse(clientRepository.existsByNameAndPhoneNumber("Someone Else", "000-000-0000"));
+        assertTrue(clientRepository.existsByNameIgnoreCaseAndPhoneNumber("Unique User", "000-000-0000"));
+        assertFalse(clientRepository.existsByNameIgnoreCaseAndPhoneNumber("Someone Else", "000-000-0000"));
     }
 
     @Test

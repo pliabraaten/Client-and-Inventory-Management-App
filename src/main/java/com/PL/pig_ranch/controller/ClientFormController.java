@@ -25,6 +25,7 @@ public class ClientFormController {
     private final HouseholdService householdService;
     private ObservableList<Household> allHouseholds;
     private FilteredList<Household> filteredHouseholds;
+    private Client editingClient;
 
     @FXML
     private TextField nameField;
@@ -50,6 +51,17 @@ public class ClientFormController {
 
         setupHouseholdComboBox();
         setupPhoneFieldFormatting();
+    }
+
+    public void setClient(Client client) {
+        this.editingClient = client;
+        if (client != null) {
+            nameField.setText(client.getName());
+            emailField.setText(client.getEmail());
+            phoneField.setText(client.getPhoneNumber());
+            typeField.setText(client.getNotes());
+            householdComboBox.setValue(client.getHousehold());
+        }
     }
 
     private void setupPhoneFieldFormatting() {
@@ -153,22 +165,29 @@ public class ClientFormController {
         String formattedName = ClientUtils.formatName(rawName);
         String formattedPhone = ClientUtils.formatPhoneNumber(phoneField.getText());
 
-        // DUPLICATE CHECK
+        // DUPLICATE CHECK - Skip if it matches the client we are CURRENTLY editing
         if (clientService.isDuplicate(formattedName, formattedPhone)) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Duplicate Entry");
-            alert.setHeaderText("Client Already Exists");
-            alert.setContentText("A client with the name '" + formattedName + "' and phone number '" + formattedPhone
-                    + "' already exists.");
-            alert.showAndWait();
-            return;
+            boolean isSelf = editingClient != null
+                    && formattedName.equals(editingClient.getName())
+                    && formattedPhone.equals(editingClient.getPhoneNumber());
+
+            if (!isSelf) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Duplicate Entry");
+                alert.setHeaderText("Client Already Exists");
+                alert.setContentText(
+                        "A client with the name '" + formattedName + "' and phone number '" + formattedPhone
+                                + "' already exists.");
+                alert.showAndWait();
+                return;
+            }
         }
 
-        Client newClient = new Client();
-        newClient.setName(formattedName);
-        newClient.setEmail(emailField.getText());
-        newClient.setPhoneNumber(formattedPhone);
-        newClient.setNotes(typeField.getText()); // Using notes as Type
+        Client clientToSave = (editingClient != null) ? editingClient : new Client();
+        clientToSave.setName(formattedName);
+        clientToSave.setEmail(emailField.getText());
+        clientToSave.setPhoneNumber(formattedPhone);
+        clientToSave.setNotes(typeField.getText()); // Using notes as Type
 
         Household selectedHousehold = householdComboBox.getValue();
         if (selectedHousehold == null) {
@@ -179,9 +198,9 @@ public class ClientFormController {
             // Save household first to get ID
             selectedHousehold = householdService.saveHousehold(newHousehold);
         }
-        newClient.setHousehold(selectedHousehold);
+        clientToSave.setHousehold(selectedHousehold);
 
-        clientService.saveClient(newClient);
+        clientService.saveClient(clientToSave);
 
         closeDialog();
     }

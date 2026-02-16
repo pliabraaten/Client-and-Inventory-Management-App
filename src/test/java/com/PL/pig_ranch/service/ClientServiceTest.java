@@ -32,13 +32,13 @@ class ClientServiceTest {
         String name = "John Doe";
         String phone = "123-456-7890";
 
-        when(clientRepository.existsByNameAndPhoneNumber(name, phone)).thenReturn(true);
+        when(clientRepository.existsByNameIgnoreCaseAndPhoneNumber(name, phone)).thenReturn(true);
         assertTrue(clientService.isDuplicate(name, phone));
 
-        when(clientRepository.existsByNameAndPhoneNumber(name, phone)).thenReturn(false);
+        when(clientRepository.existsByNameIgnoreCaseAndPhoneNumber(name, phone)).thenReturn(false);
         assertFalse(clientService.isDuplicate(name, phone));
 
-        verify(clientRepository, times(2)).existsByNameAndPhoneNumber(name, phone);
+        verify(clientRepository, times(2)).existsByNameIgnoreCaseAndPhoneNumber(name, phone);
     }
 
     @Test
@@ -50,5 +50,22 @@ class ClientServiceTest {
         Optional<Client> result = clientService.getClientById(1L);
         assertTrue(result.isPresent());
         assertEquals(1L, result.get().getId());
+    }
+
+    @Test
+    void testGetClientByIdNotFound() {
+        when(clientRepository.findById(99L)).thenReturn(Optional.empty());
+        Optional<Client> result = clientService.getClientById(99L);
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void testDeleteClientNonExistent() {
+        // Many JPA repositories do nothing or throw if you deleteById(null)
+        // but often deleteById(nonExistentId) is just a no-op at the DB level.
+        // We ensure our service doesn't crash.
+        doNothing().when(clientRepository).deleteById(99L);
+        assertDoesNotThrow(() -> clientService.deleteClient(99L));
+        verify(clientRepository, times(1)).deleteById(99L);
     }
 }

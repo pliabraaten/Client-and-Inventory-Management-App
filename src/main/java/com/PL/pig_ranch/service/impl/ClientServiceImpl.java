@@ -41,6 +41,6 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public boolean isDuplicate(String name, String phoneNumber) {
-        return clientRepository.existsByNameAndPhoneNumber(name, phoneNumber);
+        return clientRepository.existsByNameIgnoreCaseAndPhoneNumber(name, phoneNumber);
     }
 }

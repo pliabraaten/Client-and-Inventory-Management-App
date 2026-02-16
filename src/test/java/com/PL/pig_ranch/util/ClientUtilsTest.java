@@ -64,4 +64,14 @@ class ClientUtilsTest {
         assertTrue(ClientUtils.isSearchMatch(c, null));
         assertTrue(ClientUtils.isSearchMatch(c, ""));
     }
+
+    @Test
+    void testIsSearchMatchNullFields() {
+        Client c = new Client(1L, "Luke", null, null, null, null);
+
+        assertTrue(ClientUtils.isSearchMatch(c, "luke"));
+        assertFalse(ClientUtils.isSearchMatch(c, "skywalker"));
+        // Should not throw NPE
+        assertDoesNotThrow(() -> ClientUtils.isSearchMatch(c, "anything"));
+    }
 }

@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.scene.layout.HBox;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -102,9 +103,17 @@ public class ClientController {
 
     private void setupActionsColumn() {
         colActions.setCellFactory(param -> new TableCell<>() {
+            private final Button editBtn = new Button("Edit");
             private final Button deleteBtn = new Button("Delete");
+            private final HBox container = new HBox(5, editBtn, deleteBtn);
 
             {
+                editBtn.setStyle("-fx-background-color: #4444ff; -fx-text-fill: white;");
+                editBtn.setOnAction(event -> {
+                    Client client = getTableView().getItems().get(getIndex());
+                    handleEdit(client);
+                });
+
                 deleteBtn.setStyle("-fx-background-color: #ff4444; -fx-text-fill: white;");
                 deleteBtn.setOnAction(event -> {
                     Client client = getTableView().getItems().get(getIndex());
@@ -118,10 +127,31 @@ public class ClientController {
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    setGraphic(deleteBtn);
+                    setGraphic(container);
                 }
             }
         });
+    }
+
+    private void handleEdit(Client client) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/client_form.fxml"));
+            loader.setControllerFactory(context::getBean);
+            Parent root = loader.load();
+
+            ClientFormController formController = loader.getController();
+            formController.setClient(client);
+
+            Stage stage = new Stage();
+            stage.setTitle("Edit Client");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+
+            loadClientData(); // Refresh table
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void handleDelete(Client client) {
