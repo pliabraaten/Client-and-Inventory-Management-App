@@ -15,7 +15,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
-import java.math.BigDecimal;
 import java.util.Arrays;
 
 /**
@@ -72,13 +71,16 @@ public class PigRanchApplication extends Application {
 		Platform.exit();
 	}
 
+	// SEED DB
 	@Bean
 	public CommandLineRunner demoData(HouseholdRepository householdRepository,
 			ClientRepository clientRepository) {
 		return args -> {
 			// Seed Households
-			Household h1 = new Household(null, "The Smith Family", "123 Maple Dr", "Springfield", "IL", "62704", null);
-			Household h2 = new Household(null, "The Doe Family", "456 Oak Ln", "Springfield", "IL", "62704", null);
+			Household h1 = new Household(null, "The Smith Family", "123 Maple Dr", "Springfield", "IL", "62704", null,
+					null);
+			Household h2 = new Household(null, "The Doe Family", "456 Oak Ln", "Springfield", "IL", "62704", null,
+					null);
 			householdRepository.saveAll(Arrays.asList(h1, h2));
 
 			// Seed Clients
