@@ -1,14 +1,22 @@
 package com.PL.pig_ranch;
 
+import com.PL.pig_ranch.model.Client;
+import com.PL.pig_ranch.model.Household;
+import com.PL.pig_ranch.repository.ClientRepository;
+import com.PL.pig_ranch.repository.HouseholdRepository;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
+import java.math.BigDecimal;
+import java.util.Arrays;
 
 /**
  * Main application class — extends JavaFX Application and boots the Spring
@@ -62,5 +70,24 @@ public class PigRanchApplication extends Application {
 			springContext.close();
 		}
 		Platform.exit();
+	}
+
+	@Bean
+	public CommandLineRunner demoData(HouseholdRepository householdRepository,
+			ClientRepository clientRepository) {
+		return args -> {
+			// Seed Households
+			Household h1 = new Household(null, "The Smith Family", "123 Maple Dr", "Springfield", "IL", "62704", null);
+			Household h2 = new Household(null, "The Doe Family", "456 Oak Ln", "Springfield", "IL", "62704", null);
+			householdRepository.saveAll(Arrays.asList(h1, h2));
+
+			// Seed Clients
+			Client c1 = new Client(null, "John Smith", "john@smith.com", "555-0101", "Father", h1);
+			Client c2 = new Client(null, "Jane Smith", "jane@smith.com", "555-0102", "Mother", h1);
+			Client c3 = new Client(null, "Alice Doe", "alice@doe.com", "555-0201", "Individual", h2);
+			clientRepository.saveAll(Arrays.asList(c1, c2, c3));
+
+			System.out.println("--- Data Seeding Completed ---");
+		};
 	}
 }
