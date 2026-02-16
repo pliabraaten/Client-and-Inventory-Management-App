@@ -41,6 +41,39 @@ public class ClientFormController {
     public void initialize() {
         setupHouseholdComboBox();
         loadHouseholds();
+        setupPhoneFieldFormatting();
+    }
+
+    private void setupPhoneFieldFormatting() {
+        phoneField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null)
+                return;
+
+            // Strip non-digits
+            String digits = newValue.replaceAll("\\D", "");
+
+            // Limit to 10 digits
+            if (digits.length() > 10) {
+                digits = digits.substring(0, 10);
+            }
+
+            // Build formatted string
+            StringBuilder formatted = new StringBuilder();
+            for (int i = 0; i < digits.length(); i++) {
+                if (i == 3 || i == 6) {
+                    formatted.append("-");
+                }
+                formatted.append(digits.charAt(i));
+            }
+
+            String finalFormatted = formatted.toString();
+
+            // Only update if changed to avoid loops/cursor issues
+            if (!newValue.equals(finalFormatted)) {
+                phoneField.setText(finalFormatted);
+                phoneField.positionCaret(finalFormatted.length()); // Move cursor to end
+            }
+        });
     }
 
     private void setupHouseholdComboBox() {
@@ -92,7 +125,7 @@ public class ClientFormController {
         Client newClient = new Client();
         newClient.setName(formattedName);
         newClient.setEmail(emailField.getText());
-        newClient.setPhoneNumber(phoneField.getText());
+        newClient.setPhoneNumber(formatPhoneNumber(phoneField.getText()));
         newClient.setNotes(typeField.getText()); // Using notes as Type
 
         Household selectedHousehold = householdComboBox.getValue();
@@ -125,6 +158,21 @@ public class ClientFormController {
             }
         }
         return formatted.toString().trim();
+    }
+
+    private String formatPhoneNumber(String rawPhone) {
+        if (rawPhone == null) {
+            return "";
+        }
+        // Strip everything except digits
+        String digits = rawPhone.replaceAll("\\D", "");
+
+        // If we have exactly 10 digits, format as XXX-XXX-XXXX
+        if (digits.length() == 10) {
+            return digits.replaceFirst("(\\d{3})(\\d{3})(\\d{4})", "$1-$2-$3");
+        }
+        // Otherwise return original (or bare digits) to avoid losing data
+        return rawPhone;
     }
 
     private String extractSurname(String fullName) {
