@@ -14,6 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import org.springframework.context.ApplicationContext;
+import java.io.IOException;
 import java.util.List;
 
 @Component
@@ -21,6 +28,7 @@ public class ClientController {
 
     private final ClientService clientService;
     private final ApplicationEventPublisher eventPublisher;
+    private final ApplicationContext context;
 
     @FXML
     private TableView<Client> clientTable;
@@ -40,9 +48,11 @@ public class ClientController {
     private TextField searchField;
 
     @Autowired
-    public ClientController(ClientService clientService, ApplicationEventPublisher eventPublisher) {
+    public ClientController(ClientService clientService, ApplicationEventPublisher eventPublisher,
+            ApplicationContext context) {
         this.clientService = clientService;
         this.eventPublisher = eventPublisher;
+        this.context = context;
     }
 
     @FXML
@@ -79,7 +89,22 @@ public class ClientController {
 
     @FXML
     public void handleNewClientClick() {
-        System.out.println("New Client clicked");
-        // TODO: Implement New Client Dialog
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/client_form.fxml"));
+            loader.setControllerFactory(context::getBean);
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Add New Client");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+
+            // Refresh table after dialog closes
+            loadClientData();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
