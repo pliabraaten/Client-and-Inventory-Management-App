@@ -44,4 +44,16 @@ class ClientRepositoryIntegrationTest {
         assertNotNull(found.getHousehold());
         assertEquals("Test Family", found.getHousehold().getSurname());
     }
+
+    @Test
+    void testDeleteClient() {
+        Client c = new Client();
+        c.setName("Delete Me");
+        clientRepository.save(c);
+        Long id = c.getId();
+
+        clientRepository.deleteById(id);
+
+        assertFalse(clientRepository.existsById(id));
+    }
 }

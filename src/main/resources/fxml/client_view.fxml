@@ -34,6 +34,7 @@
                 <TableColumn fx:id="colClientPhone" text="Phone" prefWidth="120"/>
                 <TableColumn fx:id="colClientType" text="Type" prefWidth="100"/>
                 <TableColumn fx:id="colClientHousehold" text="Household" prefWidth="150"/>
+                <TableColumn fx:id="colActions" text="Actions" prefWidth="100"/>
             </columns>
         </TableView>
     </center>

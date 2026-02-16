@@ -62,4 +62,15 @@ class ClientServiceIntegrationTest {
         List<Client> all = clientService.getAllClients();
         assertTrue(all.size() >= 2);
     }
+
+    @Test
+    void testDeleteClientFullFlow() {
+        Client c = new Client(null, "Temp User", "temp@test.com", "999", "Notes", null);
+        Client saved = clientService.saveClient(c);
+        Long id = saved.getId();
+
+        clientService.deleteClient(id);
+
+        assertTrue(clientService.getClientById(id).isEmpty());
+    }
 }
