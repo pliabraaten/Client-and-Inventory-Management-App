@@ -159,8 +159,11 @@ public class ClientFormController {
         String rawName = nameField.getText();
         // Basic Validation
         if (rawName == null || rawName.trim().isEmpty()) {
-            // TODO: Show alert
-            System.out.println("Name is required");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Validation Error");
+            alert.setHeaderText("Name is Required");
+            alert.setContentText("Please enter a name for the client.");
+            alert.showAndWait();
             return;
         }
 
