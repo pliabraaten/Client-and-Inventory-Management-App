@@ -19,6 +19,9 @@ class ClientServiceTest {
     @Mock
     private ClientRepository clientRepository;
 
+    @Mock
+    private HouseholdService householdService;
+
     @InjectMocks
     private ClientServiceImpl clientService;
 

@@ -1,0 +1,158 @@
+﻿[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< com.PL:pig-ranch >--------------------------
+[INFO] Building pig-ranch 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[WARNING] 6 problems were encountered while building the effective model for org.openjfx:javafx-controls:jar:17 during dependency collection step for project (use -X to see details)
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ pig-ranch ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 4 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ pig-ranch ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ pig-ranch ---
+[INFO] Copying 1 resource from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ pig-ranch ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.2:test (default-test) @ pig-ranch ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.PL.pig_ranch.service.ClientServiceIntegrationTest
+08:36:28.635 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.PL.pig_ranch.service.ClientServiceIntegrationTest]: ClientServiceIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+08:36:28.731 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.PL.pig_ranch.PigRanchApplication for test class com.PL.pig_ranch.service.ClientServiceIntegrationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.2)
+
+2026-02-24T08:36:29.041-08:00  INFO 26936 --- [           main] c.P.p.s.ClientServiceIntegrationTest     : Starting ClientServiceIntegrationTest using Java 21.0.5 with PID 26936 (started by plia in C:\Users\pliab\OneDrive - Western Governors University\Desktop\Coding Projects\Client and Inventory Management App\pig-ranch)
+2026-02-24T08:36:29.042-08:00  INFO 26936 --- [           main] c.P.p.s.ClientServiceIntegrationTest     : No active profile set, falling back to 1 default profile: "default"
+2026-02-24T08:36:29.384-08:00  INFO 26936 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-24T08:36:29.427-08:00  INFO 26936 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 36 ms. Found 2 JPA repository interfaces.
+2026-02-24T08:36:29.737-08:00  INFO 26936 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-24T08:36:29.788-08:00  INFO 26936 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2026-02-24T08:36:29.809-08:00  INFO 26936 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-24T08:36:30.055-08:00  INFO 26936 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-24T08:36:30.092-08:00  INFO 26936 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-24T08:36:30.258-08:00  INFO 26936 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-02-24T08:36:30.260-08:00  INFO 26936 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-24T08:36:30.318-08:00  INFO 26936 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-24T08:36:30.983-08:00  INFO 26936 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: drop table if exists client cascade 
+Hibernate: drop table if exists household cascade 
+Hibernate: create table client (household_id bigint, id bigint generated by default as identity, email varchar(255), name varchar(255) not null, notes varchar(255), phone_number varchar(255), primary key (id))
+Hibernate: create table household (id bigint generated by default as identity, referred_by_id bigint, address varchar(255), city varchar(255), state varchar(255), surname varchar(255), zip_code varchar(255), primary key (id))
+Hibernate: alter table if exists client add constraint FKqvpjb1rp3xt7dwtbu9vv0gdso foreign key (household_id) references household
+Hibernate: alter table if exists household add constraint FKf3xnnuxsmaiy97sixdya29y4f foreign key (referred_by_id) references client
+2026-02-24T08:36:31.018-08:00  INFO 26936 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T08:36:31.351-08:00  INFO 26936 --- [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-24T08:36:31.611-08:00  INFO 26936 --- [           main] c.P.p.s.ClientServiceIntegrationTest     : Started ClientServiceIntegrationTest in 2.769 seconds (process running for 3.495)
+Hibernate: select count(*) from household h1_0
+Hibernate: insert into household (address,city,referred_by_id,state,surname,zip_code,id) values (?,?,?,?,?,?,default)
+Hibernate: insert into household (address,city,referred_by_id,state,surname,zip_code,id) values (?,?,?,?,?,?,default)
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+--- Data Seeding Completed ---
+.\mvnw.cmd : Mockito is currently 
+self-attaching to enable the 
+inline-mock-maker. This will no longer 
+work in future releases of the JDK. 
+Please add Mockito as an agent to your 
+build what is described in Mockito's 
+documentation: https://javadoc.io/doc/or
+g.mockito/mockito-core/latest/org/mockit
+o/Mockito.html#0.3
+At line:1 char:1
++ .\mvnw.cmd test 
+-Dtest=ClientServiceIntegrationTest > 
+logs/test_db_ve ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpe    
+cified: (Mockito is curr...ockit    
+o.html#0.3:String) [], RemoteExc    
+eption
+    + FullyQualifiedErrorId : Native    
+CommandError
+ 
+Java HotSpot(TM) 64-Bit Server VM 
+warning: Sharing is only supported for 
+boot loader classes because bootstrap 
+classpath has been appended
+WARNING: A Java agent has been loaded 
+dynamically (C:\Users\pliab\.m2\reposito
+ry\net\bytebuddy\byte-buddy-agent\1.15.1
+1\byte-buddy-agent-1.15.11.jar)
+WARNING: If a serviceability tool is in 
+use, please run with 
+-XX:+EnableDynamicAgentLoading to hide 
+this warning
+WARNING: If a serviceability tool is 
+not in use, please run with 
+-Djdk.instrument.traceUsage for more 
+information
+WARNING: Dynamic loading of agents will 
+be disallowed by default in a future 
+release
+Hibernate: insert into household (address,city,referred_by_id,state,surname,zip_code,id) values (?,?,?,?,?,?,default)
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: delete from client where id=?
+Hibernate: select count(c1_0.id) from client c1_0 left join household h1_0 on h1_0.id=c1_0.household_id where h1_0.id=?
+Hibernate: select c1_0.id,c1_0.email,h1_0.id,h1_0.address,h1_0.city,rb1_0.id,rb1_0.email,rb1_0.household_id,rb1_0.name,rb1_0.notes,rb1_0.phone_number,h1_0.state,h1_0.surname,h1_0.zip_code,c1_0.name,c1_0.notes,c1_0.phone_number from client c1_0 left join household h1_0 on h1_0.id=c1_0.household_id left join client rb1_0 on rb1_0.id=h1_0.referred_by_id where c1_0.id=?
+Hibernate: insert into household (address,city,referred_by_id,state,surname,zip_code,id) values (?,?,?,?,?,?,default)
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: select c1_0.id from client c1_0 where upper(c1_0.name)=upper(?) and c1_0.phone_number=? fetch first ? rows only
+Hibernate: select c1_0.id from client c1_0 where upper(c1_0.name)=upper(?) and c1_0.phone_number=? fetch first ? rows only
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: select c1_0.id,c1_0.email,c1_0.household_id,c1_0.name,c1_0.notes,c1_0.phone_number from client c1_0
+Hibernate: select h1_0.id,h1_0.address,h1_0.city,rb1_0.id,rb1_0.email,h2_0.id,h2_0.address,h2_0.city,h2_0.referred_by_id,h2_0.state,h2_0.surname,h2_0.zip_code,rb1_0.name,rb1_0.notes,rb1_0.phone_number,h1_0.state,h1_0.surname,h1_0.zip_code from household h1_0 left join client rb1_0 on rb1_0.id=h1_0.referred_by_id left join household h2_0 on h2_0.id=rb1_0.household_id where h1_0.id=?
+Hibernate: select h1_0.id,h1_0.address,h1_0.city,rb1_0.id,rb1_0.email,h2_0.id,h2_0.address,h2_0.city,h2_0.referred_by_id,h2_0.state,h2_0.surname,h2_0.zip_code,rb1_0.name,rb1_0.notes,rb1_0.phone_number,h1_0.state,h1_0.surname,h1_0.zip_code from household h1_0 left join client rb1_0 on rb1_0.id=h1_0.referred_by_id left join household h2_0 on h2_0.id=rb1_0.household_id where h1_0.id=?
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: update client set email=?,household_id=?,name=?,notes=?,phone_number=? where id=?
+Hibernate: select c1_0.id,c1_0.email,c1_0.household_id,c1_0.name,c1_0.notes,c1_0.phone_number from client c1_0
+Hibernate: select h1_0.id,h1_0.address,h1_0.city,rb1_0.id,rb1_0.email,h2_0.id,h2_0.address,h2_0.city,h2_0.referred_by_id,h2_0.state,h2_0.surname,h2_0.zip_code,rb1_0.name,rb1_0.notes,rb1_0.phone_number,h1_0.state,h1_0.surname,h1_0.zip_code from household h1_0 left join client rb1_0 on rb1_0.id=h1_0.referred_by_id left join household h2_0 on h2_0.id=rb1_0.household_id where h1_0.id=?
+Hibernate: select h1_0.id,h1_0.address,h1_0.city,rb1_0.id,rb1_0.email,h2_0.id,h2_0.address,h2_0.city,h2_0.referred_by_id,h2_0.state,h2_0.surname,h2_0.zip_code,rb1_0.name,rb1_0.notes,rb1_0.phone_number,h1_0.state,h1_0.surname,h1_0.zip_code from household h1_0 left join client rb1_0 on rb1_0.id=h1_0.referred_by_id left join household h2_0 on h2_0.id=rb1_0.household_id where h1_0.id=?
+Hibernate: select c1_0.id,c1_0.email,c1_0.household_id,c1_0.name,c1_0.notes,c1_0.phone_number from client c1_0
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: select c1_0.id from client c1_0 where upper(c1_0.name)=upper(?) and c1_0.phone_number=? fetch first ? rows only
+Hibernate: select c1_0.id from client c1_0 where upper(c1_0.name)=upper(?) and c1_0.phone_number=? fetch first ? rows only
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: select c1_0.id from client c1_0 where upper(c1_0.name)=upper(?) and c1_0.phone_number=? fetch first ? rows only
+Hibernate: select c1_0.id from client c1_0 where upper(c1_0.name)=upper(?) and c1_0.phone_number=? fetch first ? rows only
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.917 s -- in com.PL.pig_ranch.service.ClientServiceIntegrationTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.760 s
+[INFO] Finished at: 2026-02-24T08:36:32-08:00
+[INFO] ------------------------------------------------------------------------
