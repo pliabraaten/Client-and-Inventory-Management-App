@@ -16,9 +16,11 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
+@Scope("prototype") // Each time the controller is requested, a new instance is created
 public class ClientFormController {
 
     private final ClientService clientService;
