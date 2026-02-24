@@ -13,10 +13,13 @@ import java.util.Optional;
 public class HouseholdServiceImpl implements HouseholdService {
 
     private final HouseholdRepository householdRepository;
+    private final com.PL.pig_ranch.repository.ClientRepository clientRepository;
 
     @Autowired
-    public HouseholdServiceImpl(HouseholdRepository householdRepository) {
+    public HouseholdServiceImpl(HouseholdRepository householdRepository,
+            com.PL.pig_ranch.repository.ClientRepository clientRepository) {
         this.householdRepository = householdRepository;
+        this.clientRepository = clientRepository;
     }
 
     @Override
@@ -33,9 +36,6 @@ public class HouseholdServiceImpl implements HouseholdService {
     public List<Household> getAllHouseholds() {
         return householdRepository.findAll();
     }
-
-    @Autowired
-    private com.PL.pig_ranch.repository.ClientRepository clientRepository;
 
     @Override
     public void deleteHousehold(Long id) {
