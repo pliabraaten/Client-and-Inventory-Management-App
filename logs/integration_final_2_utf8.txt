@@ -1,0 +1,290 @@
+﻿[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< com.PL:pig-ranch >--------------------------
+[INFO] Building pig-ranch 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[WARNING] 6 problems were encountered while building the effective model for org.openjfx:javafx-controls:jar:17 during dependency collection step for project (use -X to see details)
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ pig-ranch ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 4 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ pig-ranch ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ pig-ranch ---
+[INFO] skip non existing resourceDirectory C:\Users\pliab\OneDrive - Western Governors University\Desktop\Coding Projects\Client and Inventory Management App\pig-ranch\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ pig-ranch ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.2:test (default-test) @ pig-ranch ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.PL.pig_ranch.service.ClientServiceIntegrationTest
+21:34:01.270 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.PL.pig_ranch.service.ClientServiceIntegrationTest]: ClientServiceIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+21:34:01.353 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.PL.pig_ranch.PigRanchApplication for test class com.PL.pig_ranch.service.ClientServiceIntegrationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.2)
+
+2026-02-15T21:34:01.651-08:00  INFO 22928 --- [pig-ranch] [           main] c.P.p.s.ClientServiceIntegrationTest     : Starting ClientServiceIntegrationTest using Java 21.0.5 with PID 22928 (started by plia in C:\Users\pliab\OneDrive - Western Governors University\Desktop\Coding Projects\Client and Inventory Management App\pig-ranch)
+2026-02-15T21:34:01.652-08:00  INFO 22928 --- [pig-ranch] [           main] c.P.p.s.ClientServiceIntegrationTest     : No active profile set, falling back to 1 default profile: "default"
+2026-02-15T21:34:01.980-08:00  INFO 22928 --- [pig-ranch] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-15T21:34:02.026-08:00  INFO 22928 --- [pig-ranch] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 38 ms. Found 2 JPA repository interfaces.
+2026-02-15T21:34:02.339-08:00  INFO 22928 --- [pig-ranch] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-15T21:34:02.387-08:00  INFO 22928 --- [pig-ranch] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2026-02-15T21:34:02.408-08:00  INFO 22928 --- [pig-ranch] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-15T21:34:02.623-08:00  INFO 22928 --- [pig-ranch] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-15T21:34:02.644-08:00  INFO 22928 --- [pig-ranch] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-15T21:34:02.840-08:00  INFO 22928 --- [pig-ranch] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/pigranch user=SA
+2026-02-15T21:34:02.841-08:00  INFO 22928 --- [pig-ranch] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-15T21:34:02.890-08:00  INFO 22928 --- [pig-ranch] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-15T21:34:03.491-08:00  INFO 22928 --- [pig-ranch] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-15T21:34:03.531-08:00  INFO 22928 --- [pig-ranch] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-15T21:34:03.804-08:00  INFO 22928 --- [pig-ranch] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-15T21:34:03.976-08:00  INFO 22928 --- [pig-ranch] [           main] c.P.p.s.ClientServiceIntegrationTest     : Started ClientServiceIntegrationTest in 2.51 seconds (process running for 3.177)
+Hibernate: select count(*) from household h1_0
+--- Database already seeded, skipping ---
+.\mvnw.cmd : Mockito is currently 
+self-attaching to enable the 
+inline-mock-maker. This will no 
+longer work in future releases of 
+the JDK. Please add Mockito as an 
+agent to your build what is 
+described in Mockito's 
+documentation: https://javadoc.io/do
+c/org.mockito/mockito-core/latest/or
+g/mockito/Mockito.html#0.3
+At line:1 char:1
++ .\mvnw.cmd test 
+-Dtest=ClientServiceIntegrationTest 
+> integration_fin ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSp 
+   ecified: (Mockito is curr...ock  
+  ito.html#0.3:String) [], Remote   
+ Exception
+    + FullyQualifiedErrorId : Nativ 
+   eCommandError
+ 
+Java HotSpot(TM) 64-Bit Server VM 
+warning: Sharing is only supported 
+for boot loader classes because 
+bootstrap classpath has been 
+appended
+WARNING: A Java agent has been 
+loaded dynamically (C:\Users\pliab\.
+m2\repository\net\bytebuddy\byte-bud
+dy-agent\1.15.11\byte-buddy-agent-1.
+15.11.jar)
+WARNING: If a serviceability tool 
+is in use, please run with 
+-XX:+EnableDynamicAgentLoading to 
+hide this warning
+WARNING: If a serviceability tool 
+is not in use, please run with 
+-Djdk.instrument.traceUsage for 
+more information
+WARNING: Dynamic loading of agents 
+will be disallowed by default in a 
+future release
+Hibernate: insert into household (address,city,referred_by_id,state,surname,zip_code,id) values (?,?,?,?,?,?,default)
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: DELETE FROM household WHERE id NOT IN (SELECT DISTINCT household_id FROM client WHERE household_id IS NOT NULL)
+Hibernate: delete from client where id=?
+Hibernate: DELETE FROM household WHERE id NOT IN (SELECT DISTINCT household_id FROM client WHERE household_id IS NOT NULL)
+Hibernate: select c1_0.id,c1_0.email,h1_0.id,h1_0.address,h1_0.city,rb1_0.id,rb1_0.email,rb1_0.household_id,rb1_0.name,rb1_0.notes,rb1_0.phone_number,h1_0.state,h1_0.surname,h1_0.zip_code,c1_0.name,c1_0.notes,c1_0.phone_number from client c1_0 left join household h1_0 on h1_0.id=c1_0.household_id left join client rb1_0 on rb1_0.id=h1_0.referred_by_id where c1_0.id=?
+Hibernate: insert into household (address,city,referred_by_id,state,surname,zip_code,id) values (?,?,?,?,?,?,default)
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: DELETE FROM household WHERE id NOT IN (SELECT DISTINCT household_id FROM client WHERE household_id IS NOT NULL)
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: DELETE FROM household WHERE id NOT IN (SELECT DISTINCT household_id FROM client WHERE household_id IS NOT NULL)
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: DELETE FROM household WHERE id NOT IN (SELECT DISTINCT household_id FROM client WHERE household_id IS NOT NULL)
+Hibernate: select c1_0.id from client c1_0 where upper(c1_0.name)=upper(?) and c1_0.phone_number=? fetch first ? rows only
+Hibernate: select c1_0.id from client c1_0 where upper(c1_0.name)=upper(?) and c1_0.phone_number=? fetch first ? rows only
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: DELETE FROM household WHERE id NOT IN (SELECT DISTINCT household_id FROM client WHERE household_id IS NOT NULL)
+Hibernate: delete from client where id=?
+Hibernate: DELETE FROM household WHERE id NOT IN (SELECT DISTINCT household_id FROM client WHERE household_id IS NOT NULL)
+Hibernate: select c1_0.id,c1_0.email,h1_0.id,h1_0.address,h1_0.city,rb1_0.id,rb1_0.email,rb1_0.household_id,rb1_0.name,rb1_0.notes,rb1_0.phone_number,h1_0.state,h1_0.surname,h1_0.zip_code,c1_0.name,c1_0.notes,c1_0.phone_number from client c1_0 left join household h1_0 on h1_0.id=c1_0.household_id left join client rb1_0 on rb1_0.id=h1_0.referred_by_id where c1_0.id=?
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: DELETE FROM household WHERE id NOT IN (SELECT DISTINCT household_id FROM client WHERE household_id IS NOT NULL)
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: DELETE FROM household WHERE id NOT IN (SELECT DISTINCT household_id FROM client WHERE household_id IS NOT NULL)
+Hibernate: select c1_0.id,c1_0.email,c1_0.household_id,c1_0.name,c1_0.notes,c1_0.phone_number from client c1_0
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: DELETE FROM household WHERE id NOT IN (SELECT DISTINCT household_id FROM client WHERE household_id IS NOT NULL)
+Hibernate: update client set email=?,household_id=?,name=?,notes=?,phone_number=? where id=?
+Hibernate: DELETE FROM household WHERE id NOT IN (SELECT DISTINCT household_id FROM client WHERE household_id IS NOT NULL)
+Hibernate: select c1_0.id,c1_0.email,c1_0.household_id,c1_0.name,c1_0.notes,c1_0.phone_number from client c1_0
+Hibernate: select c1_0.id,c1_0.email,c1_0.household_id,c1_0.name,c1_0.notes,c1_0.phone_number from client c1_0
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: DELETE FROM household WHERE id NOT IN (SELECT DISTINCT household_id FROM client WHERE household_id IS NOT NULL)
+Hibernate: select c1_0.id from client c1_0 where upper(c1_0.name)=upper(?) and c1_0.phone_number=? fetch first ? rows only
+Hibernate: select c1_0.id from client c1_0 where upper(c1_0.name)=upper(?) and c1_0.phone_number=? fetch first ? rows only
+Hibernate: insert into household (address,city,referred_by_id,state,surname,zip_code,id) values (?,?,?,?,?,?,default)
+Hibernate: insert into household (address,city,referred_by_id,state,surname,zip_code,id) values (?,?,?,?,?,?,default)
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: DELETE FROM household WHERE id NOT IN (SELECT DISTINCT household_id FROM client WHERE household_id IS NOT NULL)
+Hibernate: update client set email=?,household_id=?,name=?,notes=?,phone_number=? where id=?
+2026-02-15T21:34:04.765-08:00  WARN 22928 --- [pig-ranch] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 23506, SQLState: 23506
+2026-02-15T21:34:04.765-08:00 ERROR 22928 --- [pig-ranch] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : Referential integrity constraint violation: "FKQVPJB1RP3XT7DWTBU9VV0GDSO: PUBLIC.CLIENT FOREIGN KEY(HOUSEHOLD_ID) REFERENCES PUBLIC.HOUSEHOLD(ID) (CAST(66 AS BIGINT))"; SQL statement:
+update client set email=?,household_id=?,name=?,notes=?,phone_number=? where id=? [23506-232]
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: select c1_0.id from client c1_0 where upper(c1_0.name)=upper(?) and c1_0.phone_number=? fetch first ? rows only
+Hibernate: select c1_0.id from client c1_0 where upper(c1_0.name)=upper(?) and c1_0.phone_number=? fetch first ? rows only
+[ERROR] Tests run: 9, Failures: 1, Errors: 1, Skipped: 0, Time elapsed: 3.624 s <<< FAILURE! -- in com.PL.pig_ranch.service.ClientServiceIntegrationTest
+[ERROR] com.PL.pig_ranch.service.ClientServiceIntegrationTest.testDeleteClientCleansUpOrphanHousehold -- Time elapsed: 0.370 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Household should have been deleted ==> expected: <true> but was: <false>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:214)
+	at com.PL.pig_ranch.service.ClientServiceIntegrationTest.testDeleteClientCleansUpOrphanHousehold(ClientServiceIntegrationTest.java:147)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[ERROR] com.PL.pig_ranch.service.ClientServiceIntegrationTest.testEditClientCleansUpOldOrphanHousehold -- Time elapsed: 0.013 s <<< ERROR!
+org.springframework.dao.DataIntegrityViolationException: 
+could not execute statement [Referential integrity constraint violation: "FKQVPJB1RP3XT7DWTBU9VV0GDSO: PUBLIC.CLIENT FOREIGN KEY(HOUSEHOLD_ID) REFERENCES PUBLIC.HOUSEHOLD(ID) (CAST(66 AS BIGINT))"; SQL statement:
+update client set email=?,household_id=?,name=?,notes=?,phone_number=? where id=? [23506-232]] [update client set email=?,household_id=?,name=?,notes=?,phone_number=? where id=?]; SQL [update client set email=?,household_id=?,name=?,notes=?,phone_number=? where id=?]; constraint [KQVPJB1RP3XT7DWTBU9VV0GDSO]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:290)
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:241)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:560)
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61)
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:343)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:160)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:136)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:223)
+	at jdk.proxy2/jdk.proxy2.$Proxy127.deleteOrphanHouseholds(Unknown Source)
+	at com.PL.pig_ranch.service.impl.HouseholdServiceImpl.deleteOrphans(HouseholdServiceImpl.java:44)
+	at com.PL.pig_ranch.service.impl.ClientServiceImpl.saveClient(ClientServiceImpl.java:30)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727)
+	at com.PL.pig_ranch.service.impl.ClientServiceImpl$$SpringCGLIB$$0.saveClient(<generated>)
+	at com.PL.pig_ranch.service.ClientServiceIntegrationTest.testEditClientCleansUpOldOrphanHousehold(ClientServiceIntegrationTest.java:163)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement [Referential integrity constraint violation: "FKQVPJB1RP3XT7DWTBU9VV0GDSO: PUBLIC.CLIENT FOREIGN KEY(HOUSEHOLD_ID) REFERENCES PUBLIC.HOUSEHOLD(ID) (CAST(66 AS BIGINT))"; SQL statement:
+update client set email=?,household_id=?,name=?,notes=?,phone_number=? where id=? [23506-232]] [update client set email=?,household_id=?,name=?,notes=?,phone_number=? where id=?]
+	at org.hibernate.exception.internal.SQLExceptionTypeDelegate.convert(SQLExceptionTypeDelegate.java:62)
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:197)
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.performNonBatchedMutation(AbstractMutationExecutor.java:134)
+	at org.hibernate.engine.jdbc.mutation.internal.MutationExecutorSingleNonBatched.performNonBatchedOperations(MutationExecutorSingleNonBatched.java:55)
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:55)
+	at org.hibernate.persister.entity.mutation.UpdateCoordinatorStandard.doStaticUpdate(UpdateCoordinatorStandard.java:781)
+	at org.hibernate.persister.entity.mutation.UpdateCoordinatorStandard.performUpdate(UpdateCoordinatorStandard.java:328)
+	at org.hibernate.persister.entity.mutation.UpdateCoordinatorStandard.update(UpdateCoordinatorStandard.java:245)
+	at org.hibernate.action.internal.EntityUpdateAction.execute(EntityUpdateAction.java:169)
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:644)
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:511)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:414)
+	at org.hibernate.event.internal.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:41)
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:127)
+	at org.hibernate.internal.SessionImpl.doFlush(SessionImpl.java:1429)
+	at org.hibernate.internal.SessionImpl.flush(SessionImpl.java:1415)
+	at org.hibernate.query.sql.internal.NativeQueryImpl.prepareForExecution(NativeQueryImpl.java:666)
+	at org.hibernate.query.spi.AbstractSelectionQuery.beforeQuery(AbstractSelectionQuery.java:172)
+	at org.hibernate.query.spi.AbstractSelectionQuery.beforeQueryHandlingFetchProfiles(AbstractSelectionQuery.java:159)
+	at org.hibernate.query.spi.AbstractQuery.executeUpdate(AbstractQuery.java:648)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution$ModifyingExecution.doExecute(JpaQueryExecution.java:267)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution.execute(JpaQueryExecution.java:93)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.doExecute(AbstractJpaQuery.java:152)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.execute(AbstractJpaQuery.java:140)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:170)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:170)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:149)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:69)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+	... 21 more
+Caused by: org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException: Referential integrity constraint violation: "FKQVPJB1RP3XT7DWTBU9VV0GDSO: PUBLIC.CLIENT FOREIGN KEY(HOUSEHOLD_ID) REFERENCES PUBLIC.HOUSEHOLD(ID) (CAST(66 AS BIGINT))"; SQL statement:
+update client set email=?,household_id=?,name=?,notes=?,phone_number=? where id=? [23506-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:520)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.constraint.ConstraintReferential.checkRowOwnTable(ConstraintReferential.java:308)
+	at org.h2.constraint.ConstraintReferential.checkRow(ConstraintReferential.java:249)
+	at org.h2.table.Table.fireConstraints(Table.java:1227)
+	at org.h2.table.Table.fireAfterRow(Table.java:1245)
+	at org.h2.command.dml.Update.doUpdate(Update.java:109)
+	at org.h2.command.dml.Update.update(Update.java:87)
+	at org.h2.command.dml.DataChangeStatement.update(DataChangeStatement.java:74)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
+	at org.h2.command.Command.executeUpdate(Command.java:304)
+	at org.h2.command.Command.executeUpdate(Command.java:248)
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdateInternal(JdbcPreparedStatement.java:213)
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdate(JdbcPreparedStatement.java:172)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:194)
+	... 54 more
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   ClientServiceIntegrationTest.testDeleteClientCleansUpOrphanHousehold:147 Household should have been deleted ==> expected: <true> but was: <false>
+[ERROR] Errors: 
+[ERROR]   ClientServiceIntegrationTest.testEditClientCleansUpOldOrphanHousehold:163 ╗ DataIntegrityViolation could not execute statement [Referential integrity constraint violation: "FKQVPJB1RP3XT7DWTBU9VV0GDSO: PUBLIC.CLIENT FOREIGN KEY(HOUSEHOLD_ID) REFERENCES PUBLIC.HOUSEHOLD(ID) (CAST(66 AS BIGINT))"; SQL statement:
+update client set email=?,household_id=?,name=?,notes=?,phone_number=? where id=? [23506-232]] [update client set email=?,household_id=?,name=?,notes=?,phone_number=? where id=?]; SQL [update client set email=?,household_id=?,name=?,notes=?,phone_number=? where id=?]; constraint [KQVPJB1RP3XT7DWTBU9VV0GDSO]
+[INFO] 
+[ERROR] Tests run: 9, Failures: 1, Errors: 1, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.322 s
+[INFO] Finished at: 2026-02-15T21:34:04-08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.2:test (default-test) on project pig-ranch: There are test failures.
+[ERROR] 
+[ERROR] See C:\Users\pliab\OneDrive - Western Governors University\Desktop\Coding Projects\Client and Inventory Management App\pig-ranch\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

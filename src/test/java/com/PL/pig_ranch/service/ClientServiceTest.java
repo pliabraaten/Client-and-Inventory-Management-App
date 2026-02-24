@@ -61,11 +61,12 @@ class ClientServiceTest {
 
     @Test
     void testDeleteClientNonExistent() {
-        // Many JPA repositories do nothing or throw if you deleteById(null)
-        // but often deleteById(nonExistentId) is just a no-op at the DB level.
-        // We ensure our service doesn't crash.
-        doNothing().when(clientRepository).deleteById(99L);
+        // Our service now checks findById first before deleting.
+        when(clientRepository.findById(99L)).thenReturn(Optional.empty());
+
         assertDoesNotThrow(() -> clientService.deleteClient(99L));
-        verify(clientRepository, times(1)).deleteById(99L);
+
+        verify(clientRepository, times(1)).findById(99L);
+        verify(clientRepository, never()).deleteById(99L);
     }
 }

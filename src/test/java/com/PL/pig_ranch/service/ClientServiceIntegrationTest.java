@@ -127,21 +127,23 @@ class ClientServiceIntegrationTest {
         assertTrue(clientService.isDuplicate("john doe", "555-0000"), "Should be case-insensitive on name");
     }
 
-    @Test
-    void testSaveClientWithEmptyNameFails() {
-        // Depending on DB constraints, this might throw an exception or just save an
-        // empty string.
-        // If we want to enforce it at the service level, this is where we'd catch it.
-        Client emptyClient = new Client(null, "", "empty@test.com", "000", "Notes", null);
+    @Autowired
+    private HouseholdService householdService;
 
-        // If we have @NotBlank on the model, this might fail during save.
-        // For now, let's just assert that we can save it if there are no constraints,
-        // OR that it fails if we added them. (I'll check the model first).
-        try {
-            clientService.saveClient(emptyClient);
-        } catch (Exception e) {
-            // Success if we intended to fail
-            return;
-        }
+    @Test
+    void testDeleteClientCleansUpOrphanHousehold() {
+        // Arrange
+        Household h = householdService
+                .saveHousehold(new Household(null, "Orphan Surname", "Addr", "City", "ST", "123", null, null));
+        Client c = clientService.saveClient(new Client(null, "To Be Deleted", "email", "phone", "notes", h));
+        Long hhId = h.getId();
+        Long cId = c.getId();
+
+        // Act
+        clientService.deleteClient(cId);
+
+        // Assert
+        assertTrue(clientService.getClientById(cId).isEmpty());
+        assertTrue(householdService.getHouseholdById(hhId).isEmpty(), "Household should have been deleted");
     }
 }

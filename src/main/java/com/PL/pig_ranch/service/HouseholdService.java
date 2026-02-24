@@ -13,4 +13,6 @@ public interface HouseholdService {
     List<Household> getAllHouseholds();
 
     void deleteHousehold(Long id);
+
+    void deleteHouseholdIfEmpty(Long id);
 }

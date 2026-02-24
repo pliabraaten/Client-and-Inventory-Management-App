@@ -1,0 +1,153 @@
+﻿[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< com.PL:pig-ranch >--------------------------
+[INFO] Building pig-ranch 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[WARNING] 6 problems were encountered while building the effective model for org.openjfx:javafx-controls:jar:17 during dependency collection step for project (use -X to see details)
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ pig-ranch ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 4 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ pig-ranch ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ pig-ranch ---
+[INFO] skip non existing resourceDirectory C:\Users\pliab\OneDrive - Western Governors University\Desktop\Coding Projects\Client and Inventory Management App\pig-ranch\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ pig-ranch ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.2:test (default-test) @ pig-ranch ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.PL.pig_ranch.service.ClientServiceIntegrationTest
+21:36:03.425 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.PL.pig_ranch.service.ClientServiceIntegrationTest]: ClientServiceIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+21:36:03.515 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.PL.pig_ranch.PigRanchApplication for test class com.PL.pig_ranch.service.ClientServiceIntegrationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.2)
+
+2026-02-15T21:36:03.803-08:00  INFO 39800 --- [pig-ranch] [           main] c.P.p.s.ClientServiceIntegrationTest     : Starting ClientServiceIntegrationTest using Java 21.0.5 with PID 39800 (started by plia in C:\Users\pliab\OneDrive - Western Governors University\Desktop\Coding Projects\Client and Inventory Management App\pig-ranch)
+2026-02-15T21:36:03.804-08:00  INFO 39800 --- [pig-ranch] [           main] c.P.p.s.ClientServiceIntegrationTest     : No active profile set, falling back to 1 default profile: "default"
+2026-02-15T21:36:04.162-08:00  INFO 39800 --- [pig-ranch] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-15T21:36:04.210-08:00  INFO 39800 --- [pig-ranch] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 40 ms. Found 2 JPA repository interfaces.
+2026-02-15T21:36:04.568-08:00  INFO 39800 --- [pig-ranch] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-15T21:36:04.630-08:00  INFO 39800 --- [pig-ranch] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2026-02-15T21:36:04.655-08:00  INFO 39800 --- [pig-ranch] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-15T21:36:04.897-08:00  INFO 39800 --- [pig-ranch] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-15T21:36:04.932-08:00  INFO 39800 --- [pig-ranch] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-15T21:36:05.130-08:00  INFO 39800 --- [pig-ranch] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/pigranch user=SA
+2026-02-15T21:36:05.133-08:00  INFO 39800 --- [pig-ranch] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-15T21:36:05.198-08:00  INFO 39800 --- [pig-ranch] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-15T21:36:05.811-08:00  INFO 39800 --- [pig-ranch] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-15T21:36:05.849-08:00  INFO 39800 --- [pig-ranch] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-15T21:36:06.187-08:00  INFO 39800 --- [pig-ranch] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-15T21:36:06.312-08:00  INFO 39800 --- [pig-ranch] [           main] c.P.p.s.ClientServiceIntegrationTest     : Started ClientServiceIntegrationTest in 2.7 seconds (process running for 3.377)
+Hibernate: select count(*) from household h1_0
+--- Database already seeded, skipping ---
+.\mvnw.cmd : Mockito is currently 
+self-attaching to enable the 
+inline-mock-maker. This will no 
+longer work in future releases of 
+the JDK. Please add Mockito as an 
+agent to your build what is 
+described in Mockito's 
+documentation: https://javadoc.io/do
+c/org.mockito/mockito-core/latest/or
+g/mockito/Mockito.html#0.3
+At line:1 char:1
++ .\mvnw.cmd test -Dtest=ClientServi
+ceIntegrationTest#testEditClientCle 
+...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSp 
+   ecified: (Mockito is curr...ock  
+  ito.html#0.3:String) [], Remote   
+ Exception
+    + FullyQualifiedErrorId : Nativ 
+   eCommandError
+ 
+WARNING: A Java agent has been 
+loaded dynamically (C:\Users\pliab\.
+m2\repository\net\bytebuddy\byte-bud
+dy-agent\1.15.11\byte-buddy-agent-1.
+15.11.jar)
+WARNING: If a serviceability tool 
+is in use, please run with 
+-XX:+EnableDynamicAgentLoading to 
+hide this warning
+WARNING: If a serviceability tool 
+is not in use, please run with 
+-Djdk.instrument.traceUsage for 
+more information
+WARNING: Dynamic loading of agents 
+will be disallowed by default in a 
+future release
+Java HotSpot(TM) 64-Bit Server VM 
+warning: Sharing is only supported 
+for boot loader classes because 
+bootstrap classpath has been 
+appended
+Hibernate: insert into household (address,city,referred_by_id,state,surname,zip_code,id) values (?,?,?,?,?,?,default)
+Hibernate: insert into household (address,city,referred_by_id,state,surname,zip_code,id) values (?,?,?,?,?,?,default)
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+TEST DEBUG: hAId=71, hBId=72, clientId=210
+Hibernate: update client set email=?,household_id=?,name=?,notes=?,phone_number=? where id=?
+Hibernate: SELECT household_id FROM client WHERE id = ?
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 3.637 s <<< FAILURE! -- in com.PL.pig_ranch.service.ClientServiceIntegrationTest
+[ERROR] com.PL.pig_ranch.service.ClientServiceIntegrationTest.testEditClientCleansUpOldOrphanHousehold -- Time elapsed: 0.362 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Old household should have been cleaned up ==> expected: <true> but was: <false>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:214)
+	at com.PL.pig_ranch.service.ClientServiceIntegrationTest.testEditClientCleansUpOldOrphanHousehold(ClientServiceIntegrationTest.java:168)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   ClientServiceIntegrationTest.testEditClientCleansUpOldOrphanHousehold:168 Old household should have been cleaned up ==> expected: <true> but was: <false>
+[INFO] 
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.352 s
+[INFO] Finished at: 2026-02-15T21:36:07-08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.2:test (default-test) on project pig-ranch: There are test failures.
+[ERROR] 
+[ERROR] See C:\Users\pliab\OneDrive - Western Governors University\Desktop\Coding Projects\Client and Inventory Management App\pig-ranch\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

@@ -1,0 +1,454 @@
+﻿[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< com.PL:pig-ranch >--------------------------
+[INFO] Building pig-ranch 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[WARNING] 6 problems were encountered while building the effective model for org.openjfx:javafx-controls:jar:17 during dependency collection step for project (use -X to see details)
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ pig-ranch ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 4 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ pig-ranch ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ pig-ranch ---
+[INFO] skip non existing resourceDirectory C:\Users\pliab\OneDrive - Western Governors University\Desktop\Coding Projects\Client and Inventory Management App\pig-ranch\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ pig-ranch ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.2:test (default-test) @ pig-ranch ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.PL.pig_ranch.service.ClientServiceIntegrationTest
+21:32:36.827 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.PL.pig_ranch.service.ClientServiceIntegrationTest]: ClientServiceIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+21:32:36.909 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.PL.pig_ranch.PigRanchApplication for test class com.PL.pig_ranch.service.ClientServiceIntegrationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.2)
+
+2026-02-15T21:32:37.204-08:00  INFO 37552 --- [pig-ranch] [           main] c.P.p.s.ClientServiceIntegrationTest     : Starting ClientServiceIntegrationTest using Java 21.0.5 with PID 37552 (started by plia in C:\Users\pliab\OneDrive - Western Governors University\Desktop\Coding Projects\Client and Inventory Management App\pig-ranch)
+2026-02-15T21:32:37.206-08:00  INFO 37552 --- [pig-ranch] [           main] c.P.p.s.ClientServiceIntegrationTest     : No active profile set, falling back to 1 default profile: "default"
+2026-02-15T21:32:37.527-08:00  INFO 37552 --- [pig-ranch] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-15T21:32:37.573-08:00  INFO 37552 --- [pig-ranch] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 39 ms. Found 2 JPA repository interfaces.
+2026-02-15T21:32:37.870-08:00  INFO 37552 --- [pig-ranch] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-15T21:32:37.925-08:00  INFO 37552 --- [pig-ranch] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2026-02-15T21:32:37.948-08:00  INFO 37552 --- [pig-ranch] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-15T21:32:38.163-08:00  INFO 37552 --- [pig-ranch] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-15T21:32:38.188-08:00  INFO 37552 --- [pig-ranch] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-15T21:32:38.379-08:00  INFO 37552 --- [pig-ranch] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/pigranch user=SA
+2026-02-15T21:32:38.380-08:00  INFO 37552 --- [pig-ranch] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-15T21:32:38.427-08:00  INFO 37552 --- [pig-ranch] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-15T21:32:39.039-08:00  INFO 37552 --- [pig-ranch] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-15T21:32:39.078-08:00  INFO 37552 --- [pig-ranch] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-15T21:32:39.358-08:00  INFO 37552 --- [pig-ranch] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-15T21:32:40.174-08:00  INFO 37552 --- [pig-ranch] [           main] c.P.p.s.ClientServiceIntegrationTest     : Started ClientServiceIntegrationTest in 3.162 seconds (process running for 3.829)
+Hibernate: select count(*) from household h1_0
+--- Database already seeded, skipping ---
+.\mvnw.cmd : Mockito is currently 
+self-attaching to enable the 
+inline-mock-maker. This will no 
+longer work in future releases of 
+the JDK. Please add Mockito as an 
+agent to your build what is 
+described in Mockito's 
+documentation: https://javadoc.io/do
+c/org.mockito/mockito-core/latest/or
+g/mockito/Mockito.html#0.3
+At line:1 char:1
++ .\mvnw.cmd test 
+-Dtest=ClientServiceIntegrationTest 
+> integration_fin ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSp 
+   ecified: (Mockito is curr...ock  
+  ito.html#0.3:String) [], Remote   
+ Exception
+    + FullyQualifiedErrorId : Nativ 
+   eCommandError
+ 
+Java HotSpot(TM) 64-Bit Server VM 
+warning: Sharing is only supported 
+for boot loader classes because 
+bootstrap classpath has been 
+appended
+WARNING: A Java agent has been 
+loaded dynamically (C:\Users\pliab\.
+m2\repository\net\bytebuddy\byte-bud
+dy-agent\1.15.11\byte-buddy-agent-1.
+15.11.jar)
+WARNING: If a serviceability tool 
+is in use, please run with 
+-XX:+EnableDynamicAgentLoading to 
+hide this warning
+WARNING: If a serviceability tool 
+is not in use, please run with 
+-Djdk.instrument.traceUsage for 
+more information
+WARNING: Dynamic loading of agents 
+will be disallowed by default in a 
+future release
+Hibernate: insert into household (address,city,referred_by_id,state,surname,zip_code,id) values (?,?,?,?,?,?,default)
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: select h1_0.id,h1_0.address,h1_0.city,h1_0.referred_by_id,h1_0.state,h1_0.surname,h1_0.zip_code from household h1_0 where (select count(c1_0.id) from client c1_0 where c1_0.household_id=h1_0.id)=0
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from client where id=?
+Hibernate: select h1_0.id,h1_0.address,h1_0.city,h1_0.referred_by_id,h1_0.state,h1_0.surname,h1_0.zip_code from household h1_0 where (select count(c1_0.id) from client c1_0 where c1_0.household_id=h1_0.id)=0
+Hibernate: select c1_0.id,c1_0.email,h1_0.id,h1_0.address,h1_0.city,rb1_0.id,rb1_0.email,rb1_0.household_id,rb1_0.name,rb1_0.notes,rb1_0.phone_number,h1_0.state,h1_0.surname,h1_0.zip_code,c1_0.name,c1_0.notes,c1_0.phone_number from client c1_0 left join household h1_0 on h1_0.id=c1_0.household_id left join client rb1_0 on rb1_0.id=h1_0.referred_by_id where c1_0.id=?
+Hibernate: insert into household (address,city,referred_by_id,state,surname,zip_code,id) values (?,?,?,?,?,?,default)
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: select h1_0.id,h1_0.address,h1_0.city,h1_0.referred_by_id,h1_0.state,h1_0.surname,h1_0.zip_code from household h1_0 where (select count(c1_0.id) from client c1_0 where c1_0.household_id=h1_0.id)=0
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: select h1_0.id,h1_0.address,h1_0.city,h1_0.referred_by_id,h1_0.state,h1_0.surname,h1_0.zip_code from household h1_0 where (select count(c1_0.id) from client c1_0 where c1_0.household_id=h1_0.id)=0
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: select h1_0.id,h1_0.address,h1_0.city,h1_0.referred_by_id,h1_0.state,h1_0.surname,h1_0.zip_code from household h1_0 where (select count(c1_0.id) from client c1_0 where c1_0.household_id=h1_0.id)=0
+Hibernate: select c1_0.id from client c1_0 where upper(c1_0.name)=upper(?) and c1_0.phone_number=? fetch first ? rows only
+Hibernate: select c1_0.id from client c1_0 where upper(c1_0.name)=upper(?) and c1_0.phone_number=? fetch first ? rows only
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: select h1_0.id,h1_0.address,h1_0.city,h1_0.referred_by_id,h1_0.state,h1_0.surname,h1_0.zip_code from household h1_0 where (select count(c1_0.id) from client c1_0 where c1_0.household_id=h1_0.id)=0
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from client where id=?
+Hibernate: select h1_0.id,h1_0.address,h1_0.city,h1_0.referred_by_id,h1_0.state,h1_0.surname,h1_0.zip_code from household h1_0 where (select count(c1_0.id) from client c1_0 where c1_0.household_id=h1_0.id)=0
+Hibernate: select c1_0.id,c1_0.email,h1_0.id,h1_0.address,h1_0.city,rb1_0.id,rb1_0.email,rb1_0.household_id,rb1_0.name,rb1_0.notes,rb1_0.phone_number,h1_0.state,h1_0.surname,h1_0.zip_code,c1_0.name,c1_0.notes,c1_0.phone_number from client c1_0 left join household h1_0 on h1_0.id=c1_0.household_id left join client rb1_0 on rb1_0.id=h1_0.referred_by_id where c1_0.id=?
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: select h1_0.id,h1_0.address,h1_0.city,h1_0.referred_by_id,h1_0.state,h1_0.surname,h1_0.zip_code from household h1_0 where (select count(c1_0.id) from client c1_0 where c1_0.household_id=h1_0.id)=0
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: select h1_0.id,h1_0.address,h1_0.city,h1_0.referred_by_id,h1_0.state,h1_0.surname,h1_0.zip_code from household h1_0 where (select count(c1_0.id) from client c1_0 where c1_0.household_id=h1_0.id)=0
+Hibernate: select c1_0.id,c1_0.email,c1_0.household_id,c1_0.name,c1_0.notes,c1_0.phone_number from client c1_0
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: select h1_0.id,h1_0.address,h1_0.city,h1_0.referred_by_id,h1_0.state,h1_0.surname,h1_0.zip_code from household h1_0 where (select count(c1_0.id) from client c1_0 where c1_0.household_id=h1_0.id)=0
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: update client set email=?,household_id=?,name=?,notes=?,phone_number=? where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: select h1_0.id,h1_0.address,h1_0.city,h1_0.referred_by_id,h1_0.state,h1_0.surname,h1_0.zip_code from household h1_0 where (select count(c1_0.id) from client c1_0 where c1_0.household_id=h1_0.id)=0
+Hibernate: select c1_0.id,c1_0.email,c1_0.household_id,c1_0.name,c1_0.notes,c1_0.phone_number from client c1_0
+Hibernate: select c1_0.id,c1_0.email,c1_0.household_id,c1_0.name,c1_0.notes,c1_0.phone_number from client c1_0
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: select h1_0.id,h1_0.address,h1_0.city,h1_0.referred_by_id,h1_0.state,h1_0.surname,h1_0.zip_code from household h1_0 where (select count(c1_0.id) from client c1_0 where c1_0.household_id=h1_0.id)=0
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: delete from household where id=?
+Hibernate: select c1_0.id from client c1_0 where upper(c1_0.name)=upper(?) and c1_0.phone_number=? fetch first ? rows only
+Hibernate: select c1_0.id from client c1_0 where upper(c1_0.name)=upper(?) and c1_0.phone_number=? fetch first ? rows only
+Hibernate: insert into household (address,city,referred_by_id,state,surname,zip_code,id) values (?,?,?,?,?,?,default)
+Hibernate: insert into household (address,city,referred_by_id,state,surname,zip_code,id) values (?,?,?,?,?,?,default)
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: select h1_0.id,h1_0.address,h1_0.city,h1_0.referred_by_id,h1_0.state,h1_0.surname,h1_0.zip_code from household h1_0 where (select count(c1_0.id) from client c1_0 where c1_0.household_id=h1_0.id)=0
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: select m1_0.household_id,m1_0.id,m1_0.email,m1_0.name,m1_0.notes,m1_0.phone_number from client m1_0 where m1_0.household_id=?
+Hibernate: insert into client (email,household_id,name,notes,phone_number,id) values (?,?,?,?,?,default)
+Hibernate: select c1_0.id from client c1_0 where upper(c1_0.name)=upper(?) and c1_0.phone_number=? fetch first ? rows only
+Hibernate: select c1_0.id from client c1_0 where upper(c1_0.name)=upper(?) and c1_0.phone_number=? fetch first ? rows only
+[ERROR] Tests run: 9, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 4.023 s <<< FAILURE! -- in com.PL.pig_ranch.service.ClientServiceIntegrationTest
+[ERROR] com.PL.pig_ranch.service.ClientServiceIntegrationTest.testEditClientCleansUpOldOrphanHousehold -- Time elapsed: 0.015 s <<< ERROR!
+org.springframework.dao.InvalidDataAccessApiUsageException: org.hibernate.TransientObjectException: persistent instance references an unsaved transient instance of 'com.PL.pig_ranch.model.Household' (save the transient instance before flushing)
+	at org.springframework.orm.jpa.EntityManagerFactoryUtils.convertJpaAccessExceptionIfPossible(EntityManagerFactoryUtils.java:368)
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:246)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:560)
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61)
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:343)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:160)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:136)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:223)
+	at jdk.proxy2/jdk.proxy2.$Proxy126.findOrphanHouseholds(Unknown Source)
+	at com.PL.pig_ranch.service.impl.HouseholdServiceImpl.deleteOrphans(HouseholdServiceImpl.java:44)
+	at com.PL.pig_ranch.service.impl.ClientServiceImpl.saveClient(ClientServiceImpl.java:30)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727)
+	at com.PL.pig_ranch.service.impl.ClientServiceImpl$$SpringCGLIB$$0.saveClient(<generated>)
+	at com.PL.pig_ranch.service.ClientServiceIntegrationTest.testEditClientCleansUpOldOrphanHousehold(ClientServiceIntegrationTest.java:163)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+Caused by: java.lang.IllegalStateException: org.hibernate.TransientObjectException: persistent instance references an unsaved transient instance of 'com.PL.pig_ranch.model.Household' (save the transient instance before flushing)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:157)
+	at org.hibernate.query.spi.AbstractSelectionQuery.list(AbstractSelectionQuery.java:151)
+	at org.hibernate.query.Query.getResultList(Query.java:120)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution$CollectionExecution.doExecute(JpaQueryExecution.java:130)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution.execute(JpaQueryExecution.java:93)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.doExecute(AbstractJpaQuery.java:152)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.execute(AbstractJpaQuery.java:140)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:170)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:170)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:149)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:69)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+	... 21 more
+Caused by: org.hibernate.TransientObjectException: persistent instance references an unsaved transient instance of 'com.PL.pig_ranch.model.Household' (save the transient instance before flushing)
+	at org.hibernate.engine.spi.CascadingActions$9.cascade(CascadingActions.java:382)
+	at org.hibernate.engine.spi.CascadingActions$9.cascade(CascadingActions.java:372)
+	at org.hibernate.engine.internal.Cascade.cascadeToOne(Cascade.java:570)
+	at org.hibernate.engine.internal.Cascade.cascadeAssociation(Cascade.java:492)
+	at org.hibernate.engine.internal.Cascade.cascadeProperty(Cascade.java:253)
+	at org.hibernate.engine.internal.Cascade.cascade(Cascade.java:192)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.prepareEntityFlushes(AbstractFlushingEventListener.java:169)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.preFlush(AbstractFlushingEventListener.java:107)
+	at org.hibernate.event.internal.DefaultAutoFlushEventListener.onAutoPreFlush(DefaultAutoFlushEventListener.java:104)
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:127)
+	at org.hibernate.internal.SessionImpl.autoPreFlush(SessionImpl.java:1391)
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.withCacheableSqmInterpretation(ConcreteSqmSelectQueryPlan.java:382)
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.performList(ConcreteSqmSelectQueryPlan.java:362)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.doList(QuerySqmImpl.java:380)
+	at org.hibernate.query.spi.AbstractSelectionQuery.list(AbstractSelectionQuery.java:143)
+	... 37 more
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Errors: 
+[ERROR]   ClientServiceIntegrationTest.testEditClientCleansUpOldOrphanHousehold:163 ╗ InvalidDataAccessApiUsage org.hibernate.TransientObjectException: persistent instance references an unsaved transient instance of 'com.PL.pig_ranch.model.Household' (save the transient instance before flushing)
+[INFO] 
+[ERROR] Tests run: 9, Failures: 0, Errors: 1, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.753 s
+[INFO] Finished at: 2026-02-15T21:32:40-08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.2:test (default-test) on project pig-ranch: 
+[ERROR] 
+[ERROR] See C:\Users\pliab\OneDrive - Western Governors University\Desktop\Coding Projects\Client and Inventory Management App\pig-ranch\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

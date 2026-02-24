@@ -34,8 +34,18 @@ public class HouseholdServiceImpl implements HouseholdService {
         return householdRepository.findAll();
     }
 
+    @Autowired
+    private com.PL.pig_ranch.repository.ClientRepository clientRepository;
+
     @Override
     public void deleteHousehold(Long id) {
         householdRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteHouseholdIfEmpty(Long id) {
+        if (id != null && clientRepository.countByHouseholdId(id) == 0) {
+            householdRepository.deleteById(id);
+        }
     }
 }
