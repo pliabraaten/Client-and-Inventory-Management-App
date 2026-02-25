@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10.0" prefWidth="600" prefHeight="400" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.PL.pig_ranch.controller.TransactionHistoryController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+    <children>
+        <Label fx:id="titleLabel" text="Transaction History" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+        
+        <TableView fx:id="transactionTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colTimestamp" text="Date/Time" prefWidth="150"/>
+                <TableColumn fx:id="colType" text="Type" prefWidth="100"/>
+                <TableColumn fx:id="colAmount" text="Change" prefWidth="80"/>
+                <TableColumn fx:id="colNotes" text="Notes" prefWidth="230"/>
+            </columns>
+        </TableView>
+        
+        <HBox alignment="CENTER_RIGHT">
+            <Button text="Close" onAction="#handleClose"/>
+        </HBox>
+    </children>
+</VBox>
