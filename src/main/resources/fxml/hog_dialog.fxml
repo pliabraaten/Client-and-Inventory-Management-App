@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10.0" prefWidth="450" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.PL.pig_ranch.controller.HogDialogController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+    <children>
+        <Label fx:id="titleLabel" text="Add Hog" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+        <GridPane hgap="10.0" vgap="10.0">
+            <children>
+                <Label text="Hog #:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="hogNumberField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Type:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="hogTypeComboBox" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="200"/>
+
+                <Label text="Processor:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="processorField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Live Weight:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField fx:id="liveWeightField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <Label text="Hanging Weight:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <TextField fx:id="hangingWeightField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                <Label text="Processing $:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <TextField fx:id="processingCostField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                <Label text="Inspected:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                <CheckBox fx:id="inspectedCheckBox" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+            </children>
+        </GridPane>
+
+        <Region VBox.vgrow="ALWAYS"/>
+
+        <HBox spacing="10.0" alignment="CENTER_RIGHT">
+            <children>
+                <Button text="Cancel" onAction="#handleCancel"/>
+                <Button text="Save" onAction="#handleSave" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+            </children>
+        </HBox>
+    </children>
+</VBox>

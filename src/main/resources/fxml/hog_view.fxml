@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="10.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.PL.pig_ranch.controller.HogController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+    <children>
+        <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <children>
+                <Button text="← Back" onAction="#handleBackClick"/>
+                <Label text="Hog Inventory">
+                    <font>
+                        <Font size="20.0"/>
+                    </font>
+                </Label>
+                <Region HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="searchField" promptText="Search hogs..." prefWidth="250"/>
+                <Button text="+ Add Hog" onAction="#handleAddHogClick"/>
+            </children>
+        </HBox>
+
+        <TableView fx:id="hogTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colHogNumber" text="Hog #" prefWidth="70"/>
+                <TableColumn fx:id="colHogType" text="Type" prefWidth="70"/>
+                <TableColumn fx:id="colInspected" text="Inspected" prefWidth="75"/>
+                <TableColumn fx:id="colProcessor" text="Processor" prefWidth="120"/>
+                <TableColumn fx:id="colLiveWeight" text="Live Wt" prefWidth="75"/>
+                <TableColumn fx:id="colHangingWeight" text="Hang Wt" prefWidth="75"/>
+                <TableColumn fx:id="colPercentHanging" text="% Hang" prefWidth="70"/>
+                <TableColumn fx:id="colProcessingCost" text="Processing $" prefWidth="90"/>
+                <TableColumn fx:id="colActions" text="Actions" prefWidth="120"/>
+            </columns>
+        </TableView>
+    </children>
+</VBox>

@@ -2,8 +2,12 @@ package com.PL.pig_ranch;
 
 import com.PL.pig_ranch.model.Client;
 import com.PL.pig_ranch.model.Household;
+import com.PL.pig_ranch.model.HogInventory;
+import com.PL.pig_ranch.model.InventoryItem;
 import com.PL.pig_ranch.repository.ClientRepository;
+import com.PL.pig_ranch.repository.HogRepository;
 import com.PL.pig_ranch.repository.HouseholdRepository;
+import com.PL.pig_ranch.repository.InventoryRepository;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +20,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Main application class — extends JavaFX Application and boots the Spring
@@ -74,7 +79,9 @@ public class PigRanchApplication extends Application {
 	// SEED DB
 	@Bean
 	public CommandLineRunner demoData(HouseholdRepository householdRepository,
-			ClientRepository clientRepository) {
+			ClientRepository clientRepository,
+			InventoryRepository inventoryRepository,
+			HogRepository hogRepository) {
 		return args -> {
 			if (householdRepository.count() == 0) {
 				// Seed Households
@@ -90,6 +97,23 @@ public class PigRanchApplication extends Application {
 				Client c2 = new Client(null, "Jane Smith", "jane@smith.com", "555-0102", "Mother", h1);
 				Client c3 = new Client(null, "Alice Doe", "alice@doe.com", "555-0201", "Individual", h2);
 				clientRepository.saveAll(Arrays.asList(c1, c2, c3));
+
+				// Seed Inventory (By the Piece)
+				List<String> itemNames = Arrays.asList(
+					"Bacon", "Bacon Ends", "Chops Bone in", "Chops boneless", "Brats", 
+					"Breakfast links", "Whole Ham", "Half Ham", "Ham Steaks", "Ham Hocks", 
+					"Ham Rst Fresh", "Loin Whole", "Pork Burgers", "Ribs", "Baby Back R", 
+					"Sausage Mild", "Sausage Med", "Sausage Hot", "Ground Pork", 
+					"Shoulder Roast", "Shoulder Steak", "Boston Butt"
+				);
+
+				for (String name : itemNames) {
+					inventoryRepository.save(new InventoryItem(null, name, "Pork product", "Meat", 0));
+				}
+
+				// Seed Hogs
+				hogRepository.save(new HogInventory(null, "H001", HogInventory.HogType.WHOLE, true, "Valley Meats", 280.0, 196.0, 125.00));
+				hogRepository.save(new HogInventory(null, "H002", HogInventory.HogType.HALF, false, "Valley Meats", 300.0, null, null));
 
 				System.out.println("--- Data Seeding Completed ---");
 			} else {

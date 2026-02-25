@@ -21,7 +21,11 @@ public class HomeController {
 
     @FXML
     public void handleInventoryClick() {
-        // Placeholder for Inventory navigation
-        System.out.println("Inventory clicked");
+        eventPublisher.publishEvent(new NavigationEvent(this, "INVENTORY"));
+    }
+
+    @FXML
+    public void handleHogsClick() {
+        eventPublisher.publishEvent(new NavigationEvent(this, "HOGS"));
     }
 }
