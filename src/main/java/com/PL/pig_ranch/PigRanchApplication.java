@@ -2,12 +2,16 @@ package com.PL.pig_ranch;
 
 import com.PL.pig_ranch.model.Client;
 import com.PL.pig_ranch.model.Household;
-import com.PL.pig_ranch.model.HogInventory;
+import com.PL.pig_ranch.model.Hog;
 import com.PL.pig_ranch.model.InventoryItem;
+import com.PL.pig_ranch.model.Order;
+import com.PL.pig_ranch.model.OrderItem;
 import com.PL.pig_ranch.repository.ClientRepository;
 import com.PL.pig_ranch.repository.HogRepository;
 import com.PL.pig_ranch.repository.HouseholdRepository;
 import com.PL.pig_ranch.repository.InventoryRepository;
+import com.PL.pig_ranch.repository.OrderRepository;
+import com.PL.pig_ranch.repository.OrderItemRepository;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -87,7 +91,9 @@ public class PigRanchApplication extends Application {
 	public CommandLineRunner demoData(HouseholdRepository householdRepository,
 			ClientRepository clientRepository,
 			InventoryRepository inventoryRepository,
-			HogRepository hogRepository) {
+			HogRepository hogRepository,
+			OrderRepository orderRepository,
+			OrderItemRepository orderItemRepository) {
 		return args -> {
 			if (householdRepository.count() == 0) {
 				// Seed Households
@@ -113,14 +119,19 @@ public class PigRanchApplication extends Application {
 						"Shoulder Roast", "Shoulder Steak", "Boston Butt");
 
 				for (String name : itemNames) {
-					inventoryRepository.save(new InventoryItem(null, name, "Pork product", "Meat", 0));
+					inventoryRepository.save(new InventoryItem(null, name, "Meat", "Pork product", 0, 5.0));
 				}
 
-				// Seed Hogs
-				hogRepository.save(new HogInventory(null, "H001", HogInventory.HogType.WHOLE, true, "Valley Meats",
-						280.0, 196.0, 125.00));
-				hogRepository.save(new HogInventory(null, "H002", HogInventory.HogType.HALF, false, "Valley Meats",
-						300.0, null, null));
+				// Seed a sample order
+				Order o1 = new Order();
+				o1.setClient(c1);
+				o1.setNotes("Initial sample order");
+				orderRepository.save(o1);
+
+				// Seed Hogs associated with the order
+				Hog hog1 = new Hog(null, "H001", Hog.HogType.WHOLE, true, "Valley Meats", 280.0, 196.0, 125.0, o1);
+				Hog hog2 = new Hog(null, "H002", Hog.HogType.HALF, false, "Valley Meats", 300.0, null, null, o1);
+				hogRepository.saveAll(Arrays.asList(hog1, hog2));
 
 				System.out.println("--- Data Seeding Completed ---");
 			} else {
