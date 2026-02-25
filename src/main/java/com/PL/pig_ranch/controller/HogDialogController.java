@@ -1,6 +1,6 @@
 package com.PL.pig_ranch.controller;
 
-import com.PL.pig_ranch.model.HogInventory;
+import com.PL.pig_ranch.model.Hog;
 import com.PL.pig_ranch.service.HogService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -15,16 +15,24 @@ import org.springframework.stereotype.Component;
 public class HogDialogController {
 
     private final HogService hogService;
-    private HogInventory editingHog;
+    private Hog editingHog;
 
-    @FXML private Label titleLabel;
-    @FXML private TextField hogNumberField;
-    @FXML private ComboBox<HogInventory.HogType> hogTypeComboBox;
-    @FXML private TextField processorField;
-    @FXML private TextField liveWeightField;
-    @FXML private TextField hangingWeightField;
-    @FXML private TextField processingCostField;
-    @FXML private CheckBox inspectedCheckBox;
+    @FXML
+    private Label titleLabel;
+    @FXML
+    private TextField hogNumberField;
+    @FXML
+    private ComboBox<Hog.HogType> hogTypeComboBox;
+    @FXML
+    private TextField processorField;
+    @FXML
+    private TextField liveWeightField;
+    @FXML
+    private TextField hangingWeightField;
+    @FXML
+    private TextField processingCostField;
+    @FXML
+    private CheckBox inspectedCheckBox;
 
     @Autowired
     public HogDialogController(HogService hogService) {
@@ -33,11 +41,11 @@ public class HogDialogController {
 
     @FXML
     public void initialize() {
-        hogTypeComboBox.setItems(FXCollections.observableArrayList(HogInventory.HogType.values()));
-        hogTypeComboBox.setValue(HogInventory.HogType.WHOLE);
+        hogTypeComboBox.setItems(FXCollections.observableArrayList(Hog.HogType.values()));
+        hogTypeComboBox.setValue(Hog.HogType.WHOLE);
     }
 
-    public void setHog(HogInventory hog) {
+    public void setHog(Hog hog) {
         this.editingHog = hog;
         if (hog != null) {
             titleLabel.setText("Edit Hog #" + hog.getHogNumber());
@@ -54,7 +62,7 @@ public class HogDialogController {
     @FXML
     public void handleSave() {
         try {
-            HogInventory hog = (editingHog != null) ? editingHog : new HogInventory();
+            Hog hog = (editingHog != null) ? editingHog : new Hog();
             hog.setHogNumber(hogNumberField.getText());
             hog.setHogType(hogTypeComboBox.getValue());
             hog.setProcessor(processorField.getText());

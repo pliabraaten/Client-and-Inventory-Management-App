@@ -1,16 +1,16 @@
 package com.PL.pig_ranch.service;
 
-import com.PL.pig_ranch.model.HogInventory;
+import com.PL.pig_ranch.model.Hog;
 import java.util.List;
 import java.util.Optional;
 
 public interface HogService {
 
-    List<HogInventory> getAllHogs();
+    List<Hog> getAllHogs();
 
-    Optional<HogInventory> getHogById(Long id);
+    Optional<Hog> getHogById(Long id);
 
-    HogInventory saveHog(HogInventory hog);
+    Hog saveHog(Hog hog);
 
     void deleteHog(Long id);
 }

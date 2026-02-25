@@ -24,7 +24,10 @@ public class InventoryItem {
     @NotBlank(message = "Item name is required")
     private String name;
 
+    private String type;
+
     private String description;
 
     private Integer quantity = 0;
+    private Double price = 0.0;
 }

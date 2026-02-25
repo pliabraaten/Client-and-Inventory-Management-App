@@ -1,6 +1,6 @@
 package com.PL.pig_ranch.controller;
 
-import com.PL.pig_ranch.model.HogInventory;
+import com.PL.pig_ranch.model.Hog;
 import com.PL.pig_ranch.service.HogService;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -31,20 +31,31 @@ public class HogController {
     private final ApplicationEventPublisher eventPublisher;
     private final ApplicationContext context;
 
-    private ObservableList<HogInventory> allHogs;
-    private FilteredList<HogInventory> filteredHogs;
+    private ObservableList<Hog> allHogs;
+    private FilteredList<Hog> filteredHogs;
 
-    @FXML private TableView<HogInventory> hogTable;
-    @FXML private TableColumn<HogInventory, String> colHogNumber;
-    @FXML private TableColumn<HogInventory, String> colHogType;
-    @FXML private TableColumn<HogInventory, String> colInspected;
-    @FXML private TableColumn<HogInventory, String> colProcessor;
-    @FXML private TableColumn<HogInventory, Double> colLiveWeight;
-    @FXML private TableColumn<HogInventory, Double> colHangingWeight;
-    @FXML private TableColumn<HogInventory, String> colPercentHanging;
-    @FXML private TableColumn<HogInventory, Double> colProcessingCost;
-    @FXML private TableColumn<HogInventory, Void> colActions;
-    @FXML private TextField searchField;
+    @FXML
+    private TableView<Hog> hogTable;
+    @FXML
+    private TableColumn<Hog, String> colHogNumber;
+    @FXML
+    private TableColumn<Hog, String> colHogType;
+    @FXML
+    private TableColumn<Hog, String> colInspected;
+    @FXML
+    private TableColumn<Hog, String> colProcessor;
+    @FXML
+    private TableColumn<Hog, Double> colLiveWeight;
+    @FXML
+    private TableColumn<Hog, Double> colHangingWeight;
+    @FXML
+    private TableColumn<Hog, String> colPercentHanging;
+    @FXML
+    private TableColumn<Hog, Double> colProcessingCost;
+    @FXML
+    private TableColumn<Hog, Void> colActions;
+    @FXML
+    private TextField searchField;
 
     @Autowired
     public HogController(HogService hogService, ApplicationEventPublisher eventPublisher, ApplicationContext context) {
@@ -62,10 +73,10 @@ public class HogController {
 
     private void setupTable() {
         colHogNumber.setCellValueFactory(new PropertyValueFactory<>("hogNumber"));
-        colHogType.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getHogType() != null ? cellData.getValue().getHogType().name() : ""));
-        colInspected.setCellValueFactory(cellData ->
-                new SimpleStringProperty(Boolean.TRUE.equals(cellData.getValue().getInspected()) ? "Yes" : "No"));
+        colHogType.setCellValueFactory(cellData -> new SimpleStringProperty(
+                cellData.getValue().getHogType() != null ? cellData.getValue().getHogType().name() : ""));
+        colInspected.setCellValueFactory(cellData -> new SimpleStringProperty(
+                Boolean.TRUE.equals(cellData.getValue().getInspected()) ? "Yes" : "No"));
         colProcessor.setCellValueFactory(new PropertyValueFactory<>("processor"));
         colLiveWeight.setCellValueFactory(new PropertyValueFactory<>("liveWeight"));
         colHangingWeight.setCellValueFactory(new PropertyValueFactory<>("hangingWeight"));
@@ -87,13 +98,13 @@ public class HogController {
             {
                 editBtn.setStyle("-fx-background-color: #4444ff; -fx-text-fill: white;");
                 editBtn.setOnAction(event -> {
-                    HogInventory hog = getTableView().getItems().get(getIndex());
+                    Hog hog = getTableView().getItems().get(getIndex());
                     handleEdit(hog);
                 });
 
                 deleteBtn.setStyle("-fx-background-color: #ff4444; -fx-text-fill: white;");
                 deleteBtn.setOnAction(event -> {
-                    HogInventory hog = getTableView().getItems().get(getIndex());
+                    Hog hog = getTableView().getItems().get(getIndex());
                     handleDelete(hog);
                 });
             }
@@ -112,11 +123,12 @@ public class HogController {
 
         searchField.textProperty().addListener((obs, oldVal, newVal) -> {
             filteredHogs.setPredicate(hog -> {
-                if (newVal == null || newVal.isEmpty()) return true;
+                if (newVal == null || newVal.isEmpty())
+                    return true;
                 String lower = newVal.toLowerCase();
                 return (hog.getHogNumber() != null && hog.getHogNumber().toLowerCase().contains(lower)) ||
-                       (hog.getProcessor() != null && hog.getProcessor().toLowerCase().contains(lower)) ||
-                       (hog.getHogType() != null && hog.getHogType().name().toLowerCase().contains(lower));
+                        (hog.getProcessor() != null && hog.getProcessor().toLowerCase().contains(lower)) ||
+                        (hog.getHogType() != null && hog.getHogType().name().toLowerCase().contains(lower));
             });
         });
 
@@ -127,12 +139,12 @@ public class HogController {
         allHogs.setAll(hogService.getAllHogs());
     }
 
-    private void handleEdit(HogInventory hog) {
+    private void handleEdit(Hog hog) {
         showDialog(hog);
         loadData();
     }
 
-    private void handleDelete(HogInventory hog) {
+    private void handleDelete(Hog hog) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirm Deletion");
         alert.setHeaderText("Delete Hog #" + hog.getHogNumber());
@@ -146,7 +158,7 @@ public class HogController {
         });
     }
 
-    private void showDialog(HogInventory hog) {
+    private void showDialog(Hog hog) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/hog_dialog.fxml"));
             loader.setControllerFactory(context::getBean);

@@ -9,9 +9,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class HogInventory {
+public class Hog {
 
-    public enum HogType {WHOLE, HALF}
+    public enum HogType {
+        WHOLE, HALF
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +34,10 @@ public class HogInventory {
     private Double hangingWeight;
 
     private Double processingCost;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     /**
      * Computed field — not stored in DB.

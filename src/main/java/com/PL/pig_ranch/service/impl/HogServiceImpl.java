@@ -1,6 +1,6 @@
 package com.PL.pig_ranch.service.impl;
 
-import com.PL.pig_ranch.model.HogInventory;
+import com.PL.pig_ranch.model.Hog;
 import com.PL.pig_ranch.repository.HogRepository;
 import com.PL.pig_ranch.service.HogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +20,18 @@ public class HogServiceImpl implements HogService {
     }
 
     @Override
-    public List<HogInventory> getAllHogs() {
+    public List<Hog> getAllHogs() {
         return hogRepository.findAll();
     }
 
     @Override
-    public Optional<HogInventory> getHogById(Long id) {
+    public Optional<Hog> getHogById(Long id) {
         return hogRepository.findById(id);
     }
 
     @Override
     @Transactional
-    public HogInventory saveHog(HogInventory hog) {
+    public Hog saveHog(Hog hog) {
         return hogRepository.save(hog);
     }
 
