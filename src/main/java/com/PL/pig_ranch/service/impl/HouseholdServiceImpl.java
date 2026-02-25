@@ -2,6 +2,7 @@ package com.PL.pig_ranch.service.impl;
 
 import com.PL.pig_ranch.model.Household;
 import com.PL.pig_ranch.repository.HouseholdRepository;
+import com.PL.pig_ranch.repository.ClientRepository;
 import com.PL.pig_ranch.service.HouseholdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,11 +14,11 @@ import java.util.Optional;
 public class HouseholdServiceImpl implements HouseholdService {
 
     private final HouseholdRepository householdRepository;
-    private final com.PL.pig_ranch.repository.ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
 
     @Autowired
     public HouseholdServiceImpl(HouseholdRepository householdRepository,
-            com.PL.pig_ranch.repository.ClientRepository clientRepository) {
+            ClientRepository clientRepository) {
         this.householdRepository = householdRepository;
         this.clientRepository = clientRepository;
     }
@@ -43,6 +44,7 @@ public class HouseholdServiceImpl implements HouseholdService {
     }
 
     @Override
+    // Delete household if empty
     public void deleteHouseholdIfEmpty(Long id) {
         if (id != null && clientRepository.countByHouseholdId(id) == 0) {
             householdRepository.deleteById(id);

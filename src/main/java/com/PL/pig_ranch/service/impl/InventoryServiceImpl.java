@@ -48,12 +48,15 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     @Transactional
     public InventoryItem updateStock(Long itemId, int amount, InventoryTransaction.TransactionType type, String notes) {
+        // Find inventory item
         InventoryItem item = inventoryRepository.findById(itemId)
                 .orElseThrow(() -> new RuntimeException("Inventory Item not found with id: " + itemId));
 
+        // Save updated quantity
         item.setQuantity(item.getQuantity() + amount);
         InventoryItem savedItem = inventoryRepository.save(item);
 
+        // Create and save transaction history
         InventoryTransaction transaction = new InventoryTransaction();
         transaction.setItem(savedItem);
         transaction.setChangeAmount(amount);

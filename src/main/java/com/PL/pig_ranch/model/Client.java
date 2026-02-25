@@ -27,7 +27,7 @@ public class Client {
     private String email;
     private String phoneNumber;
 
-    // address is now in Household
+    // address is in Household
 
     private String notes;
 

@@ -26,7 +26,5 @@ public class InventoryItem {
 
     private String description;
 
-    private String type;
-
     private Integer quantity = 0;
 }

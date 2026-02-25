@@ -42,10 +42,12 @@ public class ClientServiceImpl implements ClientService {
     @Override
     @Transactional
     public void deleteClient(Long id) {
-        Optional<Client> clientOpt = clientRepository.findById(id);
+        Optional<Client> clientOpt = clientRepository.findById(id); // Find client
+        // Get household id and delete client if empty
         if (clientOpt.isPresent()) {
             Long householdId = clientOpt.get().getHousehold() != null ? clientOpt.get().getHousehold().getId() : null;
             clientRepository.deleteById(id);
+            // Delete household if empty
             if (householdId != null) {
                 householdService.deleteHouseholdIfEmpty(householdId);
             }
