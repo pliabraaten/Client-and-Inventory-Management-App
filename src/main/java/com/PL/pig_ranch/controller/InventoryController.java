@@ -28,7 +28,7 @@ public class InventoryController {
     private final InventoryService inventoryService;
     private final ApplicationEventPublisher eventPublisher;
     private final ApplicationContext context;
-    
+
     private ObservableList<InventoryItem> allItems;
     private FilteredList<InventoryItem> filteredItems;
 
@@ -50,7 +50,8 @@ public class InventoryController {
     private TextField searchField;
 
     @Autowired
-    public InventoryController(InventoryService inventoryService, ApplicationEventPublisher eventPublisher, ApplicationContext context) {
+    public InventoryController(InventoryService inventoryService, ApplicationEventPublisher eventPublisher,
+            ApplicationContext context) {
         this.inventoryService = inventoryService;
         this.eventPublisher = eventPublisher;
         this.context = context;
@@ -76,14 +77,21 @@ public class InventoryController {
     private void setupActionsColumn() {
         colActions.setCellFactory(param -> new TableCell<>() {
             private final Button adjustBtn = new Button("Adjust");
+            private final Button editBtn = new Button("Edit");
             private final Button historyBtn = new Button("Logs");
-            private final HBox container = new HBox(5, adjustBtn, historyBtn);
+            private final HBox container = new HBox(5, adjustBtn, editBtn, historyBtn);
 
             {
                 adjustBtn.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
                 adjustBtn.setOnAction(event -> {
                     InventoryItem item = getTableView().getItems().get(getIndex());
                     handleAdjust(item);
+                });
+
+                editBtn.setStyle("-fx-background-color: #FF9800; -fx-text-fill: white;");
+                editBtn.setOnAction(event -> {
+                    InventoryItem item = getTableView().getItems().get(getIndex());
+                    handleEdit(item);
                 });
 
                 historyBtn.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white;");
@@ -111,10 +119,11 @@ public class InventoryController {
 
         searchField.textProperty().addListener((obs, oldVal, newVal) -> {
             filteredItems.setPredicate(item -> {
-                if (newVal == null || newVal.isEmpty()) return true;
+                if (newVal == null || newVal.isEmpty())
+                    return true;
                 String lower = newVal.toLowerCase();
                 return (item.getName() != null && item.getName().toLowerCase().contains(lower)) ||
-                       (item.getType() != null && item.getType().toLowerCase().contains(lower));
+                        (item.getType() != null && item.getType().toLowerCase().contains(lower));
             });
         });
 
@@ -127,7 +136,12 @@ public class InventoryController {
     }
 
     private void handleAdjust(InventoryItem item) {
-        showDialog(item);
+        showDialog(item, InventoryDialogController.DialogMode.ADJUST);
+        loadData();
+    }
+
+    private void handleEdit(InventoryItem item) {
+        showDialog(item, InventoryDialogController.DialogMode.EDIT);
         loadData();
     }
 
@@ -150,17 +164,25 @@ public class InventoryController {
         }
     }
 
-    private void showDialog(InventoryItem item) {
+    private void showDialog(InventoryItem item, InventoryDialogController.DialogMode mode) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/inventory_dialog.fxml"));
             loader.setControllerFactory(context::getBean);
             Parent root = loader.load();
 
             InventoryDialogController controller = loader.getController();
-            controller.setItem(item);
+            controller.setItem(item, mode);
 
             Stage stage = new Stage();
-            stage.setTitle(item == null ? "Add Item" : "Adjust Stock");
+            String title = "Inventory Item";
+            if (mode == InventoryDialogController.DialogMode.ADD)
+                title = "Add Item";
+            else if (mode == InventoryDialogController.DialogMode.ADJUST)
+                title = "Adjust Stock";
+            else if (mode == InventoryDialogController.DialogMode.EDIT)
+                title = "Edit Details";
+
+            stage.setTitle(title);
             stage.setScene(new Scene(root));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
@@ -176,7 +198,7 @@ public class InventoryController {
 
     @FXML
     public void handleAddItemClick() {
-        showDialog(null);
+        showDialog(null, InventoryDialogController.DialogMode.ADD);
         loadData();
     }
 }

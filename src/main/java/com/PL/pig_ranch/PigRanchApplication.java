@@ -50,21 +50,27 @@ public class PigRanchApplication extends Application {
 
 	// Loads the FXML UI and shows the window
 	@Override
-	public void start(Stage primaryStage) throws Exception {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
+	public void start(Stage primaryStage) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
 
-		// Wire FXML controllers through Spring so they can use @Autowired
-		loader.setControllerFactory(springContext::getBean);
+			// Wire FXML controllers through Spring so they can use @Autowired
+			loader.setControllerFactory(springContext::getBean);
 
-		Parent root = loader.load();
-		Scene scene = new Scene(root, 800, 600);
+			Parent root = loader.load();
+			Scene scene = new Scene(root, 800, 600);
 
-		primaryStage.setTitle("Pig Ranch");
-		primaryStage.setScene(scene);
-		primaryStage.show();
+			primaryStage.setTitle("Pig Ranch");
+			primaryStage.setScene(scene);
+			primaryStage.show();
 
-		// Publish event so other Spring beans know the Stage is ready
-		springContext.publishEvent(new StageReadyEvent(primaryStage));
+			// Publish event so other Spring beans know the Stage is ready
+			springContext.publishEvent(new StageReadyEvent(primaryStage));
+		} catch (Exception e) {
+			System.err.println("CRITICAL: Failed to load application UI");
+			e.printStackTrace();
+			Platform.exit();
+		}
 	}
 
 	// Closes the Spring context on exit
@@ -100,20 +106,21 @@ public class PigRanchApplication extends Application {
 
 				// Seed Inventory (By the Piece)
 				List<String> itemNames = Arrays.asList(
-					"Bacon", "Bacon Ends", "Chops Bone in", "Chops boneless", "Brats", 
-					"Breakfast links", "Whole Ham", "Half Ham", "Ham Steaks", "Ham Hocks", 
-					"Ham Rst Fresh", "Loin Whole", "Pork Burgers", "Ribs", "Baby Back R", 
-					"Sausage Mild", "Sausage Med", "Sausage Hot", "Ground Pork", 
-					"Shoulder Roast", "Shoulder Steak", "Boston Butt"
-				);
+						"Bacon", "Bacon Ends", "Chops Bone in", "Chops boneless", "Brats",
+						"Breakfast links", "Whole Ham", "Half Ham", "Ham Steaks", "Ham Hocks",
+						"Ham Rst Fresh", "Loin Whole", "Pork Burgers", "Ribs", "Baby Back R",
+						"Sausage Mild", "Sausage Med", "Sausage Hot", "Ground Pork",
+						"Shoulder Roast", "Shoulder Steak", "Boston Butt");
 
 				for (String name : itemNames) {
 					inventoryRepository.save(new InventoryItem(null, name, "Pork product", "Meat", 0));
 				}
 
 				// Seed Hogs
-				hogRepository.save(new HogInventory(null, "H001", HogInventory.HogType.WHOLE, true, "Valley Meats", 280.0, 196.0, 125.00));
-				hogRepository.save(new HogInventory(null, "H002", HogInventory.HogType.HALF, false, "Valley Meats", 300.0, null, null));
+				hogRepository.save(new HogInventory(null, "H001", HogInventory.HogType.WHOLE, true, "Valley Meats",
+						280.0, 196.0, 125.00));
+				hogRepository.save(new HogInventory(null, "H002", HogInventory.HogType.HALF, false, "Valley Meats",
+						300.0, null, null));
 
 				System.out.println("--- Data Seeding Completed ---");
 			} else {

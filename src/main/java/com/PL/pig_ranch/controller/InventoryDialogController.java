@@ -18,7 +18,12 @@ public class InventoryDialogController {
 
     private final InventoryService inventoryService;
     private InventoryItem editingItem;
-    private boolean isAdjustmentMode = false;
+
+    public enum DialogMode {
+        ADD, ADJUST, EDIT
+    }
+
+    private DialogMode currentMode = DialogMode.ADD;
 
     @FXML
     private Label titleLabel;
@@ -32,6 +37,12 @@ public class InventoryDialogController {
     private Label quantityLabel;
     @FXML
     private TextField quantityField;
+    @FXML
+    private Label typeLabel;
+    @FXML
+    private Label descLabel;
+    @FXML
+    private Label nameLabel;
     @FXML
     private HBox adjustmentBox;
     @FXML
@@ -49,36 +60,78 @@ public class InventoryDialogController {
         adjTypeComboBox.setValue(InventoryTransaction.TransactionType.ADJUSTMENT);
     }
 
-    public void setItem(InventoryItem item) {
+    public void setItem(InventoryItem item, DialogMode mode) {
         this.editingItem = item;
-        if (item != null) {
-            isAdjustmentMode = true;
+        this.currentMode = mode;
+
+        if (mode == DialogMode.ADJUST) {
             titleLabel.setText("Adjust Inventory: " + item.getName());
-            nameField.setText(item.getName());
-            nameField.setEditable(false);
-            typeComboBox.setValue(item.getType());
-            typeComboBox.setDisable(true);
-            descriptionArea.setText(item.getDescription());
-            descriptionArea.setEditable(false);
+
+            // Hide metadata fields
+            toggleMetadataFields(false);
 
             quantityLabel.setText("Amount (+/-):");
             quantityField.setText("");
             adjustmentBox.setVisible(true);
             adjustmentBox.setManaged(true);
-        } else {
-            isAdjustmentMode = false;
+
+        } else if (mode == DialogMode.EDIT) {
+            titleLabel.setText("Edit Item: " + item.getName());
+
+            // Show metadata fields as editable
+            toggleMetadataFields(true);
+            nameField.setText(item.getName());
+            typeComboBox.setValue(item.getType());
+            descriptionArea.setText(item.getDescription());
+
+            // Hide adjustment fields
+            quantityLabel.setVisible(false);
+            quantityLabel.setManaged(false);
+            quantityField.setVisible(false);
+            quantityField.setManaged(false);
+            adjustmentBox.setVisible(false);
+            adjustmentBox.setManaged(false);
+
+        } else { // ADD
             titleLabel.setText("Add New Inventory Item");
+            toggleMetadataFields(true);
+            quantityLabel.setText("Initial Quantity:");
+            quantityField.setText("0");
+            adjustmentBox.setVisible(false);
+            adjustmentBox.setManaged(false);
         }
+    }
+
+    private void toggleMetadataFields(boolean visible) {
+        nameLabel.setVisible(visible);
+        nameLabel.setManaged(visible);
+        nameField.setVisible(visible);
+        nameField.setManaged(visible);
+
+        typeLabel.setVisible(visible);
+        typeLabel.setManaged(visible);
+        typeComboBox.setVisible(visible);
+        typeComboBox.setManaged(visible);
+
+        descLabel.setVisible(visible);
+        descLabel.setManaged(visible);
+        descriptionArea.setVisible(visible);
+        descriptionArea.setManaged(visible);
     }
 
     @FXML
     public void handleSave() {
         try {
-            if (isAdjustmentMode) {
+            if (currentMode == DialogMode.ADJUST) {
                 int amount = Integer.parseInt(quantityField.getText());
                 inventoryService.updateStock(editingItem.getId(), amount, adjTypeComboBox.getValue(),
-                        "Manual update via UI");
-            } else {
+                        "Manual stock adjustment");
+            } else if (currentMode == DialogMode.EDIT) {
+                editingItem.setName(nameField.getText());
+                editingItem.setType(typeComboBox.getValue());
+                editingItem.setDescription(descriptionArea.getText());
+                inventoryService.saveItem(editingItem);
+            } else { // ADD
                 InventoryItem newItem = new InventoryItem();
                 newItem.setName(nameField.getText());
                 newItem.setType(typeComboBox.getValue());

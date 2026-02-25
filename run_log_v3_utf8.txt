@@ -1,0 +1,74 @@
+﻿[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< com.PL:pig-ranch >--------------------------
+[INFO] Building pig-ranch 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.4.2:run (default-cli) > test-compile @ pig-ranch >>>
+[WARNING] 6 problems were encountered while building the effective model for org.openjfx:javafx-controls:jar:21.0.2 during dependency collection step for project (use -X to see details)
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ pig-ranch ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 9 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ pig-ranch ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ pig-ranch ---
+[INFO] Copying 1 resource from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ pig-ranch ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:3.4.2:run (default-cli) < test-compile @ pig-ranch <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.4.2:run (default-cli) @ pig-ranch ---
+[INFO] Attaching agents: []
+Feb 24, 2026 6:46:27 PM com.sun.javafx.application.PlatformImpl startup
+WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @4d7527ed'
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.2)
+
+2026-02-24T18:46:27.912-08:00  INFO 10496 --- [pig-ranch] [JavaFX-Launcher] o.s.boot.SpringApplication               : Starting application using Java 21.0.5 with PID 10496 (started by plia in C:\Users\pliab\OneDrive - Western Governors University\Desktop\Coding Projects\Client and Inventory Management App\pig-ranch)
+2026-02-24T18:46:27.914-08:00  INFO 10496 --- [pig-ranch] [JavaFX-Launcher] o.s.boot.SpringApplication               : No active profile set, falling back to 1 default profile: "default"
+2026-02-24T18:46:28.178-08:00  INFO 10496 --- [pig-ranch] [JavaFX-Launcher] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-24T18:46:28.223-08:00  INFO 10496 --- [pig-ranch] [JavaFX-Launcher] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 39 ms. Found 5 JPA repository interfaces.
+2026-02-24T18:46:28.410-08:00  INFO 10496 --- [pig-ranch] [JavaFX-Launcher] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-24T18:46:28.439-08:00  INFO 10496 --- [pig-ranch] [JavaFX-Launcher] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2026-02-24T18:46:28.459-08:00  INFO 10496 --- [pig-ranch] [JavaFX-Launcher] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-24T18:46:28.619-08:00  INFO 10496 --- [pig-ranch] [JavaFX-Launcher] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-24T18:46:28.635-08:00  INFO 10496 --- [pig-ranch] [JavaFX-Launcher] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-24T18:46:28.772-08:00  INFO 10496 --- [pig-ranch] [JavaFX-Launcher] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/pigranch user=SA
+2026-02-24T18:46:28.773-08:00  INFO 10496 --- [pig-ranch] [JavaFX-Launcher] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-24T18:46:28.803-08:00  INFO 10496 --- [pig-ranch] [JavaFX-Launcher] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-24T18:46:29.385-08:00  INFO 10496 --- [pig-ranch] [JavaFX-Launcher] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-24T18:46:29.430-08:00  INFO 10496 --- [pig-ranch] [JavaFX-Launcher] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T18:46:29.741-08:00  INFO 10496 --- [pig-ranch] [JavaFX-Launcher] o.s.boot.SpringApplication               : Started application in 2.05 seconds (process running for 2.587)
+Hibernate: select count(*) from household h1_0
+--- Database already seeded, skipping ---
+Hibernate: select ii1_0.id,ii1_0.description,ii1_0.name,ii1_0.quantity,ii1_0.type from inventory_item ii1_0
+2026-02-24T18:46:36.140-08:00  INFO 10496 --- [pig-ranch] [lication Thread] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T18:46:36.141-08:00  INFO 10496 --- [pig-ranch] [lication Thread] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-24T18:46:36.174-08:00  INFO 10496 --- [pig-ranch] [lication Thread] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  10.595 s
+[INFO] Finished at: 2026-02-24T18:46:36-08:00
+[INFO] ------------------------------------------------------------------------
