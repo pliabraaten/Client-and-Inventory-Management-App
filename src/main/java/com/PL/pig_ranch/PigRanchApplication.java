@@ -95,6 +95,22 @@ public class PigRanchApplication extends Application {
 			OrderRepository orderRepository,
 			OrderItemRepository orderItemRepository) {
 		return args -> {
+			// 1. Seed Inventory (Independent of households)
+			List<String> itemNames = Arrays.asList(
+					"Bacon", "Bacon Ends", "Chops Bone in", "Chops boneless", "Brats",
+					"Breakfast links", "Whole Ham", "Half Ham", "Ham Steaks", "Ham Hocks",
+					"Ham Rst Fresh", "Loin Whole", "Pork Burgers", "Ribs", "Baby Back R",
+					"Sausage Mild", "Sausage Med", "Sausage Hot", "Ground Pork",
+					"Shoulder Roast", "Shoulder Steak", "Boston Butt");
+
+			for (String name : itemNames) {
+				if (!inventoryRepository.existsByName(name)) {
+					inventoryRepository.save(new InventoryItem(null, name, "Meat", "Pork product", 0, 5.0));
+					System.out.println("Seeded missing inventory item: " + name);
+				}
+			}
+
+			// 2. Seed Relationship Data (Only if database is totally empty of households)
 			if (householdRepository.count() == 0) {
 				// Seed Households
 				Household h1 = new Household(null, "The Smith Family", "123 Maple Dr", "Springfield", "IL", "62704",
@@ -110,18 +126,6 @@ public class PigRanchApplication extends Application {
 				Client c3 = new Client(null, "Alice Doe", "alice@doe.com", "555-0201", "Individual", h2);
 				clientRepository.saveAll(Arrays.asList(c1, c2, c3));
 
-				// Seed Inventory (By the Piece)
-				List<String> itemNames = Arrays.asList(
-						"Bacon", "Bacon Ends", "Chops Bone in", "Chops boneless", "Brats",
-						"Breakfast links", "Whole Ham", "Half Ham", "Ham Steaks", "Ham Hocks",
-						"Ham Rst Fresh", "Loin Whole", "Pork Burgers", "Ribs", "Baby Back R",
-						"Sausage Mild", "Sausage Med", "Sausage Hot", "Ground Pork",
-						"Shoulder Roast", "Shoulder Steak", "Boston Butt");
-
-				for (String name : itemNames) {
-					inventoryRepository.save(new InventoryItem(null, name, "Meat", "Pork product", 0, 5.0));
-				}
-
 				// Seed a sample order
 				Order o1 = new Order();
 				o1.setClient(c1);
@@ -133,9 +137,9 @@ public class PigRanchApplication extends Application {
 				Hog hog2 = new Hog(null, "H002", Hog.HogType.HALF, false, "Valley Meats", 300.0, null, null, o1);
 				hogRepository.saveAll(Arrays.asList(hog1, hog2));
 
-				System.out.println("--- Data Seeding Completed ---");
+				System.out.println("--- Core Data Seeding Completed ---");
 			} else {
-				System.out.println("--- Database already seeded, skipping ---");
+				System.out.println("--- Household data already exists, skipping relationship seeding ---");
 			}
 		};
 	}
