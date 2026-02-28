@@ -19,6 +19,10 @@ public class Order {
         OPEN, COMPLETED, CANCELLED
     }
 
+    public enum OrderType {
+        STANDARD, HOG
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
@@ -32,6 +36,9 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status = OrderStatus.OPEN;
+
+    @Enumerated(EnumType.STRING)
+    private OrderType type = OrderType.STANDARD;
 
     private String notes;
 

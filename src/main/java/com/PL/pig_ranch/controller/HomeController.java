@@ -25,7 +25,7 @@ public class HomeController {
     }
 
     @FXML
-    public void handleHogsClick() {
-        eventPublisher.publishEvent(new NavigationEvent(this, "HOGS"));
+    public void handleOrdersClick() {
+        eventPublisher.publishEvent(new NavigationEvent(this, "ORDERS"));
     }
 }

@@ -36,8 +36,8 @@ public class MainController implements ApplicationListener<NavigationEvent> {
             case "INVENTORY":
                 loadView("/fxml/inventory.fxml");
                 break;
-            case "HOGS":
-                loadView("/fxml/hog_view.fxml");
+            case "ORDERS":
+                loadView("/fxml/order_view.fxml");
                 break;
             case "HOME":
                 loadView("/fxml/home.fxml");

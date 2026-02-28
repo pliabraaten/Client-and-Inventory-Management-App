@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="15" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.PL.pig_ranch.controller.OrderDialogController"
+      prefWidth="600">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label fx:id="titleLabel" text="Order Details">
+        <font>
+            <Font name="System Bold" size="18.0"/>
+        </font>
+    </Label>
+
+    <GridPane hgap="10" vgap="10">
+        <columnConstraints>
+            <ColumnConstraints minWidth="100" prefWidth="120"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+
+        <Label text="Client:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="clientComboBox" maxWidth="Infinity" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Order Type:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="typeComboBox" maxWidth="Infinity" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Status:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="statusComboBox" maxWidth="Infinity" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Notes:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextArea fx:id="notesArea" prefHeight="60" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <!-- Content area depends on Order Type -->
+    <StackPane fx:id="typeSpecificPane" VBox.vgrow="ALWAYS">
+        <!-- Standard Order Content -->
+        <VBox fx:id="standardOrderBox" spacing="10">
+            <Label text="Order Items" style="-fx-font-weight: bold;"/>
+            <TableView fx:id="itemTable" prefHeight="200">
+                <columns>
+                    <TableColumn fx:id="colItemName" text="Item" prefWidth="200"/>
+                    <TableColumn fx:id="colItemQuantity" text="Qty" prefWidth="100"/>
+                    <TableColumn fx:id="colItemPrice" text="Price" prefWidth="100"/>
+                </columns>
+            </TableView>
+            <HBox spacing="10">
+                <Button text="Add Item" onAction="#handleAddItem"/>
+                <Button text="Remove Item" onAction="#handleRemoveItem"/>
+            </HBox>
+        </VBox>
+
+        <!-- Hog Order Content -->
+        <VBox fx:id="hogOrderBox" spacing="10" visible="false">
+            <Label text="Hog Details" style="-fx-font-weight: bold;"/>
+            <GridPane hgap="10" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="100" prefWidth="120"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                </columnConstraints>
+
+                <Label text="Hog Number:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="hogNumberField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Hog Type:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="hogTypeComboBox" maxWidth="Infinity" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Processor:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="processorField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Live Weight:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField fx:id="liveWeightField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <Label text="Hanging Weight:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <TextField fx:id="hangingWeightField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                <Label text="Processing Cost:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <TextField fx:id="processingCostField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                <CheckBox fx:id="inspectedCheckBox" text="Inspected" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+            </GridPane>
+        </VBox>
+    </StackPane>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Cancel" onAction="#handleCancel" prefWidth="80"/>
+        <Button text="Save" onAction="#handleSave" prefWidth="80" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+    </HBox>
+</VBox>
