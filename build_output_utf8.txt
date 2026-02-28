@@ -1,0 +1,24 @@
+﻿[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< com.PL:pig-ranch >--------------------------
+[INFO] Building pig-ranch 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[WARNING] 6 problems were encountered while building the effective model for org.openjfx:javafx-controls:jar:21.0.2 during dependency collection step for project (use -X to see details)
+[INFO] 
+[INFO] --- clean:3.4.0:clean (default-clean) @ pig-ranch ---
+[INFO] Deleting C:\Users\pliab\Coding Projects\Client and Inventory Management App\pig-ranch\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ pig-ranch ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 9 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ pig-ranch ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 38 source files with javac [debug parameters release 21] to target\classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.914 s
+[INFO] Finished at: 2026-02-27T21:07:53-08:00
+[INFO] ------------------------------------------------------------------------

@@ -20,7 +20,7 @@
             </font>
         </Label>
         <Region HBox.hgrow="ALWAYS"/>
-        <TextField fx:id="searchField" placeholder="Search orders..." prefWidth="250"/>
+        <TextField fx:id="searchField" promptText="Search orders..." prefWidth="250"/>
         <Button text="New Order" onAction="#handleNewOrderClick" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
     </HBox>
 
