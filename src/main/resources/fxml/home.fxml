@@ -19,6 +19,7 @@
                 style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14;"/>
         <Button text="Clients" onAction="#handleClientsClick" prefWidth="200" prefHeight="50"/>
         <Button text="Inventory" onAction="#handleInventoryClick" prefWidth="200" prefHeight="50"/>
+        <Button text="Pending Orders" onAction="#handlePendingOrdersClick" prefWidth="200" prefHeight="50"/>
         <Button text="Order History" onAction="#handleOrderHistoryClick" prefWidth="200" prefHeight="50"/>
     </children>
     <padding>

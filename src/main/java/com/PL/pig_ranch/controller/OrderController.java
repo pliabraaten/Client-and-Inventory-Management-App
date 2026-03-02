@@ -33,6 +33,7 @@ public class OrderController {
 
     private ObservableList<Order> allOrders;
     private FilteredList<Order> filteredOrders;
+    private String viewMode = "HISTORY";
 
     @FXML
     private TableView<Order> orderTable;
@@ -63,6 +64,11 @@ public class OrderController {
         this.context = context;
     }
 
+    public void setViewMode(String mode) {
+        this.viewMode = mode;
+        applyFilters();
+    }
+
     @FXML
     public void initialize() {
         setupTable();
@@ -90,7 +96,9 @@ public class OrderController {
         colActions.setCellFactory(param -> new TableCell<>() {
             private final Button editBtn = new Button("Edit");
             private final Button deleteBtn = new Button("Delete");
-            private final HBox container = new HBox(5, editBtn, deleteBtn);
+            private final Button paidBtn = new Button("Mark Paid");
+            private final Button shippedBtn = new Button("Mark Shipped");
+            private final HBox container = new HBox(5, editBtn, deleteBtn, paidBtn, shippedBtn);
 
             {
                 editBtn.setStyle("-fx-background-color: #4444ff; -fx-text-fill: white;");
@@ -104,12 +112,35 @@ public class OrderController {
                     Order order = getTableView().getItems().get(getIndex());
                     handleDelete(order);
                 });
+
+                paidBtn.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
+                paidBtn.setOnAction(event -> {
+                    Order order = getTableView().getItems().get(getIndex());
+                    orderService.markAsPaid(order.getId());
+                    loadData();
+                });
+
+                shippedBtn.setStyle("-fx-background-color: #FF9800; -fx-text-fill: white;");
+                shippedBtn.setOnAction(event -> {
+                    Order order = getTableView().getItems().get(getIndex());
+                    orderService.markAsShipped(order.getId());
+                    loadData();
+                });
             }
 
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
-                setGraphic(empty ? null : container);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    Order order = getTableView().getItems().get(getIndex());
+                    paidBtn.setVisible(order != null && !order.isPaid());
+                    paidBtn.setManaged(order != null && !order.isPaid());
+                    shippedBtn.setVisible(order != null && !order.isShipped());
+                    shippedBtn.setManaged(order != null && !order.isShipped());
+                    setGraphic(container);
+                }
             }
         });
     }
@@ -119,24 +150,48 @@ public class OrderController {
         filteredOrders = new FilteredList<>(allOrders, p -> true);
 
         searchField.textProperty().addListener((obs, oldVal, newVal) -> {
-            filteredOrders.setPredicate(order -> {
-                if (newVal == null || newVal.isEmpty())
-                    return true;
-                String lower = newVal.toLowerCase();
-                String clientName = order.getClient() != null ? order.getClient().getName().toLowerCase() : "";
-                String type = order.getType() != null ? order.getType().name().toLowerCase() : "";
-                String status = order.getStatus() != null ? order.getStatus().name().toLowerCase() : "";
-
-                return clientName.contains(lower) || type.contains(lower) || status.contains(lower);
-            });
+            applyFilters();
         });
 
         orderTable.setItems(filteredOrders);
     }
 
+    private void applyFilters() {
+        if (filteredOrders == null)
+            return;
+
+        filteredOrders.setPredicate(order -> {
+            boolean modeMatch = false;
+            if ("PENDING".equals(viewMode)) {
+                modeMatch = order.getStatus() == Order.OrderStatus.OPEN
+                        || order.getStatus() == Order.OrderStatus.PENDING;
+            } else if ("HISTORY".equals(viewMode)) {
+                modeMatch = order.getStatus() == Order.OrderStatus.FULFILLED
+                        || order.getStatus() == Order.OrderStatus.CANCELLED;
+            } else {
+                modeMatch = true;
+            }
+
+            if (!modeMatch)
+                return false;
+
+            String search = searchField.getText();
+            if (search == null || search.isEmpty())
+                return true;
+
+            String lower = search.toLowerCase();
+            String clientName = order.getClient() != null ? order.getClient().getName().toLowerCase() : "";
+            String type = order.getType() != null ? order.getType().name().toLowerCase() : "";
+            String status = order.getStatus() != null ? order.getStatus().name().toLowerCase() : "";
+
+            return clientName.contains(lower) || type.contains(lower) || status.contains(lower);
+        });
+    }
+
     private void loadData() {
         List<Order> orders = orderService.getAllOrders();
         allOrders.setAll(orders);
+        applyFilters();
     }
 
     private void handleEdit(Order order) {

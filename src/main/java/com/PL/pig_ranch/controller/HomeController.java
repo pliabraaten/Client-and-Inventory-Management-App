@@ -33,4 +33,9 @@ public class HomeController {
     public void handleOrderHistoryClick() {
         eventPublisher.publishEvent(new NavigationEvent(this, "ORDERS"));
     }
+
+    @FXML
+    public void handlePendingOrdersClick() {
+        eventPublisher.publishEvent(new NavigationEvent(this, "PENDING_ORDERS"));
+    }
 }

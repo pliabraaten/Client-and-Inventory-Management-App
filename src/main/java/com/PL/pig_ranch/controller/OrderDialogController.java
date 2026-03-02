@@ -53,7 +53,9 @@ public class OrderDialogController {
     @FXML
     private ComboBox<Client> clientComboBox;
     @FXML
-    private ComboBox<Order.OrderStatus> statusComboBox;
+    private CheckBox paidCheckBox;
+    @FXML
+    private CheckBox shippedCheckBox;
     @FXML
     private TextArea notesArea;
 
@@ -99,9 +101,6 @@ public class OrderDialogController {
         setupClientComboBox();
         setupItemTable();
         setupHogSection();
-
-        statusComboBox.setItems(FXCollections.observableArrayList(Order.OrderStatus.values()));
-        statusComboBox.setValue(Order.OrderStatus.OPEN);
     }
 
     // ── Client ComboBox (editable + searchable) ──────────────────────────
@@ -189,7 +188,8 @@ public class OrderDialogController {
         if (order != null) {
             titleLabel.setText("Edit Order #" + order.getId());
             clientComboBox.setValue(order.getClient());
-            statusComboBox.setValue(order.getStatus());
+            paidCheckBox.setSelected(order.isPaid());
+            shippedCheckBox.setSelected(order.isShipped());
             notesArea.setText(order.getNotes());
 
             // Load existing order items
@@ -335,7 +335,9 @@ public class OrderDialogController {
         try {
             Order order = (editingOrder != null) ? editingOrder : new Order();
             order.setClient(selectedClient);
-            order.setStatus(statusComboBox.getValue());
+            order.setPaid(paidCheckBox.isSelected());
+            order.setShipped(shippedCheckBox.isSelected());
+            order.evaluateStatus();
             order.setNotes(notesArea.getText());
 
             // ── Order items ──

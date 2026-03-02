@@ -6,12 +6,14 @@ import com.PL.pig_ranch.model.Hog;
 import com.PL.pig_ranch.model.InventoryItem;
 import com.PL.pig_ranch.model.Order;
 import com.PL.pig_ranch.model.OrderItem;
+import com.PL.pig_ranch.model.InventoryTransaction;
 import com.PL.pig_ranch.repository.ClientRepository;
 import com.PL.pig_ranch.repository.HogRepository;
 import com.PL.pig_ranch.repository.HouseholdRepository;
 import com.PL.pig_ranch.repository.InventoryRepository;
 import com.PL.pig_ranch.repository.OrderRepository;
 import com.PL.pig_ranch.repository.OrderItemRepository;
+import com.PL.pig_ranch.repository.TransactionRepository;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -86,14 +88,14 @@ public class PigRanchApplication extends Application {
 		Platform.exit();
 	}
 
-	// SEED DB
 	@Bean
 	public CommandLineRunner demoData(HouseholdRepository householdRepository,
 			ClientRepository clientRepository,
 			InventoryRepository inventoryRepository,
 			HogRepository hogRepository,
 			OrderRepository orderRepository,
-			OrderItemRepository orderItemRepository) {
+			OrderItemRepository orderItemRepository,
+			TransactionRepository transactionRepository) {
 		return args -> {
 			// 1. Seed Inventory (Independent of households)
 			List<String> itemNames = Arrays.asList(
@@ -126,16 +128,50 @@ public class PigRanchApplication extends Application {
 				Client c3 = new Client(null, "Alice Doe", "alice@doe.com", "555-0201", "Individual", h2);
 				clientRepository.saveAll(Arrays.asList(c1, c2, c3));
 
-				// Seed a sample order
+				// Seed an OPEN order
 				Order o1 = new Order();
 				o1.setClient(c1);
-				o1.setNotes("Initial sample order");
+				o1.setPaid(false);
+				o1.setShipped(false);
+				o1.evaluateStatus(); // will be OPEN
+				o1.setNotes("Initial OPEN sample order");
 				orderRepository.save(o1);
 
-				// Seed Hogs associated with the order
+				// Seed a PENDING order (Paid but not shipped)
+				Order o2 = new Order();
+				o2.setClient(c2);
+				o2.setPaid(true);
+				o2.setShipped(false);
+				o2.evaluateStatus(); // will be PENDING
+				o2.setNotes("Initial PENDING sample order");
+				orderRepository.save(o2);
+
+				// Seed a FULFILLED order (paid and shipped)
+				Order o3 = new Order();
+				o3.setClient(c3);
+				o3.setPaid(true);
+				o3.setShipped(true);
+				o3.evaluateStatus(); // will be FULFILLED
+				o3.setNotes("Initial FULFILLED sample order");
+				orderRepository.save(o3);
+
+				// Seed Hogs associated with the OPEN order (o1)
 				Hog hog1 = new Hog(null, "H001", Hog.HogType.WHOLE, true, "Valley Meats", 280.0, 196.0, 125.0, o1);
 				Hog hog2 = new Hog(null, "H002", Hog.HogType.HALF, false, "Valley Meats", 300.0, null, null, o1);
 				hogRepository.saveAll(Arrays.asList(hog1, hog2));
+
+				// Fetch an inventory item to use
+				InventoryItem sampleItem = inventoryRepository.findAll().stream().findFirst().orElse(null);
+				if (sampleItem != null) {
+					// Seed Order Item on PENDING order (o2)
+					OrderItem orderItem = new OrderItem(null, o2, sampleItem, 2, sampleItem.getPrice());
+					orderItemRepository.save(orderItem);
+
+					// Seed Inventory Transaction
+					InventoryTransaction transaction = new InventoryTransaction(null, sampleItem,
+							InventoryTransaction.TransactionType.ARRIVAL, 10, null, "Initial stock received");
+					transactionRepository.save(transaction);
+				}
 
 				System.out.println("--- Core Data Seeding Completed ---");
 			} else {

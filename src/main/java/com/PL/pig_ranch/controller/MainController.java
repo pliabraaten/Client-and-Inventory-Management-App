@@ -38,7 +38,10 @@ public class MainController implements ApplicationListener<NavigationEvent> {
                 loadView("/fxml/inventory.fxml");
                 break;
             case "ORDERS":
-                loadView("/fxml/order_view.fxml");
+                loadOrderView("HISTORY");
+                break;
+            case "PENDING_ORDERS":
+                loadOrderView("PENDING");
                 break;
             case "NEW_ORDER":
                 loadOrderViewAndOpenDialog();
@@ -59,7 +62,22 @@ public class MainController implements ApplicationListener<NavigationEvent> {
             mainLayout.setCenter(view);
 
             OrderController orderController = loader.getController();
+            orderController.setViewMode("PENDING");
             Platform.runLater(orderController::handleNewOrderClick);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadOrderView(String mode) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/order_view.fxml"));
+            loader.setControllerFactory(context::getBean);
+            Parent view = loader.load();
+            mainLayout.setCenter(view);
+
+            OrderController orderController = loader.getController();
+            orderController.setViewMode(mode);
         } catch (IOException e) {
             e.printStackTrace();
         }

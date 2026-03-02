@@ -14,5 +14,7 @@ public interface OrderService {
 
     void deleteOrder(Long id);
 
-    Order completeOrder(Long id);
+    Order markAsPaid(Long id);
+
+    Order markAsShipped(Long id);
 }

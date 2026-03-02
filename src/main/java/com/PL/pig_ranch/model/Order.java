@@ -16,7 +16,7 @@ import java.util.List;
 public class Order {
 
     public enum OrderStatus {
-        OPEN, COMPLETED, CANCELLED
+        OPEN, PENDING, FULFILLED, CANCELLED
     }
 
     public enum OrderType {
@@ -39,6 +39,13 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     private OrderType type = OrderType.STANDARD;
+
+    private boolean paid = false;
+
+    private boolean shipped = false;
+
+    @Transient
+    private boolean wasFulfilled = false;
 
     private String notes;
 
@@ -74,5 +81,28 @@ public class Order {
             }
         }
         return total;
+    }
+
+    public void evaluateStatus() {
+        if (paid && shipped) {
+            this.status = OrderStatus.FULFILLED;
+        } else if (paid || shipped) {
+            this.status = OrderStatus.PENDING;
+        } else {
+            this.status = OrderStatus.OPEN;
+        }
+    }
+
+    @PostLoad
+    private void onLoad() {
+        this.wasFulfilled = (status == OrderStatus.FULFILLED);
+    }
+
+    public boolean isWasFulfilled() {
+        return wasFulfilled;
+    }
+
+    public void setWasFulfilled(boolean wasFulfilled) {
+        this.wasFulfilled = wasFulfilled;
     }
 }

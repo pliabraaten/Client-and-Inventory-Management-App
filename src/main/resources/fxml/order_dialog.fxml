@@ -32,11 +32,14 @@
         <Button text="New Client" onAction="#handleNewClientClick" GridPane.rowIndex="0" GridPane.columnIndex="2"
                 style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
 
-        <Label text="Status:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <ComboBox fx:id="statusComboBox" maxWidth="Infinity" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <Label text="Payment:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <CheckBox fx:id="paidCheckBox" text="Is Paid" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-        <Label text="Notes:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-        <TextArea fx:id="notesArea" prefHeight="50" GridPane.rowIndex="2" GridPane.columnIndex="1"
+        <Label text="Shipping:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <CheckBox fx:id="shippedCheckBox" text="Is Shipped" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Notes:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextArea fx:id="notesArea" prefHeight="50" GridPane.rowIndex="3" GridPane.columnIndex="1"
                   GridPane.columnSpan="2"/>
     </GridPane>
 
