@@ -15,9 +15,11 @@
                 <Font size="24.0"/>
             </font>
         </Label>
+        <Button text="New Order" onAction="#handleNewOrderClick" prefWidth="200" prefHeight="50"
+                style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14;"/>
         <Button text="Clients" onAction="#handleClientsClick" prefWidth="200" prefHeight="50"/>
         <Button text="Inventory" onAction="#handleInventoryClick" prefWidth="200" prefHeight="50"/>
-        <Button text="Orders" onAction="#handleOrdersClick" prefWidth="200" prefHeight="50"/>
+        <Button text="Order History" onAction="#handleOrderHistoryClick" prefWidth="200" prefHeight="50"/>
     </children>
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>

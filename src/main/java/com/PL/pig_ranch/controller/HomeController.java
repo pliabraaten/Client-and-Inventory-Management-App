@@ -25,7 +25,12 @@ public class HomeController {
     }
 
     @FXML
-    public void handleOrdersClick() {
+    public void handleNewOrderClick() {
+        eventPublisher.publishEvent(new NavigationEvent(this, "NEW_ORDER"));
+    }
+
+    @FXML
+    public void handleOrderHistoryClick() {
         eventPublisher.publishEvent(new NavigationEvent(this, "ORDERS"));
     }
 }

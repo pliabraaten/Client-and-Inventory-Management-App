@@ -14,7 +14,7 @@
 
     <HBox alignment="CENTER_LEFT" spacing="10">
         <Button text="Back" onAction="#handleBackClick" style="-fx-background-color: #607D8B; -fx-text-fill: white;"/>
-        <Label text="Orders Management">
+        <Label text="Order History">
             <font>
                 <Font size="20.0"/>
             </font>

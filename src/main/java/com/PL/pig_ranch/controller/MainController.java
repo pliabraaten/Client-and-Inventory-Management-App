@@ -1,5 +1,6 @@
 package com.PL.pig_ranch.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -39,11 +40,28 @@ public class MainController implements ApplicationListener<NavigationEvent> {
             case "ORDERS":
                 loadView("/fxml/order_view.fxml");
                 break;
+            case "NEW_ORDER":
+                loadOrderViewAndOpenDialog();
+                break;
             case "HOME":
                 loadView("/fxml/home.fxml");
                 break;
             default:
                 System.out.println("Unknown view: " + event.getViewName());
+        }
+    }
+
+    private void loadOrderViewAndOpenDialog() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/order_view.fxml"));
+            loader.setControllerFactory(context::getBean);
+            Parent view = loader.load();
+            mainLayout.setCenter(view);
+
+            OrderController orderController = loader.getController();
+            Platform.runLater(orderController::handleNewOrderClick);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
