@@ -35,8 +35,7 @@ public class ClientFormController {
     private TextField emailField;
     @FXML
     private TextField phoneField;
-    @FXML
-    private TextField typeField;
+
     @FXML
     private ComboBox<Household> householdComboBox;
 
@@ -61,7 +60,7 @@ public class ClientFormController {
             nameField.setText(client.getName());
             emailField.setText(client.getEmail());
             phoneField.setText(client.getPhoneNumber());
-            typeField.setText(client.getNotes());
+
             householdComboBox.setValue(client.getHousehold());
         }
     }
@@ -192,7 +191,6 @@ public class ClientFormController {
         clientToSave.setName(formattedName);
         clientToSave.setEmail(emailField.getText());
         clientToSave.setPhoneNumber(formattedPhone);
-        clientToSave.setNotes(typeField.getText()); // Using notes as Type
 
         Household selectedHousehold = householdComboBox.getValue();
         if (selectedHousehold == null) {

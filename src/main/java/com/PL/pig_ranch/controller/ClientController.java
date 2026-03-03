@@ -49,8 +49,7 @@ public class ClientController {
     private TableColumn<Client, String> colClientEmail;
     @FXML
     private TableColumn<Client, String> colClientPhone;
-    @FXML
-    private TableColumn<Client, String> colClientType;
+
     @FXML
     private TableColumn<Client, String> colClientHousehold;
     @FXML
@@ -89,7 +88,6 @@ public class ClientController {
         colClientName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colClientEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colClientPhone.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-        colClientType.setCellValueFactory(new PropertyValueFactory<>("notes"));
 
         colClientHousehold.setCellValueFactory(cellData -> {
             if (cellData.getValue().getHousehold() != null) {

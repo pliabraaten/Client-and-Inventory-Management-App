@@ -37,7 +37,6 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
 
         <Label text="Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
@@ -49,11 +48,10 @@
         <Label text="Phone:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
         <TextField fx:id="phoneField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
-        <Label text="Type/Role:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-        <TextField fx:id="typeField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 
-        <Label text="Household:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-        <ComboBox fx:id="householdComboBox" prefWidth="200" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+        <Label text="Household:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="householdComboBox" prefWidth="200" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
     </GridPane>
 
     <HBox spacing="10" alignment="CENTER_RIGHT">

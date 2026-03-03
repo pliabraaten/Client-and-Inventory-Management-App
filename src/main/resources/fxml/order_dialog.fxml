@@ -62,7 +62,7 @@
     </VBox>
 
     <!-- Hog Details (collapsible) -->
-    <TitledPane fx:id="hogTitledPane" text="Hog Details (optional)" expanded="false">
+    <TitledPane fx:id="hogTitledPane" text="Hog Details" expanded="false">
         <GridPane hgap="10" vgap="10">
             <columnConstraints>
                 <ColumnConstraints minWidth="100" prefWidth="120"/>
