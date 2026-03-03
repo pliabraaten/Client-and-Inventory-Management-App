@@ -7,6 +7,7 @@ import com.PL.pig_ranch.model.Order;
 import com.PL.pig_ranch.model.OrderItem;
 import com.PL.pig_ranch.service.ClientService;
 import com.PL.pig_ranch.service.InventoryService;
+import com.PL.pig_ranch.service.InvoiceService;
 import com.PL.pig_ranch.service.OrderService;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -29,6 +30,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +43,7 @@ public class OrderDialogController {
     private final OrderService orderService;
     private final ClientService clientService;
     private final InventoryService inventoryService;
+    private final InvoiceService invoiceService;
     private final ApplicationContext applicationContext;
     private Order editingOrder;
 
@@ -98,10 +101,12 @@ public class OrderDialogController {
 
     @Autowired
     public OrderDialogController(OrderService orderService, ClientService clientService,
-            InventoryService inventoryService, ApplicationContext applicationContext) {
+            InventoryService inventoryService, InvoiceService invoiceService,
+            ApplicationContext applicationContext) {
         this.orderService = orderService;
         this.clientService = clientService;
         this.inventoryService = inventoryService;
+        this.invoiceService = invoiceService;
         this.applicationContext = applicationContext;
     }
 
@@ -412,6 +417,7 @@ public class OrderDialogController {
             }
 
             orderService.saveOrder(order);
+            handleInvoiceGeneration(order);
             close();
         } catch (NumberFormatException e) {
             new Alert(Alert.AlertType.ERROR, "Please enter valid numbers for weights and costs.").showAndWait();
@@ -432,6 +438,32 @@ public class OrderDialogController {
     @FXML
     public void handleCancel() {
         close();
+    }
+
+    private void handleInvoiceGeneration(Order order) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Generate Invoice");
+        alert.setHeaderText("Order Saved Successfully");
+        alert.setContentText("Would you like to generate and print a PDF invoice for this order?");
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                javafx.stage.FileChooser fileChooser = new javafx.stage.FileChooser();
+                fileChooser.setTitle("Save Invoice PDF");
+                fileChooser.setInitialFileName("Invoice_Order_" + order.getId() + ".pdf");
+                fileChooser.getExtensionFilters().add(
+                        new javafx.stage.FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+
+                File file = fileChooser.showSaveDialog(saveButton.getScene().getWindow());
+                if (file != null) {
+                    try {
+                        invoiceService.generateAndOpenInvoice(order, file.getAbsolutePath());
+                    } catch (Exception e) {
+                        new Alert(Alert.AlertType.ERROR, "Error generating invoice: " + e.getMessage()).showAndWait();
+                    }
+                }
+            }
+        });
     }
 
     private void close() {
