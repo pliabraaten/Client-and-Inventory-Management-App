@@ -30,7 +30,7 @@
         <Label text="Client:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
         <ComboBox fx:id="clientComboBox" maxWidth="Infinity" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
         <Button text="New Client" onAction="#handleNewClientClick" GridPane.rowIndex="0" GridPane.columnIndex="2"
-                style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+                style="-fx-background-color: #2196F3; -fx-text-fill: white;" fx:id="newClientButton"/>
 
         <Label text="Payment:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
         <CheckBox fx:id="paidCheckBox" text="Is Paid" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
@@ -54,9 +54,9 @@
             </columns>
         </TableView>
         <HBox spacing="10">
-            <Button text="Add Item" onAction="#handleAddItem"
+            <Button text="Add Item" onAction="#handleAddItem" fx:id="addItemButton"
                     style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
-            <Button text="Remove Item" onAction="#handleRemoveItem"
+            <Button text="Remove Item" onAction="#handleRemoveItem" fx:id="removeItemButton"
                     style="-fx-background-color: #f44336; -fx-text-fill: white;"/>
         </HBox>
     </VBox>
@@ -94,7 +94,7 @@
     <!-- Action Buttons -->
     <HBox spacing="10" alignment="CENTER_RIGHT">
         <Button text="Cancel" onAction="#handleCancel" prefWidth="80"/>
-        <Button text="Save" onAction="#handleSave" prefWidth="80"
+        <Button text="Save" onAction="#handleSave" prefWidth="80" fx:id="saveButton"
                 style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
     </HBox>
 </VBox>

@@ -59,6 +59,15 @@ public class OrderDialogController {
     @FXML
     private TextArea notesArea;
 
+    @FXML
+    private Button newClientButton;
+    @FXML
+    private Button addItemButton;
+    @FXML
+    private Button removeItemButton;
+    @FXML
+    private Button saveButton;
+
     // Item table
     @FXML
     private TableView<OrderItem> itemTable;
@@ -210,6 +219,30 @@ public class OrderDialogController {
                 inspectedCheckBox.setSelected(Boolean.TRUE.equals(hog.getInspected()));
             }
         }
+    }
+
+    public void setReadOnly(boolean readOnly) {
+        clientComboBox.setDisable(readOnly);
+        paidCheckBox.setDisable(readOnly);
+        shippedCheckBox.setDisable(readOnly);
+        notesArea.setEditable(!readOnly);
+
+        hogNumberField.setEditable(!readOnly);
+        hogTypeComboBox.setDisable(readOnly);
+        processorField.setEditable(!readOnly);
+        liveWeightField.setEditable(!readOnly);
+        hangingWeightField.setEditable(!readOnly);
+        processingCostField.setEditable(!readOnly);
+        inspectedCheckBox.setDisable(readOnly);
+
+        newClientButton.setVisible(!readOnly);
+        newClientButton.setManaged(!readOnly);
+        addItemButton.setVisible(!readOnly);
+        addItemButton.setManaged(!readOnly);
+        removeItemButton.setVisible(!readOnly);
+        removeItemButton.setManaged(!readOnly);
+        saveButton.setVisible(!readOnly);
+        saveButton.setManaged(!readOnly);
     }
 
     // ── New Client ───────────────────────────────────────────────────────

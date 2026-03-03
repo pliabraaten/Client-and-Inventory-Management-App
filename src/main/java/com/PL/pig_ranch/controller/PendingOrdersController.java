@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Component
-public class OrderController {
+public class PendingOrdersController {
 
     private final OrderService orderService;
     private final ApplicationEventPublisher eventPublisher;
@@ -48,12 +49,14 @@ public class OrderController {
     @FXML
     private TableColumn<Order, Double> colTotal;
     @FXML
+    private TableColumn<Order, Void> colActions;
+    @FXML
     private TextField searchField;
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     @Autowired
-    public OrderController(OrderService orderService, ApplicationEventPublisher eventPublisher,
+    public PendingOrdersController(OrderService orderService, ApplicationEventPublisher eventPublisher,
             ApplicationContext context) {
         this.orderService = orderService;
         this.eventPublisher = eventPublisher;
@@ -80,16 +83,73 @@ public class OrderController {
                 cellData.getValue().getStatus() != null ? cellData.getValue().getStatus().name() : ""));
         colTotal.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
 
-        // Double-click opens order details in read-only mode
         orderTable.setRowFactory(tv -> {
             TableRow<Order> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     Order clickedOrder = row.getItem();
-                    showDialog(clickedOrder, true);
+                    showDialog(clickedOrder, false);
+                    loadData();
                 }
             });
             return row;
+        });
+
+        setupActionsColumn();
+    }
+
+    private void setupActionsColumn() {
+        colActions.setCellFactory(param -> new TableCell<>() {
+            private final Button editBtn = new Button("Edit");
+            private final Button deleteBtn = new Button("Delete");
+            private final Button paidBtn = new Button("Mark Paid");
+            private final Button shippedBtn = new Button("Mark Shipped");
+            private final HBox container = new HBox(5, editBtn, deleteBtn, paidBtn, shippedBtn);
+
+            {
+                editBtn.setStyle("-fx-background-color: #4444ff; -fx-text-fill: white;");
+                editBtn.setOnAction(event -> {
+                    Order order = getTableView().getItems().get(getIndex());
+                    handleEdit(order);
+                });
+
+                deleteBtn.setStyle("-fx-background-color: #ff4444; -fx-text-fill: white;");
+                deleteBtn.setOnAction(event -> {
+                    Order order = getTableView().getItems().get(getIndex());
+                    handleDelete(order);
+                });
+
+                paidBtn.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
+                paidBtn.setOnAction(event -> {
+                    Order order = getTableView().getItems().get(getIndex());
+                    orderService.markAsPaid(order.getId());
+                    loadData();
+                });
+
+                shippedBtn.setStyle("-fx-background-color: #FF9800; -fx-text-fill: white;");
+                shippedBtn.setOnAction(event -> {
+                    Order order = getTableView().getItems().get(getIndex());
+                    orderService.markAsShipped(order.getId());
+                    loadData();
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    Order order = getTableView().getItems().get(getIndex());
+                    if (order != null) {
+                        paidBtn.setVisible(!order.isPaid());
+                        paidBtn.setManaged(!order.isPaid());
+                        shippedBtn.setVisible(!order.isShipped());
+                        shippedBtn.setManaged(!order.isShipped());
+                    }
+                    setGraphic(container);
+                }
+            }
         });
     }
 
@@ -109,10 +169,10 @@ public class OrderController {
             return;
 
         filteredOrders.setPredicate(order -> {
-            // Only show FULFILLED and CANCELLED orders
-            boolean isHistory = order.getStatus() == Order.OrderStatus.FULFILLED
-                    || order.getStatus() == Order.OrderStatus.CANCELLED;
-            if (!isHistory)
+            // Only show OPEN and PENDING orders
+            boolean isActive = order.getStatus() == Order.OrderStatus.OPEN
+                    || order.getStatus() == Order.OrderStatus.PENDING;
+            if (!isActive)
                 return false;
 
             String search = searchField.getText();
@@ -134,6 +194,25 @@ public class OrderController {
         applyFilters();
     }
 
+    private void handleEdit(Order order) {
+        showDialog(order, false);
+        loadData();
+    }
+
+    private void handleDelete(Order order) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Deletion");
+        alert.setHeaderText("Delete Order #" + order.getId());
+        alert.setContentText("Are you sure? This will also delete all associated items.");
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                orderService.deleteOrder(order.getId());
+                loadData();
+            }
+        });
+    }
+
     private void showDialog(Order order, boolean readOnly) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/order_dialog.fxml"));
@@ -145,7 +224,7 @@ public class OrderController {
             controller.setReadOnly(readOnly);
 
             Stage stage = new Stage();
-            stage.setTitle("Order #" + order.getId() + " Details");
+            stage.setTitle(order == null ? "New Order" : "Edit Order #" + order.getId());
             stage.setScene(new Scene(root));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
@@ -157,5 +236,11 @@ public class OrderController {
     @FXML
     public void handleBackClick() {
         eventPublisher.publishEvent(new NavigationEvent(this, "HOME"));
+    }
+
+    @FXML
+    public void handleNewOrderClick() {
+        showDialog(null, false);
+        loadData();
     }
 }

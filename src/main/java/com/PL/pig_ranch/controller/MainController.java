@@ -38,13 +38,13 @@ public class MainController implements ApplicationListener<NavigationEvent> {
                 loadView("/fxml/inventory.fxml");
                 break;
             case "ORDERS":
-                loadOrderView("HISTORY");
+                loadView("/fxml/order_view.fxml");
                 break;
             case "PENDING_ORDERS":
-                loadOrderView("PENDING");
+                loadView("/fxml/pending_orders.fxml");
                 break;
             case "NEW_ORDER":
-                loadOrderViewAndOpenDialog();
+                loadPendingOrdersAndOpenDialog();
                 break;
             case "HOME":
                 loadView("/fxml/home.fxml");
@@ -54,30 +54,15 @@ public class MainController implements ApplicationListener<NavigationEvent> {
         }
     }
 
-    private void loadOrderViewAndOpenDialog() {
+    private void loadPendingOrdersAndOpenDialog() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/order_view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/pending_orders.fxml"));
             loader.setControllerFactory(context::getBean);
             Parent view = loader.load();
             mainLayout.setCenter(view);
 
-            OrderController orderController = loader.getController();
-            orderController.setViewMode("PENDING");
-            Platform.runLater(orderController::handleNewOrderClick);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void loadOrderView(String mode) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/order_view.fxml"));
-            loader.setControllerFactory(context::getBean);
-            Parent view = loader.load();
-            mainLayout.setCenter(view);
-
-            OrderController orderController = loader.getController();
-            orderController.setViewMode(mode);
+            PendingOrdersController controller = loader.getController();
+            Platform.runLater(controller::handleNewOrderClick);
         } catch (IOException e) {
             e.printStackTrace();
         }
