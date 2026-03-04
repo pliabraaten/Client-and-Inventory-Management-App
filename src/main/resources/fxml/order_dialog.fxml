@@ -51,13 +51,12 @@
                 <TableColumn fx:id="colItemName" text="Item" prefWidth="250"/>
                 <TableColumn fx:id="colItemQuantity" text="Qty" prefWidth="80"/>
                 <TableColumn fx:id="colItemPrice" text="Unit Price" prefWidth="100"/>
+                <TableColumn fx:id="colActions" text="Actions" prefWidth="80"/>
             </columns>
         </TableView>
         <HBox spacing="10">
             <Button text="Add Item" onAction="#handleAddItem" fx:id="addItemButton"
                     style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
-            <Button text="Remove Item" onAction="#handleRemoveItem" fx:id="removeItemButton"
-                    style="-fx-background-color: #f44336; -fx-text-fill: white;"/>
         </HBox>
     </VBox>
 

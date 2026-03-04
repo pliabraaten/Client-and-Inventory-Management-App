@@ -15,11 +15,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.util.converter.DoubleStringConverter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -67,8 +69,6 @@ public class OrderDialogController {
     @FXML
     private Button addItemButton;
     @FXML
-    private Button removeItemButton;
-    @FXML
     private Button saveButton;
 
     // Item table
@@ -77,9 +77,11 @@ public class OrderDialogController {
     @FXML
     private TableColumn<OrderItem, String> colItemName;
     @FXML
-    private TableColumn<OrderItem, Number> colItemQuantity;
+    private TableColumn<OrderItem, Integer> colItemQuantity;
     @FXML
-    private TableColumn<OrderItem, Number> colItemPrice;
+    private TableColumn<OrderItem, Double> colItemPrice;
+    @FXML
+    private TableColumn<OrderItem, Void> colActions;
 
     // Hog section
     @FXML
@@ -180,11 +182,49 @@ public class OrderDialogController {
         colItemQuantity
                 .setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantity() != null
                         ? cellData.getValue().getQuantity()
-                        : 0));
+                        : 0).asObject());
         colItemPrice.setCellValueFactory(
                 cellData -> new SimpleDoubleProperty(cellData.getValue().getPriceAtTimeOfOrder() != null
                         ? cellData.getValue().getPriceAtTimeOfOrder()
-                        : 0.0));
+                        : 0.0).asObject());
+
+        // Enable editing for price
+        itemTable.setEditable(true);
+        colItemPrice.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        colItemPrice.setOnEditCommit(event -> {
+            OrderItem oi = event.getRowValue();
+            Double newPrice = (Double) event.getNewValue();
+            oi.setPriceAtTimeOfOrder(newPrice);
+
+            // PERSIST TO DATABASE: Update the master price of the item
+            if (oi.getItem() != null) {
+                InventoryItem masterItem = oi.getItem();
+                masterItem.setPrice(newPrice);
+                inventoryService.saveItem(masterItem);
+            }
+        });
+
+        // Set up actions column (Remove button)
+        colActions.setCellFactory(param -> new TableCell<>() {
+            private final Button deleteBtn = new Button("Remove");
+            {
+                deleteBtn.setStyle("-fx-background-color: #ff4444; -fx-text-fill: white;");
+                deleteBtn.setOnAction(event -> {
+                    OrderItem item = getTableView().getItems().get(getIndex());
+                    orderItemsList.remove(item);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(deleteBtn);
+                }
+            }
+        });
     }
 
     // ── Hog Section ──────────────────────────────────────────────────────
@@ -244,8 +284,8 @@ public class OrderDialogController {
         newClientButton.setManaged(!readOnly);
         addItemButton.setVisible(!readOnly);
         addItemButton.setManaged(!readOnly);
-        removeItemButton.setVisible(!readOnly);
-        removeItemButton.setManaged(!readOnly);
+        colActions.setVisible(!readOnly);
+        itemTable.setEditable(!readOnly);
         saveButton.setVisible(!readOnly);
         saveButton.setManaged(!readOnly);
     }
@@ -338,16 +378,6 @@ public class OrderDialogController {
 
         Optional<OrderItem> result = dialog.showAndWait();
         result.ifPresent(orderItemsList::add);
-    }
-
-    @FXML
-    public void handleRemoveItem() {
-        OrderItem selected = itemTable.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            orderItemsList.remove(selected);
-        } else {
-            new Alert(Alert.AlertType.INFORMATION, "Please select an item to remove.").showAndWait();
-        }
     }
 
     // ── Save ─────────────────────────────────────────────────────────────
