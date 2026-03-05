@@ -63,6 +63,8 @@ public class OrderDialogController {
     private CheckBox shippedCheckBox;
     @FXML
     private TextArea notesArea;
+    @FXML
+    private TextField globalDiscountField;
 
     @FXML
     private Button newClientButton;
@@ -80,6 +82,8 @@ public class OrderDialogController {
     private TableColumn<OrderItem, Integer> colItemQuantity;
     @FXML
     private TableColumn<OrderItem, Double> colItemPrice;
+    @FXML
+    private TableColumn<OrderItem, Double> colItemDiscount;
     @FXML
     private TableColumn<OrderItem, Void> colActions;
 
@@ -187,13 +191,17 @@ public class OrderDialogController {
                 cellData -> new SimpleDoubleProperty(cellData.getValue().getPriceAtTimeOfOrder() != null
                         ? cellData.getValue().getPriceAtTimeOfOrder()
                         : 0.0).asObject());
+        colItemDiscount.setCellValueFactory(
+                cellData -> new SimpleDoubleProperty(cellData.getValue().getDiscount() != null
+                        ? cellData.getValue().getDiscount()
+                        : 0.0).asObject());
 
-        // Enable editing for price
+        // Enable editing for price and discount
         itemTable.setEditable(true);
         colItemPrice.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
         colItemPrice.setOnEditCommit(event -> {
             OrderItem oi = event.getRowValue();
-            Double newPrice = (Double) event.getNewValue();
+            Double newPrice = event.getNewValue();
             oi.setPriceAtTimeOfOrder(newPrice);
 
             // PERSIST TO DATABASE: Update the master price of the item
@@ -202,6 +210,12 @@ public class OrderDialogController {
                 masterItem.setPrice(newPrice);
                 inventoryService.saveItem(masterItem);
             }
+        });
+
+        colItemDiscount.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        colItemDiscount.setOnEditCommit(event -> {
+            OrderItem oi = event.getRowValue();
+            oi.setDiscount(event.getNewValue());
         });
 
         // Set up actions column (Remove button)
@@ -245,6 +259,7 @@ public class OrderDialogController {
             paidCheckBox.setSelected(order.isPaid());
             shippedCheckBox.setSelected(order.isShipped());
             notesArea.setText(order.getNotes());
+            globalDiscountField.setText(order.getDiscount() != null ? order.getDiscount().toString() : "0.0");
 
             // Load existing order items
             if (order.getOrderItems() != null) {
@@ -271,6 +286,7 @@ public class OrderDialogController {
         paidCheckBox.setDisable(readOnly);
         shippedCheckBox.setDisable(readOnly);
         notesArea.setEditable(!readOnly);
+        globalDiscountField.setEditable(!readOnly);
 
         hogNumberField.setEditable(!readOnly);
         hogTypeComboBox.setDisable(readOnly);
@@ -371,6 +387,7 @@ public class OrderDialogController {
                 oi.setItem(itemCombo.getValue());
                 oi.setQuantity(quantitySpinner.getValue());
                 oi.setPriceAtTimeOfOrder(itemCombo.getValue().getPrice());
+                oi.setDiscount(0.0);
                 return oi;
             }
             return null;
@@ -407,6 +424,9 @@ public class OrderDialogController {
             order.setShipped(shippedCheckBox.isSelected());
             order.evaluateStatus();
             order.setNotes(notesArea.getText());
+
+            String discText = globalDiscountField.getText();
+            order.setDiscount(discText != null && !discText.isEmpty() ? Double.parseDouble(discText) : 0.0);
 
             // ── Order items ──
             // Clear and re-add from observable list

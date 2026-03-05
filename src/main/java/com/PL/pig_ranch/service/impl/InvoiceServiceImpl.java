@@ -72,31 +72,91 @@ public class InvoiceServiceImpl implements InvoiceService {
             document.add(infoTable);
 
             // Items Table
-            PdfPTable table = new PdfPTable(4);
+            PdfPTable table = new PdfPTable(5);
             table.setWidthPercentage(100);
-            table.setWidths(new float[] { 4f, 1f, 1.5f, 1.5f });
+            table.setWidths(new float[] { 3.5f, 1f, 1.5f, 1.25f, 1.25f });
             table.setSpacingBefore(10f);
 
             // Headers
             addTableHeader(table, "Item Description", tableHeaderFont);
             addTableHeader(table, "Qty", tableHeaderFont);
             addTableHeader(table, "Unit Price", tableHeaderFont);
+            addTableHeader(table, "Discount", tableHeaderFont);
             addTableHeader(table, "Amount", tableHeaderFont);
 
+            double subtotal = 0.0;
+            double totalItemDiscounts = 0.0;
+
             for (OrderItem item : order.getOrderItems()) {
+                double lineTotal = item.getQuantity() * item.getPriceAtTimeOfOrder();
+                double itemDisc = item.getDiscount() != null ? item.getDiscount() : 0.0;
+
+                subtotal += lineTotal;
+                totalItemDiscounts += itemDisc;
+
                 table.addCell(new Phrase(item.getItem() != null ? item.getItem().getName() : "Unknown", normalFont));
                 table.addCell(new Phrase(String.valueOf(item.getQuantity()), normalFont));
                 table.addCell(new Phrase(String.format("$%.2f", item.getPriceAtTimeOfOrder()), normalFont));
-                table.addCell(new Phrase(String.format("$%.2f", item.getQuantity() * item.getPriceAtTimeOfOrder()),
-                        normalFont));
+                table.addCell(new Phrase(itemDisc > 0 ? String.format("-$%.2f", itemDisc) : "-", normalFont));
+                table.addCell(new Phrase(String.format("$%.2f", lineTotal - itemDisc), normalFont));
             }
 
             document.add(table);
 
-            // Total
-            Paragraph total = new Paragraph("\nTotal: " + String.format("$%.2f", order.getTotalPrice()), sectionFont);
-            total.setAlignment(Element.ALIGN_RIGHT);
-            document.add(total);
+            // Totals
+            PdfPTable totalsTable = new PdfPTable(2);
+            totalsTable.setWidthPercentage(40);
+            totalsTable.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            totalsTable.setSpacingBefore(10f);
+
+            PdfPCell emptyTotCell = new PdfPCell();
+            emptyTotCell.setBorder(Rectangle.NO_BORDER);
+
+            totalsTable.addCell(new Phrase("Subtotal:", normalFont));
+            PdfPCell subtotalCell = new PdfPCell(new Phrase(String.format("$%.2f", subtotal), normalFont));
+            subtotalCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            subtotalCell.setBorder(Rectangle.NO_BORDER);
+            totalsTable.addCell(subtotalCell);
+
+            // Add hogs to subtotal if any
+            if (order.getHogs() != null) {
+                for (Hog hog : order.getHogs()) {
+                    if (hog.getProcessingCost() != null) {
+                        totalsTable.addCell(new Phrase("Processing (" + hog.getHogNumber() + "):", normalFont));
+                        PdfPCell hogCell = new PdfPCell(
+                                new Phrase(String.format("$%.2f", hog.getProcessingCost()), normalFont));
+                        hogCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                        hogCell.setBorder(Rectangle.NO_BORDER);
+                        totalsTable.addCell(hogCell);
+                    }
+                }
+            }
+
+            if (totalItemDiscounts > 0) {
+                totalsTable.addCell(new Phrase("Item Discounts:", normalFont));
+                PdfPCell discCell = new PdfPCell(new Phrase(String.format("-$%.2f", totalItemDiscounts), normalFont));
+                discCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                discCell.setBorder(Rectangle.NO_BORDER);
+                totalsTable.addCell(discCell);
+            }
+
+            double globalDiscount = order.getDiscount() != null ? order.getDiscount() : 0.0;
+            if (globalDiscount > 0) {
+                totalsTable.addCell(new Phrase("Order Discount:", normalFont));
+                PdfPCell orderDiscCell = new PdfPCell(new Phrase(String.format("-$%.2f", globalDiscount), normalFont));
+                orderDiscCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                orderDiscCell.setBorder(Rectangle.NO_BORDER);
+                totalsTable.addCell(orderDiscCell);
+            }
+
+            totalsTable.addCell(new Phrase("Grand Total:", sectionFont));
+            PdfPCell grandTotalCell = new PdfPCell(
+                    new Phrase(String.format("$%.2f", order.getTotalPrice()), sectionFont));
+            grandTotalCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            grandTotalCell.setBorder(Rectangle.NO_BORDER);
+            totalsTable.addCell(grandTotalCell);
+
+            document.add(totalsTable);
 
             // Notes
             if (order.getNotes() != null && !order.getNotes().isEmpty()) {

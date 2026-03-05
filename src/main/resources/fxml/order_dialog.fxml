@@ -41,6 +41,9 @@
         <Label text="Notes:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
         <TextArea fx:id="notesArea" prefHeight="50" GridPane.rowIndex="3" GridPane.columnIndex="1"
                   GridPane.columnSpan="2"/>
+
+        <Label text="Order Discount:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <TextField fx:id="globalDiscountField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
     </GridPane>
 
     <!-- Order Items (always visible) -->
@@ -51,6 +54,7 @@
                 <TableColumn fx:id="colItemName" text="Item" prefWidth="250"/>
                 <TableColumn fx:id="colItemQuantity" text="Qty" prefWidth="80"/>
                 <TableColumn fx:id="colItemPrice" text="Unit Price" prefWidth="100"/>
+                <TableColumn fx:id="colItemDiscount" text="Discount" prefWidth="80"/>
                 <TableColumn fx:id="colActions" text="Actions" prefWidth="80"/>
             </columns>
         </TableView>

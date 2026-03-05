@@ -164,7 +164,7 @@ public class PigRanchApplication extends Application {
 				InventoryItem sampleItem = inventoryRepository.findAll().stream().findFirst().orElse(null);
 				if (sampleItem != null) {
 					// Seed Order Item on PENDING order (o2)
-					OrderItem orderItem = new OrderItem(null, o2, sampleItem, 2, sampleItem.getPrice());
+					OrderItem orderItem = new OrderItem(null, o2, sampleItem, 2, sampleItem.getPrice(), 0.0);
 					orderItemRepository.save(orderItem);
 
 					// Seed Inventory Transaction

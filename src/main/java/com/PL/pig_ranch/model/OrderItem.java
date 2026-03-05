@@ -27,4 +27,6 @@ public class OrderItem {
     private Integer quantity;
 
     private Double priceAtTimeOfOrder;
+
+    private Double discount = 0.0;
 }

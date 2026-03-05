@@ -48,6 +48,7 @@ public class Order {
     private boolean wasFulfilled = false;
 
     private String notes;
+    private Double discount = 0.0;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
@@ -67,7 +68,9 @@ public class Order {
         if (orderItems != null) {
             for (OrderItem item : orderItems) {
                 if (item.getPriceAtTimeOfOrder() != null && item.getQuantity() != null) {
-                    total += item.getPriceAtTimeOfOrder() * item.getQuantity();
+                    double lineTotal = item.getPriceAtTimeOfOrder() * item.getQuantity();
+                    double itemDiscount = item.getDiscount() != null ? item.getDiscount() : 0.0;
+                    total += (lineTotal - itemDiscount);
                 }
             }
         }
@@ -80,7 +83,9 @@ public class Order {
                 }
             }
         }
-        return total;
+
+        double globalDiscount = this.discount != null ? this.discount : 0.0;
+        return total - globalDiscount;
     }
 
     public void evaluateStatus() {
