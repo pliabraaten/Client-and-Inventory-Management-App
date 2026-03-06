@@ -107,30 +107,46 @@ public class PendingOrdersController {
             private final HBox container = new HBox(5, editBtn, deleteBtn, paidBtn, shippedBtn);
 
             {
-                editBtn.setStyle("-fx-background-color: #4444ff; -fx-text-fill: white;");
+                editBtn.getStyleClass().add("btn-info");
                 editBtn.setOnAction(event -> {
                     Order order = getTableView().getItems().get(getIndex());
                     handleEdit(order);
                 });
 
-                deleteBtn.setStyle("-fx-background-color: #ff4444; -fx-text-fill: white;");
+                deleteBtn.getStyleClass().add("btn-danger");
                 deleteBtn.setOnAction(event -> {
                     Order order = getTableView().getItems().get(getIndex());
                     handleDelete(order);
                 });
 
-                paidBtn.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
+                paidBtn.getStyleClass().add("btn-primary");
                 paidBtn.setOnAction(event -> {
                     Order order = getTableView().getItems().get(getIndex());
-                    orderService.markAsPaid(order.getId());
-                    loadData();
+                    Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirm.setTitle("Confirm Action");
+                    confirm.setHeaderText("Mark Order #" + order.getId() + " as Paid?");
+                    confirm.setContentText("This will update the payment status of this order.");
+                    confirm.showAndWait().ifPresent(response -> {
+                        if (response == ButtonType.OK) {
+                            orderService.markAsPaid(order.getId());
+                            loadData();
+                        }
+                    });
                 });
 
-                shippedBtn.setStyle("-fx-background-color: #FF9800; -fx-text-fill: white;");
+                shippedBtn.getStyleClass().add("btn-warning");
                 shippedBtn.setOnAction(event -> {
                     Order order = getTableView().getItems().get(getIndex());
-                    orderService.markAsShipped(order.getId());
-                    loadData();
+                    Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirm.setTitle("Confirm Action");
+                    confirm.setHeaderText("Mark Order #" + order.getId() + " as Shipped?");
+                    confirm.setContentText("This will update the shipping status of this order.");
+                    confirm.showAndWait().ifPresent(response -> {
+                        if (response == ButtonType.OK) {
+                            orderService.markAsShipped(order.getId());
+                            loadData();
+                        }
+                    });
                 });
             }
 
@@ -229,8 +245,17 @@ public class PendingOrdersController {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
         } catch (IOException e) {
-            e.printStackTrace();
+            showErrorAlert("Failed to open order dialog", e);
         }
+    }
+
+    private void showErrorAlert(String message, Exception e) {
+        e.printStackTrace();
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Application Error");
+        alert.setHeaderText(message);
+        alert.setContentText(e.getMessage() != null ? e.getMessage() : "An unexpected error occurred.");
+        alert.showAndWait();
     }
 
     @FXML

@@ -2,6 +2,7 @@ package com.PL.pig_ranch.service.impl;
 
 import com.PL.pig_ranch.model.Order;
 import com.PL.pig_ranch.model.OrderItem;
+import com.PL.pig_ranch.model.Hog;
 import com.PL.pig_ranch.service.InvoiceService;
 import com.lowagie.text.*;
 import com.lowagie.text.Font;

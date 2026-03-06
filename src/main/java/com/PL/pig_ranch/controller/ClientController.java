@@ -106,13 +106,13 @@ public class ClientController {
             private final HBox container = new HBox(5, editBtn, deleteBtn);
 
             {
-                editBtn.setStyle("-fx-background-color: #4444ff; -fx-text-fill: white;");
+                editBtn.getStyleClass().add("btn-info");
                 editBtn.setOnAction(event -> {
                     Client client = getTableView().getItems().get(getIndex());
                     handleEdit(client);
                 });
 
-                deleteBtn.setStyle("-fx-background-color: #ff4444; -fx-text-fill: white;");
+                deleteBtn.getStyleClass().add("btn-danger");
                 deleteBtn.setOnAction(event -> {
                     Client client = getTableView().getItems().get(getIndex());
                     handleDelete(client);
@@ -148,7 +148,7 @@ public class ClientController {
 
             loadClientData(); // Refresh table
         } catch (IOException e) {
-            e.printStackTrace();
+            showErrorAlert("Failed to open client editor", e);
         }
     }
 
@@ -193,7 +193,16 @@ public class ClientController {
             loadClientData();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            showErrorAlert("Failed to open client form", e);
         }
+    }
+
+    private void showErrorAlert(String message, Exception e) {
+        e.printStackTrace();
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Application Error");
+        alert.setHeaderText(message);
+        alert.setContentText(e.getMessage() != null ? e.getMessage() : "An unexpected error occurred.");
+        alert.showAndWait();
     }
 }

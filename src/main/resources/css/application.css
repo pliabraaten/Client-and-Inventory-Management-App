@@ -1,0 +1,133 @@
+/* ============================================================
+   Pig Ranch Management — application.css
+   Semantic design system for consistent UI theming
+   ============================================================ */
+
+/* ── Color Palette (CSS variables via looked-up colors) ────── */
+
+.root {
+    -pr-primary:   #4CAF50;   /* green  — primary actions   */
+    -pr-primary-hover: #43A047;
+    -pr-info:      #2196F3;   /* blue   — informational     */
+    -pr-info-hover: #1E88E5;
+    -pr-danger:    #E53935;   /* red    — destructive       */
+    -pr-danger-hover: #D32F2F;
+    -pr-warning:   #FF9800;   /* orange — caution/attention */
+    -pr-warning-hover: #FB8C00;
+    -pr-secondary: #607D8B;   /* gray   — secondary/nav     */
+    -pr-secondary-hover: #546E7A;
+
+    -fx-font-family: "System";
+}
+
+/* ── Base Button Reset ─────────────────────────────────────── */
+
+.button {
+    -fx-cursor: hand;
+}
+
+/* ── Semantic Button Classes ───────────────────────────────── */
+
+.btn-primary {
+    -fx-background-color: -pr-primary;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.btn-primary:hover {
+    -fx-background-color: -pr-primary-hover;
+}
+.btn-primary:pressed {
+    -fx-background-color: derive(-pr-primary, -15%);
+}
+
+.btn-info {
+    -fx-background-color: -pr-info;
+    -fx-text-fill: white;
+}
+.btn-info:hover {
+    -fx-background-color: -pr-info-hover;
+}
+.btn-info:pressed {
+    -fx-background-color: derive(-pr-info, -15%);
+}
+
+.btn-danger {
+    -fx-background-color: -pr-danger;
+    -fx-text-fill: white;
+}
+.btn-danger:hover {
+    -fx-background-color: -pr-danger-hover;
+}
+.btn-danger:pressed {
+    -fx-background-color: derive(-pr-danger, -15%);
+}
+
+.btn-warning {
+    -fx-background-color: -pr-warning;
+    -fx-text-fill: white;
+}
+.btn-warning:hover {
+    -fx-background-color: -pr-warning-hover;
+}
+.btn-warning:pressed {
+    -fx-background-color: derive(-pr-warning, -15%);
+}
+
+.btn-secondary {
+    -fx-background-color: -pr-secondary;
+    -fx-text-fill: white;
+}
+.btn-secondary:hover {
+    -fx-background-color: -pr-secondary-hover;
+}
+.btn-secondary:pressed {
+    -fx-background-color: derive(-pr-secondary, -15%);
+}
+
+/* ── Page Title Styling ────────────────────────────────────── */
+
+.page-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.dialog-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+/* ── Home Screen ───────────────────────────────────────────── */
+
+.home-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.home-section-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #888888;
+    -fx-padding: 8 0 2 0;
+}
+
+.home-nav-btn {
+    -fx-pref-width: 220;
+    -fx-pref-height: 44;
+    -fx-font-size: 14px;
+    -fx-background-radius: 6;
+}
+
+/* ── Table Placeholder ─────────────────────────────────────── */
+
+.table-placeholder {
+    -fx-font-size: 14px;
+    -fx-text-fill: #999999;
+    -fx-font-style: italic;
+}
+
+/* ── Separator ─────────────────────────────────────────────── */
+
+.home-separator {
+    -fx-padding: 4 0 4 0;
+}

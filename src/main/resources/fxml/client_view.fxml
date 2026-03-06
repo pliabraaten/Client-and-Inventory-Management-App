@@ -18,15 +18,18 @@
             <padding>
                 <Insets top="10" right="10" bottom="10" left="10"/>
             </padding>
-            <Button text="Back to Home" onAction="#handleBackClick"/>
+            <Button text="← Back" onAction="#handleBackClick" styleClass="btn-secondary"/>
             <Label text="Search:"/>
             <TextField fx:id="searchField" promptText="Search clients..."/>
-            <Button text="New Client" onAction="#handleNewClientClick"/>
+            <Button text="New Client" onAction="#handleNewClientClick" styleClass="btn-primary"/>
         </HBox>
     </top>
 
     <center>
         <TableView fx:id="clientTable">
+            <placeholder>
+                <Label text="No clients yet — click 'New Client' to add one." styleClass="table-placeholder"/>
+            </placeholder>
             <columns>
                 <TableColumn fx:id="colClientId" text="ID" prefWidth="50"/>
                 <TableColumn fx:id="colClientName" text="Name" prefWidth="150"/>

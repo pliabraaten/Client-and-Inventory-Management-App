@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
 
 <VBox spacing="10.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.PL.pig_ranch.controller.InventoryController">
@@ -13,24 +12,24 @@
     <children>
         <HBox alignment="CENTER_LEFT" spacing="10.0">
             <children>
-                <Button text="← Back" onAction="#handleBackClick"/>
-                <Label text="Inventory Management">
-                    <font>
-                        <Font size="20.0"/>
-                    </font>
-                </Label>
+                <Button text="← Back" onAction="#handleBackClick" styleClass="btn-secondary"/>
+                <Label text="Inventory Management" styleClass="page-title"/>
                 <Region HBox.hgrow="ALWAYS"/>
                 <TextField fx:id="searchField" promptText="Search items..." prefWidth="250"/>
-                <Button text="+ Add Item" onAction="#handleAddItemClick"/>
+                <Button text="+ Add Item" onAction="#handleAddItemClick" styleClass="btn-primary"/>
             </children>
         </HBox>
 
         <TableView fx:id="inventoryTable" VBox.vgrow="ALWAYS">
+            <placeholder>
+                <Label text="No inventory items yet — click '+ Add Item' to get started." styleClass="table-placeholder"/>
+            </placeholder>
             <columns>
                 <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
                 <TableColumn fx:id="colName" text="Name" prefWidth="150"/>
                 <TableColumn fx:id="colType" text="Type" prefWidth="100"/>
                 <TableColumn fx:id="colQuantity" text="Quantity" prefWidth="80"/>
+                <TableColumn fx:id="colPrice" text="Price" prefWidth="80"/>
                 <TableColumn fx:id="colDescription" text="Description" prefWidth="200"/>
                 <TableColumn fx:id="colActions" text="Actions" prefWidth="200"/>
             </columns>

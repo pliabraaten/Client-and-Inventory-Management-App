@@ -65,8 +65,9 @@ public class PigRanchApplication extends Application {
 
 			Parent root = loader.load();
 			Scene scene = new Scene(root, 800, 600);
+			scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
 
-			primaryStage.setTitle("Pig Ranch");
+			primaryStage.setTitle("Pig Ranch Manager");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 

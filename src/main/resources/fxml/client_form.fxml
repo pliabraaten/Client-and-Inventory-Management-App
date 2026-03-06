@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
@@ -21,11 +20,7 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
 
-    <Label text="New Client">
-        <font>
-            <Font size="20.0"/>
-        </font>
-    </Label>
+    <Label fx:id="titleLabel" text="New Client" styleClass="dialog-title"/>
 
     <GridPane hgap="10" vgap="10">
         <columnConstraints>
@@ -48,15 +43,13 @@
         <Label text="Phone:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
         <TextField fx:id="phoneField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
-
-
         <Label text="Household:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
         <ComboBox fx:id="householdComboBox" prefWidth="200" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
     </GridPane>
 
     <HBox spacing="10" alignment="CENTER_RIGHT">
         <Button text="Cancel" onAction="#handleCancel"/>
-        <Button text="Save" defaultButton="true" onAction="#handleSave"/>
+        <Button text="Save" defaultButton="true" onAction="#handleSave" styleClass="btn-primary"/>
     </HBox>
 
 </VBox>

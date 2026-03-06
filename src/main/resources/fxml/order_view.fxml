@@ -13,17 +13,16 @@
     </padding>
 
     <HBox alignment="CENTER_LEFT" spacing="10">
-        <Button text="Back" onAction="#handleBackClick" style="-fx-background-color: #607D8B; -fx-text-fill: white;"/>
-        <Label text="Order History">
-            <font>
-                <Font size="20.0"/>
-            </font>
-        </Label>
+        <Button text="← Back" onAction="#handleBackClick" styleClass="btn-secondary"/>
+        <Label text="Order History" styleClass="page-title"/>
         <Region HBox.hgrow="ALWAYS"/>
         <TextField fx:id="searchField" promptText="Search orders..." prefWidth="250"/>
     </HBox>
 
     <TableView fx:id="orderTable" VBox.vgrow="ALWAYS">
+        <placeholder>
+            <Label text="No completed orders yet." styleClass="table-placeholder"/>
+        </placeholder>
         <columns>
             <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
             <TableColumn fx:id="colClient" text="Client" prefWidth="150"/>
@@ -31,6 +30,7 @@
             <TableColumn fx:id="colType" text="Type" prefWidth="100"/>
             <TableColumn fx:id="colStatus" text="Status" prefWidth="100"/>
             <TableColumn fx:id="colTotal" text="Total" prefWidth="100"/>
+            <TableColumn fx:id="colActions" text="Actions" prefWidth="80"/>
         </columns>
     </TableView>
 </VBox>

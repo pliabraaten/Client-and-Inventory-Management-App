@@ -43,6 +43,8 @@ public class InventoryController {
     @FXML
     private TableColumn<InventoryItem, Integer> colQuantity;
     @FXML
+    private TableColumn<InventoryItem, Double> colPrice;
+    @FXML
     private TableColumn<InventoryItem, String> colDescription;
     @FXML
     private TableColumn<InventoryItem, Void> colActions;
@@ -69,6 +71,14 @@ public class InventoryController {
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colType.setCellValueFactory(new PropertyValueFactory<>("type"));
         colQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        colPrice.setCellFactory(col -> new TableCell<>() {
+            @Override
+            protected void updateItem(Double price, boolean empty) {
+                super.updateItem(price, empty);
+                setText(empty || price == null ? null : String.format("$%.2f", price));
+            }
+        });
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 
         setupActionsColumn();
@@ -82,19 +92,19 @@ public class InventoryController {
             private final HBox container = new HBox(5, adjustBtn, editBtn, historyBtn);
 
             {
-                adjustBtn.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
+                adjustBtn.getStyleClass().add("btn-primary");
                 adjustBtn.setOnAction(event -> {
                     InventoryItem item = getTableView().getItems().get(getIndex());
                     handleAdjust(item);
                 });
 
-                editBtn.setStyle("-fx-background-color: #FF9800; -fx-text-fill: white;");
+                editBtn.getStyleClass().add("btn-warning");
                 editBtn.setOnAction(event -> {
                     InventoryItem item = getTableView().getItems().get(getIndex());
                     handleEdit(item);
                 });
 
-                historyBtn.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white;");
+                historyBtn.getStyleClass().add("btn-info");
                 historyBtn.setOnAction(event -> {
                     InventoryItem item = getTableView().getItems().get(getIndex());
                     handleHistory(item);
@@ -160,7 +170,7 @@ public class InventoryController {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
         } catch (IOException e) {
-            e.printStackTrace();
+            showErrorAlert("Failed to open transaction history", e);
         }
     }
 
@@ -187,7 +197,7 @@ public class InventoryController {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
         } catch (IOException e) {
-            e.printStackTrace();
+            showErrorAlert("Failed to open inventory dialog", e);
         }
     }
 
@@ -200,5 +210,14 @@ public class InventoryController {
     public void handleAddItemClick() {
         showDialog(null, InventoryDialogController.DialogMode.ADD);
         loadData();
+    }
+
+    private void showErrorAlert(String message, Exception e) {
+        e.printStackTrace();
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Application Error");
+        alert.setHeaderText(message);
+        alert.setContentText(e.getMessage() != null ? e.getMessage() : "An unexpected error occurred.");
+        alert.showAndWait();
     }
 }

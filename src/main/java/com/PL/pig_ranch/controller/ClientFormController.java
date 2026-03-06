@@ -11,6 +11,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -38,6 +39,8 @@ public class ClientFormController {
 
     @FXML
     private ComboBox<Household> householdComboBox;
+    @FXML
+    private Label titleLabel;
 
     @Autowired
     public ClientFormController(ClientService clientService, HouseholdService householdService) {
@@ -57,11 +60,14 @@ public class ClientFormController {
     public void setClient(Client client) {
         this.editingClient = client;
         if (client != null) {
+            titleLabel.setText("Edit Client");
             nameField.setText(client.getName());
             emailField.setText(client.getEmail());
             phoneField.setText(client.getPhoneNumber());
 
             householdComboBox.setValue(client.getHousehold());
+        } else {
+            titleLabel.setText("New Client");
         }
     }
 

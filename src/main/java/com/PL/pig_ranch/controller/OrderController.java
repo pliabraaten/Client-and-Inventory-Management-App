@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,8 @@ public class OrderController {
     @FXML
     private TableColumn<Order, Double> colTotal;
     @FXML
+    private TableColumn<Order, Void> colActions;
+    @FXML
     private TextField searchField;
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -80,7 +83,9 @@ public class OrderController {
                 cellData.getValue().getStatus() != null ? cellData.getValue().getStatus().name() : ""));
         colTotal.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
 
-        // Double-click opens order details in read-only mode
+        setupActionsColumn();
+
+        // Double-click also opens order details in read-only mode
         orderTable.setRowFactory(tv -> {
             TableRow<Order> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -90,6 +95,30 @@ public class OrderController {
                 }
             });
             return row;
+        });
+    }
+
+    private void setupActionsColumn() {
+        colActions.setCellFactory(param -> new TableCell<>() {
+            private final Button viewBtn = new Button("View");
+
+            {
+                viewBtn.getStyleClass().add("btn-info");
+                viewBtn.setOnAction(event -> {
+                    Order order = getTableView().getItems().get(getIndex());
+                    showDialog(order, true);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(viewBtn);
+                }
+            }
         });
     }
 
@@ -150,8 +179,17 @@ public class OrderController {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
         } catch (IOException e) {
-            e.printStackTrace();
+            showErrorAlert("Failed to open order details", e);
         }
+    }
+
+    private void showErrorAlert(String message, Exception e) {
+        e.printStackTrace();
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Application Error");
+        alert.setHeaderText(message);
+        alert.setContentText(e.getMessage() != null ? e.getMessage() : "An unexpected error occurred.");
+        alert.showAndWait();
     }
 
     @FXML
