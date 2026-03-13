@@ -3,6 +3,7 @@ package com.PL.pig_ranch.service;
 import com.PL.pig_ranch.model.Client;
 import com.PL.pig_ranch.repository.ClientRepository;
 import com.PL.pig_ranch.service.impl.ClientServiceImpl;
+import com.PL.pig_ranch.exception.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -67,7 +68,7 @@ class ClientServiceTest {
         // Our service now checks findById first before deleting.
         when(clientRepository.findById(99L)).thenReturn(Optional.empty());
 
-        assertDoesNotThrow(() -> clientService.deleteClient(99L));
+        assertThrows(EntityNotFoundException.class, () -> clientService.deleteClient(99L));
 
         verify(clientRepository, times(1)).findById(99L);
         verify(clientRepository, never()).deleteById(99L);
