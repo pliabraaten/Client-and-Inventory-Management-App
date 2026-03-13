@@ -16,6 +16,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 
 @Service
@@ -85,21 +86,24 @@ public class InvoiceServiceImpl implements InvoiceService {
             addTableHeader(table, "Discount", tableHeaderFont);
             addTableHeader(table, "Amount", tableHeaderFont);
 
-            double subtotal = 0.0;
-            double totalItemDiscounts = 0.0;
+            BigDecimal subtotal = BigDecimal.ZERO;
+            BigDecimal totalItemDiscounts = BigDecimal.ZERO;
 
             for (OrderItem item : order.getOrderItems()) {
-                double lineTotal = item.getQuantity() * item.getPriceAtTimeOfOrder();
-                double itemDisc = item.getDiscount() != null ? item.getDiscount() : 0.0;
+                BigDecimal lineTotal = item.getPriceAtTimeOfOrder()
+                        .multiply(BigDecimal.valueOf(item.getQuantity()));
+                BigDecimal itemDisc = item.getDiscount() != null ? item.getDiscount() : BigDecimal.ZERO;
 
-                subtotal += lineTotal;
-                totalItemDiscounts += itemDisc;
+                subtotal = subtotal.add(lineTotal);
+                totalItemDiscounts = totalItemDiscounts.add(itemDisc);
 
                 table.addCell(new Phrase(item.getItem() != null ? item.getItem().getName() : "Unknown", normalFont));
                 table.addCell(new Phrase(String.valueOf(item.getQuantity()), normalFont));
-                table.addCell(new Phrase(String.format("$%.2f", item.getPriceAtTimeOfOrder()), normalFont));
-                table.addCell(new Phrase(itemDisc > 0 ? String.format("-$%.2f", itemDisc) : "-", normalFont));
-                table.addCell(new Phrase(String.format("$%.2f", lineTotal - itemDisc), normalFont));
+                table.addCell(new Phrase(String.format("$%,.2f", item.getPriceAtTimeOfOrder()), normalFont));
+                table.addCell(new Phrase(itemDisc.compareTo(BigDecimal.ZERO) > 0
+                        ? String.format("-$%,.2f", itemDisc)
+                        : "-", normalFont));
+                table.addCell(new Phrase(String.format("$%,.2f", lineTotal.subtract(itemDisc)), normalFont));
             }
 
             document.add(table);
@@ -114,7 +118,7 @@ public class InvoiceServiceImpl implements InvoiceService {
             emptyTotCell.setBorder(Rectangle.NO_BORDER);
 
             totalsTable.addCell(new Phrase("Subtotal:", normalFont));
-            PdfPCell subtotalCell = new PdfPCell(new Phrase(String.format("$%.2f", subtotal), normalFont));
+            PdfPCell subtotalCell = new PdfPCell(new Phrase(String.format("$%,.2f", subtotal), normalFont));
             subtotalCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
             subtotalCell.setBorder(Rectangle.NO_BORDER);
             totalsTable.addCell(subtotalCell);
@@ -125,7 +129,7 @@ public class InvoiceServiceImpl implements InvoiceService {
                     if (hog.getProcessingCost() != null) {
                         totalsTable.addCell(new Phrase("Processing (" + hog.getHogNumber() + "):", normalFont));
                         PdfPCell hogCell = new PdfPCell(
-                                new Phrase(String.format("$%.2f", hog.getProcessingCost()), normalFont));
+                                new Phrase(String.format("$%,.2f", hog.getProcessingCost()), normalFont));
                         hogCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
                         hogCell.setBorder(Rectangle.NO_BORDER);
                         totalsTable.addCell(hogCell);
@@ -133,18 +137,20 @@ public class InvoiceServiceImpl implements InvoiceService {
                 }
             }
 
-            if (totalItemDiscounts > 0) {
+            if (totalItemDiscounts.compareTo(BigDecimal.ZERO) > 0) {
                 totalsTable.addCell(new Phrase("Item Discounts:", normalFont));
-                PdfPCell discCell = new PdfPCell(new Phrase(String.format("-$%.2f", totalItemDiscounts), normalFont));
+                PdfPCell discCell = new PdfPCell(
+                        new Phrase(String.format("-$%,.2f", totalItemDiscounts), normalFont));
                 discCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
                 discCell.setBorder(Rectangle.NO_BORDER);
                 totalsTable.addCell(discCell);
             }
 
-            double globalDiscount = order.getDiscount() != null ? order.getDiscount() : 0.0;
-            if (globalDiscount > 0) {
+            BigDecimal globalDiscount = order.getDiscount() != null ? order.getDiscount() : BigDecimal.ZERO;
+            if (globalDiscount.compareTo(BigDecimal.ZERO) > 0) {
                 totalsTable.addCell(new Phrase("Order Discount:", normalFont));
-                PdfPCell orderDiscCell = new PdfPCell(new Phrase(String.format("-$%.2f", globalDiscount), normalFont));
+                PdfPCell orderDiscCell = new PdfPCell(
+                        new Phrase(String.format("-$%,.2f", globalDiscount), normalFont));
                 orderDiscCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
                 orderDiscCell.setBorder(Rectangle.NO_BORDER);
                 totalsTable.addCell(orderDiscCell);
@@ -152,7 +158,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
             totalsTable.addCell(new Phrase("Grand Total:", sectionFont));
             PdfPCell grandTotalCell = new PdfPCell(
-                    new Phrase(String.format("$%.2f", order.getTotalPrice()), sectionFont));
+                    new Phrase(String.format("$%,.2f", order.getTotalPrice()), sectionFont));
             grandTotalCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
             grandTotalCell.setBorder(Rectangle.NO_BORDER);
             totalsTable.addCell(grandTotalCell);

@@ -2,6 +2,7 @@ package com.PL.pig_ranch.model;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 class OrderModelTest {
@@ -25,11 +26,11 @@ class OrderModelTest {
         order.setType(Order.OrderType.HOG);
 
         Hog hog = new Hog();
-        hog.setProcessingCost(150.0);
+        hog.setProcessingCost(new BigDecimal("150.00"));
 
         order.setHogs(new ArrayList<>());
         order.getHogs().add(hog);
 
-        assertEquals(150.0, order.getTotalPrice());
+        assertEquals(0, new BigDecimal("150.00").compareTo(order.getTotalPrice()));
     }
 }

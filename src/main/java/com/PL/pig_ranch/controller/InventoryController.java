@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Component
@@ -43,7 +44,7 @@ public class InventoryController {
     @FXML
     private TableColumn<InventoryItem, Integer> colQuantity;
     @FXML
-    private TableColumn<InventoryItem, Double> colPrice;
+    private TableColumn<InventoryItem, BigDecimal> colPrice;
     @FXML
     private TableColumn<InventoryItem, String> colDescription;
     @FXML
@@ -74,7 +75,7 @@ public class InventoryController {
         colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         colPrice.setCellFactory(col -> new TableCell<>() {
             @Override
-            protected void updateItem(Double price, boolean empty) {
+            protected void updateItem(BigDecimal price, boolean empty) {
                 super.updateItem(price, empty);
                 setText(empty || price == null ? null : String.format("$%.2f", price));
             }

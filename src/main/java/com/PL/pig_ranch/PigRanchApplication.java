@@ -25,6 +25,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -108,7 +109,8 @@ public class PigRanchApplication extends Application {
 
 			for (String name : itemNames) {
 				if (!inventoryRepository.existsByName(name)) {
-					inventoryRepository.save(new InventoryItem(null, name, "Meat", "Pork product", 0, 5.0));
+					inventoryRepository
+							.save(new InventoryItem(null, name, "Meat", "Pork product", 0, new BigDecimal("5.00")));
 					System.out.println("Seeded missing inventory item: " + name);
 				}
 			}
@@ -157,15 +159,18 @@ public class PigRanchApplication extends Application {
 				orderRepository.save(o3);
 
 				// Seed Hogs associated with the OPEN order (o1)
-				Hog hog1 = new Hog(null, "H001", Hog.HogType.WHOLE, true, "Valley Meats", 280.0, 196.0, 125.0, o1);
-				Hog hog2 = new Hog(null, "H002", Hog.HogType.HALF, false, "Valley Meats", 300.0, null, null, o1);
+				Hog hog1 = new Hog(null, "H001", Hog.HogType.WHOLE, true, "Valley Meats", new BigDecimal("280.0"),
+						new BigDecimal("196.0"), new BigDecimal("125.0"), o1);
+				Hog hog2 = new Hog(null, "H002", Hog.HogType.HALF, false, "Valley Meats", new BigDecimal("300.0"), null,
+						null, o1);
 				hogRepository.saveAll(Arrays.asList(hog1, hog2));
 
 				// Fetch an inventory item to use
 				InventoryItem sampleItem = inventoryRepository.findAll().stream().findFirst().orElse(null);
 				if (sampleItem != null) {
 					// Seed Order Item on PENDING order (o2)
-					OrderItem orderItem = new OrderItem(null, o2, sampleItem, 2, sampleItem.getPrice(), 0.0);
+					OrderItem orderItem = new OrderItem(null, o2, sampleItem, 2, sampleItem.getPrice(),
+							BigDecimal.ZERO);
 					orderItemRepository.save(orderItem);
 
 					// Seed Inventory Transaction

@@ -2,6 +2,7 @@ package com.PL.pig_ranch.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,7 @@ public class Order {
     private boolean wasFulfilled = false;
 
     private String notes;
-    private Double discount = 0.0;
+    private BigDecimal discount = BigDecimal.ZERO;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
@@ -63,14 +64,15 @@ public class Order {
         }
     }
 
-    public Double getTotalPrice() {
-        Double total = 0.0;
+    public BigDecimal getTotalPrice() {
+        BigDecimal total = BigDecimal.ZERO;
         if (orderItems != null) {
             for (OrderItem item : orderItems) {
                 if (item.getPriceAtTimeOfOrder() != null && item.getQuantity() != null) {
-                    double lineTotal = item.getPriceAtTimeOfOrder() * item.getQuantity();
-                    double itemDiscount = item.getDiscount() != null ? item.getDiscount() : 0.0;
-                    total += (lineTotal - itemDiscount);
+                    BigDecimal lineTotal = item.getPriceAtTimeOfOrder()
+                            .multiply(BigDecimal.valueOf(item.getQuantity()));
+                    BigDecimal itemDiscount = item.getDiscount() != null ? item.getDiscount() : BigDecimal.ZERO;
+                    total = total.add(lineTotal).subtract(itemDiscount);
                 }
             }
         }
@@ -79,13 +81,13 @@ public class Order {
         if (hogs != null) {
             for (Hog hog : hogs) {
                 if (hog.getProcessingCost() != null) {
-                    total += hog.getProcessingCost();
+                    total = total.add(hog.getProcessingCost());
                 }
             }
         }
 
-        double globalDiscount = this.discount != null ? this.discount : 0.0;
-        return total - globalDiscount;
+        BigDecimal globalDiscount = this.discount != null ? this.discount : BigDecimal.ZERO;
+        return total.subtract(globalDiscount);
     }
 
     public void evaluateStatus() {

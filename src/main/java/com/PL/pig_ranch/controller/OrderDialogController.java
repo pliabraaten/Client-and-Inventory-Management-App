@@ -9,13 +9,12 @@ import com.PL.pig_ranch.service.ClientService;
 import com.PL.pig_ranch.service.InventoryService;
 import com.PL.pig_ranch.service.InvoiceService;
 import com.PL.pig_ranch.service.OrderService;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.util.converter.DoubleStringConverter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -34,6 +33,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -81,9 +81,9 @@ public class OrderDialogController {
     @FXML
     private TableColumn<OrderItem, Integer> colItemQuantity;
     @FXML
-    private TableColumn<OrderItem, Double> colItemPrice;
+    private TableColumn<OrderItem, BigDecimal> colItemPrice;
     @FXML
-    private TableColumn<OrderItem, Double> colItemDiscount;
+    private TableColumn<OrderItem, BigDecimal> colItemDiscount;
     @FXML
     private TableColumn<OrderItem, Void> colActions;
 
@@ -174,6 +174,24 @@ public class OrderDialogController {
         });
     }
 
+    // ── BigDecimal String Converter ──────────────────────────────────────
+
+    private static final StringConverter<BigDecimal> BIGDECIMAL_CONVERTER = new StringConverter<>() {
+        @Override
+        public String toString(BigDecimal value) {
+            return value != null ? value.toPlainString() : "0";
+        }
+
+        @Override
+        public BigDecimal fromString(String string) {
+            try {
+                return string != null && !string.isEmpty() ? new BigDecimal(string) : BigDecimal.ZERO;
+            } catch (NumberFormatException e) {
+                return BigDecimal.ZERO;
+            }
+        }
+    };
+
     // ── Item Table ────────────────────────────────────────────────────────
 
     private void setupItemTable() {
@@ -188,20 +206,20 @@ public class OrderDialogController {
                         ? cellData.getValue().getQuantity()
                         : 0).asObject());
         colItemPrice.setCellValueFactory(
-                cellData -> new SimpleDoubleProperty(cellData.getValue().getPriceAtTimeOfOrder() != null
+                cellData -> new SimpleObjectProperty<>(cellData.getValue().getPriceAtTimeOfOrder() != null
                         ? cellData.getValue().getPriceAtTimeOfOrder()
-                        : 0.0).asObject());
+                        : BigDecimal.ZERO));
         colItemDiscount.setCellValueFactory(
-                cellData -> new SimpleDoubleProperty(cellData.getValue().getDiscount() != null
+                cellData -> new SimpleObjectProperty<>(cellData.getValue().getDiscount() != null
                         ? cellData.getValue().getDiscount()
-                        : 0.0).asObject());
+                        : BigDecimal.ZERO));
 
         // Enable editing for price and discount
         itemTable.setEditable(true);
-        colItemPrice.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        colItemPrice.setCellFactory(TextFieldTableCell.forTableColumn(BIGDECIMAL_CONVERTER));
         colItemPrice.setOnEditCommit(event -> {
             OrderItem oi = event.getRowValue();
-            Double newPrice = event.getNewValue();
+            BigDecimal newPrice = event.getNewValue();
             oi.setPriceAtTimeOfOrder(newPrice);
 
             // PERSIST TO DATABASE: Update the master price of the item
@@ -212,7 +230,7 @@ public class OrderDialogController {
             }
         });
 
-        colItemDiscount.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        colItemDiscount.setCellFactory(TextFieldTableCell.forTableColumn(BIGDECIMAL_CONVERTER));
         colItemDiscount.setOnEditCommit(event -> {
             OrderItem oi = event.getRowValue();
             oi.setDiscount(event.getNewValue());
@@ -259,7 +277,7 @@ public class OrderDialogController {
             paidCheckBox.setSelected(order.isPaid());
             shippedCheckBox.setSelected(order.isShipped());
             notesArea.setText(order.getNotes());
-            globalDiscountField.setText(order.getDiscount() != null ? order.getDiscount().toString() : "0.0");
+            globalDiscountField.setText(order.getDiscount() != null ? order.getDiscount().toPlainString() : "0");
 
             // Load existing order items
             if (order.getOrderItems() != null) {
@@ -273,9 +291,11 @@ public class OrderDialogController {
                 hogNumberField.setText(hog.getHogNumber());
                 hogTypeComboBox.setValue(hog.getHogType());
                 processorField.setText(hog.getProcessor());
-                liveWeightField.setText(hog.getLiveWeight() != null ? hog.getLiveWeight().toString() : "");
-                hangingWeightField.setText(hog.getHangingWeight() != null ? hog.getHangingWeight().toString() : "");
-                processingCostField.setText(hog.getProcessingCost() != null ? hog.getProcessingCost().toString() : "");
+                liveWeightField.setText(hog.getLiveWeight() != null ? hog.getLiveWeight().toPlainString() : "");
+                hangingWeightField
+                        .setText(hog.getHangingWeight() != null ? hog.getHangingWeight().toPlainString() : "");
+                processingCostField
+                        .setText(hog.getProcessingCost() != null ? hog.getProcessingCost().toPlainString() : "");
                 inspectedCheckBox.setSelected(Boolean.TRUE.equals(hog.getInspected()));
             }
         }
@@ -387,7 +407,7 @@ public class OrderDialogController {
                 oi.setItem(itemCombo.getValue());
                 oi.setQuantity(quantitySpinner.getValue());
                 oi.setPriceAtTimeOfOrder(itemCombo.getValue().getPrice());
-                oi.setDiscount(0.0);
+                oi.setDiscount(BigDecimal.ZERO);
                 return oi;
             }
             return null;
@@ -426,7 +446,7 @@ public class OrderDialogController {
             order.setNotes(notesArea.getText());
 
             String discText = globalDiscountField.getText();
-            order.setDiscount(discText != null && !discText.isEmpty() ? Double.parseDouble(discText) : 0.0);
+            order.setDiscount(discText != null && !discText.isEmpty() ? new BigDecimal(discText) : BigDecimal.ZERO);
 
             // ── Order items ──
             // Clear and re-add from observable list
@@ -455,11 +475,11 @@ public class OrderDialogController {
                 hog.setInspected(inspectedCheckBox.isSelected());
 
                 String liveText = liveWeightField.getText();
-                hog.setLiveWeight(liveText != null && !liveText.isEmpty() ? Double.parseDouble(liveText) : null);
+                hog.setLiveWeight(liveText != null && !liveText.isEmpty() ? new BigDecimal(liveText) : null);
                 String hangText = hangingWeightField.getText();
-                hog.setHangingWeight(hangText != null && !hangText.isEmpty() ? Double.parseDouble(hangText) : null);
+                hog.setHangingWeight(hangText != null && !hangText.isEmpty() ? new BigDecimal(hangText) : null);
                 String costText = processingCostField.getText();
-                hog.setProcessingCost(costText != null && !costText.isEmpty() ? Double.parseDouble(costText) : null);
+                hog.setProcessingCost(costText != null && !costText.isEmpty() ? new BigDecimal(costText) : null);
             } else {
                 order.setType(Order.OrderType.STANDARD);
                 // Remove any orphaned hogs if user collapsed the section

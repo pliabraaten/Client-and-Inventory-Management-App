@@ -3,6 +3,9 @@ package com.PL.pig_ranch.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 @Entity
 @Getter
 @Setter
@@ -29,11 +32,11 @@ public class Hog {
 
     private String processor;
 
-    private Double liveWeight;
+    private BigDecimal liveWeight;
 
-    private Double hangingWeight;
+    private BigDecimal hangingWeight;
 
-    private Double processingCost;
+    private BigDecimal processingCost;
 
     @ManyToOne
     @JoinColumn(name = "order_id")
@@ -44,10 +47,12 @@ public class Hog {
      * Returns hanging weight as a percentage of live weight.
      */
     @Transient
-    public Double getPercentHanging() {
-        if (liveWeight == null || liveWeight == 0 || hangingWeight == null) {
+    public BigDecimal getPercentHanging() {
+        if (liveWeight == null || liveWeight.compareTo(BigDecimal.ZERO) == 0 || hangingWeight == null) {
             return null;
         }
-        return (hangingWeight / liveWeight) * 100.0;
+        return hangingWeight.divide(liveWeight, 4, RoundingMode.HALF_UP)
+                .multiply(BigDecimal.valueOf(100))
+                .setScale(2, RoundingMode.HALF_UP);
     }
 }

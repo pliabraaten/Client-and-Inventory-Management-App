@@ -3,6 +3,8 @@ package com.PL.pig_ranch.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Getter
 @Setter
@@ -26,7 +28,7 @@ public class OrderItem {
 
     private Integer quantity;
 
-    private Double priceAtTimeOfOrder;
+    private BigDecimal priceAtTimeOfOrder;
 
-    private Double discount = 0.0;
+    private BigDecimal discount = BigDecimal.ZERO;
 }
