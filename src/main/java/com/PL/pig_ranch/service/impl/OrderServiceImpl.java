@@ -5,6 +5,7 @@ import com.PL.pig_ranch.model.OrderItem;
 import com.PL.pig_ranch.repository.OrderRepository;
 import com.PL.pig_ranch.service.OrderService;
 import com.PL.pig_ranch.service.InventoryService;
+import com.PL.pig_ranch.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findById(id).map(order -> {
             order.setPaid(true);
             return saveOrder(order);
-        }).orElseThrow(() -> new RuntimeException("Order not found with id: " + id));
+        }).orElseThrow(() -> new EntityNotFoundException("Order", id));
     }
 
     @Override
@@ -65,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findById(id).map(order -> {
             order.setShipped(true);
             return saveOrder(order);
-        }).orElseThrow(() -> new RuntimeException("Order not found with id: " + id));
+        }).orElseThrow(() -> new EntityNotFoundException("Order", id));
     }
 
     private void deductInventory(Order order) {

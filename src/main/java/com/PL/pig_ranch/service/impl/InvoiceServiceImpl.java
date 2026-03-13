@@ -4,6 +4,7 @@ import com.PL.pig_ranch.model.Order;
 import com.PL.pig_ranch.model.OrderItem;
 import com.PL.pig_ranch.model.Hog;
 import com.PL.pig_ranch.service.InvoiceService;
+import com.PL.pig_ranch.exception.InvoiceGenerationException;
 import com.lowagie.text.*;
 import com.lowagie.text.Font;
 import com.lowagie.text.Rectangle;
@@ -177,8 +178,8 @@ public class InvoiceServiceImpl implements InvoiceService {
 
             document.close();
         } catch (Exception e) {
-            log.error("Error generating PDF invoice", e);
-            throw new RuntimeException("Error generating PDF: " + e.getMessage());
+            log.error("Error generating PDF invoice for order #{}", order.getId(), e);
+            throw new InvoiceGenerationException("Failed to generate invoice for order #" + order.getId(), e);
         }
     }
 
@@ -191,7 +192,8 @@ public class InvoiceServiceImpl implements InvoiceService {
                 Desktop.getDesktop().open(file);
             }
         } catch (IOException e) {
-            log.error("Error generating PDF invoice", e);
+            log.error("Failed to open invoice file: {}", filePath, e);
+            throw new InvoiceGenerationException("Failed to open generated invoice PDF", e);
         }
     }
 

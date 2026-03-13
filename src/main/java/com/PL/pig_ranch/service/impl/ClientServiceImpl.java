@@ -4,6 +4,7 @@ import com.PL.pig_ranch.model.Client;
 import com.PL.pig_ranch.repository.ClientRepository;
 import com.PL.pig_ranch.service.ClientService;
 import com.PL.pig_ranch.service.HouseholdService;
+import com.PL.pig_ranch.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,6 +52,8 @@ public class ClientServiceImpl implements ClientService {
             if (householdId != null) {
                 householdService.deleteHouseholdIfEmpty(householdId);
             }
+        } else {
+            throw new EntityNotFoundException("Client", id);
         }
     }
 

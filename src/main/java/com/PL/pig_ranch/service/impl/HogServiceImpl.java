@@ -3,6 +3,7 @@ package com.PL.pig_ranch.service.impl;
 import com.PL.pig_ranch.model.Hog;
 import com.PL.pig_ranch.repository.HogRepository;
 import com.PL.pig_ranch.service.HogService;
+import com.PL.pig_ranch.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,6 +39,9 @@ public class HogServiceImpl implements HogService {
     @Override
     @Transactional
     public void deleteHog(Long id) {
+        if (!hogRepository.existsById(id)) {
+            throw new EntityNotFoundException("Hog", id);
+        }
         hogRepository.deleteById(id);
     }
 }

@@ -5,6 +5,8 @@ import com.PL.pig_ranch.model.InventoryTransaction;
 import com.PL.pig_ranch.repository.InventoryRepository;
 import com.PL.pig_ranch.repository.TransactionRepository;
 import com.PL.pig_ranch.service.InventoryService;
+import com.PL.pig_ranch.exception.EntityNotFoundException;
+import com.PL.pig_ranch.exception.InsufficientStockException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,7 +52,12 @@ public class InventoryServiceImpl implements InventoryService {
     public InventoryItem updateStock(Long itemId, int amount, InventoryTransaction.TransactionType type, String notes) {
         // Find inventory item
         InventoryItem item = inventoryRepository.findById(itemId)
-                .orElseThrow(() -> new RuntimeException("Inventory Item not found with id: " + itemId));
+                .orElseThrow(() -> new EntityNotFoundException("InventoryItem", itemId));
+
+        // Check for sufficient stock if we are deducting
+        if (amount < 0 && (item.getQuantity() + amount) < 0) {
+            throw new InsufficientStockException(item.getName(), Math.abs(amount), item.getQuantity());
+        }
 
         // Save updated quantity
         item.setQuantity(item.getQuantity() + amount);
