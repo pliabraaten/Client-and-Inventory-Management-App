@@ -17,6 +17,8 @@ import javafx.scene.Parent;
 import org.springframework.context.ApplicationContext;
 import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +27,8 @@ import java.util.List;
 
 @Component
 public class InventoryController {
+
+    private static final Logger log = LoggerFactory.getLogger(InventoryController.class);
 
     private final InventoryService inventoryService;
     private final ApplicationEventPublisher eventPublisher;
@@ -214,7 +218,7 @@ public class InventoryController {
     }
 
     private void showErrorAlert(String message, Exception e) {
-        e.printStackTrace();
+        log.error(message, e);
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Application Error");
         alert.setHeaderText(message);

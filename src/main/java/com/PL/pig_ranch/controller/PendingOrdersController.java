@@ -16,16 +16,21 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Component
 public class PendingOrdersController {
+
+    private static final Logger log = LoggerFactory.getLogger(PendingOrdersController.class);
 
     private final OrderService orderService;
     private final ApplicationEventPublisher eventPublisher;
@@ -47,7 +52,7 @@ public class PendingOrdersController {
     @FXML
     private TableColumn<Order, String> colStatus;
     @FXML
-    private TableColumn<Order, Double> colTotal;
+    private TableColumn<Order, BigDecimal> colTotal;
     @FXML
     private TableColumn<Order, Void> colActions;
     @FXML
@@ -250,7 +255,7 @@ public class PendingOrdersController {
     }
 
     private void showErrorAlert(String message, Exception e) {
-        e.printStackTrace();
+        log.error(message, e);
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Application Error");
         alert.setHeaderText(message);

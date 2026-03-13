@@ -10,6 +10,8 @@ import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.awt.*;
@@ -21,6 +23,8 @@ import java.time.format.DateTimeFormatter;
 
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
+
+    private static final Logger log = LoggerFactory.getLogger(InvoiceServiceImpl.class);
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
@@ -173,7 +177,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
             document.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Error generating PDF invoice", e);
             throw new RuntimeException("Error generating PDF: " + e.getMessage());
         }
     }
@@ -187,7 +191,7 @@ public class InvoiceServiceImpl implements InvoiceService {
                 Desktop.getDesktop().open(file);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Error generating PDF invoice", e);
         }
     }
 

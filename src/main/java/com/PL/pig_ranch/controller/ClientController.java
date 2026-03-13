@@ -18,6 +18,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +34,8 @@ import java.util.List;
 
 @Component
 public class ClientController {
+
+    private static final Logger log = LoggerFactory.getLogger(ClientController.class);
 
     private final ClientService clientService;
     private final ApplicationEventPublisher eventPublisher;
@@ -198,7 +202,7 @@ public class ClientController {
     }
 
     private void showErrorAlert(String message, Exception e) {
-        e.printStackTrace();
+        log.error(message, e);
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Application Error");
         alert.setHeaderText(message);

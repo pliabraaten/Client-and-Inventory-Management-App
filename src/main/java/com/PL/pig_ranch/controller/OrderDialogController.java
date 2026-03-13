@@ -29,6 +29,8 @@ import javafx.util.StringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -41,6 +43,8 @@ import java.util.Optional;
 @Component
 @Scope("prototype")
 public class OrderDialogController {
+
+    private static final Logger log = LoggerFactory.getLogger(OrderDialogController.class);
 
     private final OrderService orderService;
     private final ClientService clientService;
@@ -354,7 +358,7 @@ public class OrderDialogController {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Failed to open new client dialog", e);
         }
     }
 
@@ -492,7 +496,7 @@ public class OrderDialogController {
         } catch (NumberFormatException e) {
             new Alert(Alert.AlertType.ERROR, "Please enter valid numbers for weights and costs.").showAndWait();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Failed to open new client dialog", e);
             new Alert(Alert.AlertType.ERROR, "Error saving order: " + e.getMessage()).showAndWait();
         }
     }

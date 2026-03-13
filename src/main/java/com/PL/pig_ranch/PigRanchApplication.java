@@ -23,6 +23,8 @@ import javafx.stage.Stage;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import java.math.BigDecimal;
@@ -44,6 +46,8 @@ import java.util.List;
 // Extends JavaFX Application and boots the Spring context
 @SpringBootApplication
 public class PigRanchApplication extends Application {
+
+	private static final Logger log = LoggerFactory.getLogger(PigRanchApplication.class);
 
 	private ConfigurableApplicationContext springContext;
 
@@ -75,8 +79,7 @@ public class PigRanchApplication extends Application {
 			// Publish event so other Spring beans know the Stage is ready
 			springContext.publishEvent(new StageReadyEvent(primaryStage));
 		} catch (Exception e) {
-			System.err.println("CRITICAL: Failed to load application UI");
-			e.printStackTrace();
+			log.error("CRITICAL: Failed to load application UI", e);
 			Platform.exit();
 		}
 	}
@@ -111,7 +114,7 @@ public class PigRanchApplication extends Application {
 				if (!inventoryRepository.existsByName(name)) {
 					inventoryRepository
 							.save(new InventoryItem(null, name, "Meat", "Pork product", 0, new BigDecimal("5.00")));
-					System.out.println("Seeded missing inventory item: " + name);
+					log.info("Seeded missing inventory item: {}", name);
 				}
 			}
 
@@ -179,9 +182,9 @@ public class PigRanchApplication extends Application {
 					transactionRepository.save(transaction);
 				}
 
-				System.out.println("--- Core Data Seeding Completed ---");
+				log.info("--- Core Data Seeding Completed ---");
 			} else {
-				System.out.println("--- Household data already exists, skipping relationship seeding ---");
+				log.info("--- Household data already exists, skipping relationship seeding ---");
 			}
 		};
 	}

@@ -9,6 +9,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
@@ -17,6 +19,8 @@ import java.io.IOException;
 
 @Component
 public class MainController implements ApplicationListener<NavigationEvent> {
+
+    private static final Logger log = LoggerFactory.getLogger(MainController.class);
 
     private final ApplicationContext context;
 
@@ -60,7 +64,7 @@ public class MainController implements ApplicationListener<NavigationEvent> {
                 updateWindowTitle("Home");
                 break;
             default:
-                System.out.println("Unknown view: " + event.getViewName());
+                log.warn("Unknown view requested: {}", event.getViewName());
         }
     }
 
@@ -103,7 +107,7 @@ public class MainController implements ApplicationListener<NavigationEvent> {
     }
 
     private void showErrorAlert(String message, Exception e) {
-        e.printStackTrace();
+        log.error(message, e);
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Application Error");
         alert.setHeaderText(message);
