@@ -49,7 +49,7 @@ class ClientUtilsTest {
     void testIsSearchMatch() {
         Household h = new Household();
         h.setSurname("Skywalker");
-        Client c = new Client(1L, "Luke Skywalker", "luke@rebel.org", "555-1234", "Jedi", h);
+        Client c = new Client(1L, "Luke Skywalker", "luke@rebel.org", "555-1234", h);
 
         assertTrue(ClientUtils.isSearchMatch(c, "luke"));
         assertTrue(ClientUtils.isSearchMatch(c, "SKYWALKER"));
@@ -67,7 +67,7 @@ class ClientUtilsTest {
 
     @Test
     void testIsSearchMatchNullFields() {
-        Client c = new Client(1L, "Luke", null, null, null, null);
+        Client c = new Client(1L, "Luke", null, null, null);
 
         assertTrue(ClientUtils.isSearchMatch(c, "luke"));
         assertFalse(ClientUtils.isSearchMatch(c, "skywalker"));

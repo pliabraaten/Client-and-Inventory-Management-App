@@ -124,9 +124,9 @@ public class PigRanchApplication extends Application {
 				householdRepository.saveAll(Arrays.asList(h1, h2));
 
 				// Seed Clients
-				Client c1 = new Client(null, "John Smith", "john@smith.com", "555-0101", "Father", h1);
-				Client c2 = new Client(null, "Jane Smith", "jane@smith.com", "555-0102", "Mother", h1);
-				Client c3 = new Client(null, "Alice Doe", "alice@doe.com", "555-0201", "Individual", h2);
+				Client c1 = new Client(null, "John Smith", "john@smith.com", "555-0101", h1);
+				Client c2 = new Client(null, "Jane Smith", "jane@smith.com", "555-0102", h1);
+				Client c3 = new Client(null, "Alice Doe", "alice@doe.com", "555-0201", h2);
 				clientRepository.saveAll(Arrays.asList(c1, c2, c3));
 
 				// Seed an OPEN order

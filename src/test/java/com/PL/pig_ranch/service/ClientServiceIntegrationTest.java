@@ -56,8 +56,8 @@ class ClientServiceIntegrationTest {
 
     @Test
     void testGetAllClients() {
-        clientService.saveClient(new Client(null, "User 1", "u1@test.com", "111", "Notes", null));
-        clientService.saveClient(new Client(null, "User 2", "u2@test.com", "222", "Notes", null));
+        clientService.saveClient(new Client(null, "User 1", "u1@test.com", "111", null));
+        clientService.saveClient(new Client(null, "User 2", "u2@test.com", "222", null));
 
         List<Client> all = clientService.getAllClients();
         assertTrue(all.size() >= 2);
@@ -65,7 +65,7 @@ class ClientServiceIntegrationTest {
 
     @Test
     void testDeleteClientFullFlow() {
-        Client c = new Client(null, "Temp User", "temp@test.com", "999", "Notes", null);
+        Client c = new Client(null, "Temp User", "temp@test.com", "999", null);
         Client saved = clientService.saveClient(c);
         Long id = saved.getId();
 
@@ -77,7 +77,7 @@ class ClientServiceIntegrationTest {
     @Test
     void testUpdateClientPersistsChanges() {
         // Arrange
-        Client c = new Client(null, "Original Name", "original@test.com", "111", "Notes", null);
+        Client c = new Client(null, "Original Name", "original@test.com", "111", null);
         Client saved = clientService.saveClient(c);
         Long id = saved.getId();
 
@@ -100,9 +100,9 @@ class ClientServiceIntegrationTest {
     void testDuplicateCheckAfterEdit() {
         // Arrange
         Client clientA = clientService
-                .saveClient(new Client(null, "User Alpha", "a@test.com", "111-222-3333", "TypeA", null));
+                .saveClient(new Client(null, "User Alpha", "a@test.com", "111-222-3333", null));
         Client clientB = clientService
-                .saveClient(new Client(null, "User Beta", "b@test.com", "444-555-6666", "TypeB", null));
+                .saveClient(new Client(null, "User Beta", "b@test.com", "444-555-6666", null));
 
         assertNotNull(clientA.getId());
         assertNotNull(clientB.getId());
@@ -120,7 +120,7 @@ class ClientServiceIntegrationTest {
     @Test
     void testDuplicateCheckCaseInsensitivity() {
         // Arrange
-        clientService.saveClient(new Client(null, "John Doe", "john@test.com", "555-0000", "Notes", null));
+        clientService.saveClient(new Client(null, "John Doe", "john@test.com", "555-0000", null));
 
         // Act & Assert
         assertTrue(clientService.isDuplicate("JOHN DOE", "555-0000"), "Should be case-insensitive on name");
@@ -135,7 +135,7 @@ class ClientServiceIntegrationTest {
         // Arrange
         Household h = householdService
                 .saveHousehold(new Household(null, "Orphan Surname", "Addr", "City", "ST", "123", null, null));
-        Client c = clientService.saveClient(new Client(null, "To Be Deleted", "email", "phone", "notes", h));
+        Client c = clientService.saveClient(new Client(null, "To Be Deleted", "email", "phone", h));
         Long hhId = h.getId();
         Long cId = c.getId();
 

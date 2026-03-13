@@ -29,8 +29,6 @@ public class Client {
 
     // address is in Household
 
-    private String notes;
-
     @ManyToOne
     @JoinColumn(name = "household_id")
     private Household household;
