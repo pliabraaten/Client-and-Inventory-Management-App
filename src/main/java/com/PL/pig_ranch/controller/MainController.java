@@ -34,7 +34,12 @@ public class MainController implements ApplicationListener<NavigationEvent> {
     @FXML
     public void initialize() {
         loadView("/fxml/home.fxml");
-        updateWindowTitle("Home");
+        // Defer title update until the scene is available (it's null during initialize)
+        mainLayout.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null) {
+                updateWindowTitle("Home");
+            }
+        });
     }
 
     @Override
@@ -69,6 +74,9 @@ public class MainController implements ApplicationListener<NavigationEvent> {
     }
 
     private void updateWindowTitle(String viewName) {
+        if (mainLayout.getScene() == null) {
+            return;
+        }
         Stage stage = (Stage) mainLayout.getScene().getWindow();
         if (stage != null) {
             stage.setTitle("Pig Ranch — " + viewName);
